@@ -1,21 +1,71 @@
-<div class=" d-flex justify-content-center p-5">
-    <div>
-        <h1 class="text-center mb-5 fw-bold">
-            ¿Lo viste en la tele y ahora querés empezar a leer?
-            <br>¡Llegaste al lugar correcto!
-        </h1>
-        <div class="row mb-5 d-flex align-items-center">
 
-            <div class="col-12 mb-5">
-                <img src="img/tv.jpg" class="d-block mx-auto img-fluid ">
+<section id="la-culpable" class="presentacion-jinx">
+    <div class="container py-5">
+
+        <div class="encabezado-jinx text-center mb-5">
+            <span class="subtitulo-jinx">ZAUN // ARCHIVOS CLASIFICADOS</span>
+
+            <h1>
+                ¿BUSCABAS ALGO NORMAL?
+                <br>
+                <span>TE EQUIVOCASTE DE LUGAR.</span>
+            </h1>
+
+            <p>Bienvenido a mi pequeño rincón del caos.</p>
+        </div>
+
+        <div class="row align-items-center g-4">
+
+            <!-- JINX -->
+            <div class="col-12 col-lg-5">
+                <div class="jinx-personaje">
+                    <img src="img/grafitis/jinx.png"
+                        alt=""
+                        class="img-fluid">
+                </div>
             </div>
-            <div class="col">
-                <div class=" fs-5">
-                    <p>Si eres fanático de las adaptaciones de cómics en la pantalla grande o en tu televisor, entonces estás en el lugar correcto. Aquí, encontrarás una amplia variedad de cómics que han sido adaptados a series de TV y películas, desde las más clásicas hasta las más recientes.</p>
-                    <p>Nos apasiona la relación entre el mundo del cómic y la pantalla, y es por eso que nos hemos dedicado a reunir una colección única de cómics que han sido llevados a la televisión y al cine. Queremos ofrecerles la mejor selección de cómics disponibles para los fans que quieren profundizar en los mundos de sus series y películas favoritas.</p>
-                    <p>En nuestra tienda, estamos comprometidos a brindarle una experiencia de compra fácil y conveniente. Si necesita ayuda para encontrar algo en particular o tiene alguna pregunta, nuestro equipo de expertos está aquí para ayudarlo. Nos aseguraremos de que encuentres exactamente lo que buscas.</p>
+
+            <!-- CONTENIDO -->
+            <div class="col-12 col-lg-7">
+                <div class="contenido-jinx">
+
+                    <div class="mono-decorativo">
+                        <img src="img/grafitis/monoGrafiti.png" alt="">
+                    </div>
+
+                    <span class="detalle-jinx">
+                        // 001 - SOBRE ESTE DESASTRE
+                    </span>
+
+                    <h3>NO ES UN NEGOCIO.
+                        <span>ES UNA OBSESIÓN.</span>
+                    </h3>
+
+                    <p>
+                        ¿Quién necesita reglas cuando puede tener explosiones,
+                        inventos y un montón de artefactos interesantes?
+                        En este rincón de Zaun vas a encontrar cosas que
+                        probablemente no sabías que necesitabas.
+                    </p>
+
+                    <p>
+                        Cada objeto tiene una historia, cada pieza esconde
+                        algo especial y nada está acá por casualidad.
+                        Coleccionables, rarezas y tesoros que no vas a encontrar
+                        dando una vuelta por las elegantes calles de Piltover.
+                    </p>
+
+                    <p class="frase-jinx">
+                        "Si algo sale mal... bueno, ¡eso también forma parte
+                        del espectáculo!"
+                    </p>
+
+                    <div class="firma-jinx">
+                        <span>CON CARIÑO Y UN POQUITO DE PÓLVORA,</span>
+                        <strong>JINX.</strong>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
-</div>
+</section>

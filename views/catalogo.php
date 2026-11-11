@@ -1,50 +1,123 @@
+
 <?PHP
 $perSeleccionado = $_GET['per'] ?? null;
 
 $catalogo = Comic::catalogo_x_personaje($perSeleccionado);
 $datosPersonaje = Personaje::get_x_id($perSeleccionado);
-
 ?>
 
-<div class=" d-flex justify-content-center p-5">
-    <div>
-        <h1 class="text-center mb-5 fw-bold">CATÁLOGO DE <span class="text-danger"><?= strtoupper($datosPersonaje->getTitulo(TRUE)) ?></span></h1>
-        <div class="container">
+<section class="catalogo-jinx py-5">
+    <div class="container">
 
-            <div class="row">
+        <header class="encabezado-catalogo text-center mb-5">
 
-                <div class="row">
-                    <?PHP if (!empty($catalogo)) { ?>
-                        <?PHP foreach ($catalogo as $comic) { ?>
-                            <div class="col-12 col-md-4">
-                                <div class="card mb-3">
-                                    <img src="img/covers/<?= $comic->getPortada() ?>" class="card-img-top" alt="Portada de <?= $comic->get_nombre_completo() ?>">
-                                    <div class="card-body">
-                                        <p class="fs-6 m-0 fw-bold text-danger"><?= $comic->get_nombre_completo() ?></p>
-                                        <h5 class="card-title"><?= $comic->getTitulo() ?></h5>
-                                        <p class="card-text"><?= $comic->get_bajada_reducida() ?></p>
-                                    </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><span class="fw-bold">Guion:</span> <?= $comic->getGuion() ?></li>
-                                        <li class="list-group-item"><span class="fw-bold">Arte:</span> <?= $comic->getArte() ?></li>
-                                        <li class="list-group-item"><span class="fw-bold">Publicación:</span> <?= $comic->getPublicacion() ?></li>
-                                    </ul>
-                                    <div class="card-body">
-                                        <div class="fs-3 mb-3 fw-bold text-center text-danger"><?= $comic->get_precio_formateado() ?></div>
-                                        <a href="index.php?sec=producto&id=<?= $comic->getId() ?>" class="btn btn-danger w-100 fw-bold">VER MÁS</a>
-                                    </div>
+            <span class="subtitulo-catalogo">
+                ZAUN // COLECCION CLASIFICADA
+            </span>
 
-                                </div>
+            <h1>
+                INVENTARIO DE
+                <span><?= strtoupper($datosPersonaje->getTitulo(TRUE)) ?></span>
+            </h1>
+
+            <p>Una selección especial de piezas del mercado.</p>
+
+        </header>
+
+        <div class="row g-4">
+
+            <?PHP if (!empty($catalogo)) { ?>
+
+                <?PHP foreach ($catalogo as $comic) { ?>
+
+                    <div class="col-12 col-md-6 col-lg-4 d-flex">
+
+                        <article class="card artefacto-card h-100 w-100">
+
+                            <div class="artefacto-imagen">
+
+                                <span class="etiqueta-artefacto">
+                                    PIEZA DEL INVENTARIO
+                                </span>
+
+                                <img
+                                    src="img/covers/<?= $comic->getPortada() ?>"
+                                    class="card-img-top"
+                                    alt="Portada de <?= $comic->get_nombre_completo() ?>"
+                                >
+
                             </div>
-                        <?PHP } ?>
 
-                    <?PHP } else { ?>
-                        <div class="col">
-                            <h2 class="text-center m-5">No tenenemos comics de este personaje.</h2>
-                        </div>
-                    <?PHP } ?>
+                            <div class="card-body artefacto-body">
+
+                                <p class="artefacto-creador">
+                                    <?= $comic->get_nombre_completo() ?>
+                                </p>
+
+                                <h2 class="card-title">
+                                    <?= $comic->getTitulo() ?>
+                                </h2>
+
+                                <p class="card-text artefacto-descripcion">
+                                    <?= $comic->get_bajada_reducida() ?>
+                                </p>
+
+                            </div>
+
+                            <ul class="list-group list-group-flush artefacto-datos">
+
+                                <li class="list-group-item">
+                                    <span>GUION</span>
+                                    <?= $comic->getGuion() ?>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <span>ARTE</span>
+                                    <?= $comic->getArte() ?>
+                                </li>
+
+                                <li class="list-group-item">
+                                    <span>REGISTRO</span>
+                                    <?= $comic->getPublicacion() ?>
+                                </li>
+
+                            </ul>
+
+                            <div class="artefacto-footer">
+
+                                <div class="artefacto-precio">
+                                    <span>PRECIO DEL ARTEFACTO</span>
+                                    <p><?= $comic->get_precio_formateado() ?></p>
+                                </div>
+
+                                <a
+                                    href="index.php?sec=producto&id=<?= $comic->getId() ?>"
+                                    class="btn btn-artefacto"
+                                >
+                                    EXAMINAR ARTEFACTO
+                                    <span>↗</span>
+                                </a>
+
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                <?PHP } ?>
+
+            <?PHP } else { ?>
+
+                <div class="col-12">
+                    <div class="catalogo-vacio text-center">
+                        <h2>¡VAYA, QUÉ DESASTRE!</h2>
+                        <p>Jinx todavía no tiene artefactos de esta colección.</p>
+                    </div>
                 </div>
-            </div>
+
+            <?PHP } ?>
+
         </div>
+
     </div>
-</div>
+</section>

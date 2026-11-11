@@ -12,18 +12,24 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Admin de Comics :: <?= $vista->getTitulo() ?></title>
+    <title>El Admin de Isha's Boom Box :: <?= $vista->getTitulo() ?></title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 
     <link href="css/styles.css" rel="stylesheet">
 
 
 </head>
 
-<body>
+<body class="modo-admin">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-hextech">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Panel de Administración</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,9 +92,11 @@ $userData = $_SESSION['loggedIn'] ?? FALSE;
     </main>
 
 
-    <footer class="bg-secondary text-light text-center">
-        Jorge Perez 2026
-    </footer>
+    <footer class="footer-hextech text-center">
+    <p>Santino David Fassi y Camila Denis Gastager</p>
+    <p>HEXTECH CONTROL SYSTEM</p>
+    <small>Authorized personnel only · Piltover technology</small>
+</footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
 </body>
