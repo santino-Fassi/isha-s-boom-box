@@ -760,9 +760,7 @@ body.mercado-jinx {
 }
 
 
-/* =================================
-   BOMBITA INTERACTIVA DE JINX
-================================= */
+/* BOMBITA */
 
 .bomba-interactiva {
     position: absolute;
@@ -803,9 +801,7 @@ body.mercado-jinx {
 }
 
 
-/* =================================
-   EXPLOSION CAOTICA DE JINX
-================================= */
+/* EXPLOSION BOMBA */
 
 .bomba-interactiva {
     overflow: visible;
@@ -895,7 +891,7 @@ body.mercado-jinx {
     }
 }
 
-/* PARTICULAS CAOTICAS */
+/* PARTICULAS BOMBA */
 
 .particula-bomba {
     position: absolute;
@@ -922,7 +918,7 @@ body.mercado-jinx {
     }
 }
 
-/* BOOM DE HISTORIETA */
+/* BOOM */
 
 .texto-boom {
     position: absolute;
@@ -981,9 +977,7 @@ body.mercado-jinx {
     }
 }
 
-/* =====================================
-   BOMBITA DEL CATALOGO
-===================================== */
+/* BOMBITA DEL CATALOGO */
 
 .catalogo-encabezado-fila {
     display: flex;
@@ -1025,9 +1019,7 @@ body.mercado-jinx {
     margin-top: 0;
 }
 
-/* =====================================
-   CARTEL DE JINX
-===================================== */
+/* CARTEL DE JINX */
 
 .mensaje-jinx-catalogo {
     position: absolute;
@@ -1114,9 +1106,7 @@ body.mercado-jinx {
 }
 
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
+/* RESPONSIVE */
 
 @media (max-width: 767px) {
     .inicio-jinx,

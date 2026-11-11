@@ -72,7 +72,7 @@ $categoriasDisponibles = Categoria::listado_menu();
                         <?PHP } ?>
 
                         <li class="nav-item <?= $userData ? "d-none" : "" ?>">
-                            <a class="nav-link fw-bold" href="index.php?sec=login">Login</a>
+                            <a class="nav-link fw-bold active" href="index.php?sec=login">Login</a>
                         </li>
 
                         <li class="nav-item <?= $userData ? "" : "d-none" ?>">
