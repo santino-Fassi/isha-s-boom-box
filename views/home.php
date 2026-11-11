@@ -3,7 +3,7 @@
 
         <!-- GRAFITI IZQUIERDO -->
         <div class="grafiti-inicio grafiti-izquierdo">
-            <img src="img/grafitis/graffiti2.png" alt="">
+            <img src="img/grafitis/grafitti3.png" alt="">
         </div>
 
         <!-- CONTENIDO PRINCIPAL -->
@@ -13,10 +13,10 @@
                 ZAUN // MERCADO CLANDESTINO
             </span>
 
-            <h2 class="h1">
+            <h1>
                 BIENVENIDO A MI
                 <span>PEQUEÑO CAOS.</span>
-            </h2>
+            </h1>
 
             <p>
                 ¿Buscabas algo aburrido y convencional?

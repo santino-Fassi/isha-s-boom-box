@@ -34,54 +34,110 @@ if ($peligroMin > 0) {
 <section class="catalogo-jinx py-5">
     <div class="container">
 
+        <div class="catalogo-encabezado-fila">
+
         <header class="encabezado-catalogo text-center mb-5">
             <span class="subtitulo-catalogo">ZAUN // INVENTARIO CLANDESTINO</span>
             <h2 class="h1">EL <span>ARSENAL</span></h2>
             <p><strong>Artefactos, inventos y otras pequeñas maravillas</strong> listas para hacer ruido.</p>
         </header>
 
-        <!-- BARRA DE BUSQUEDA Y FILTROS RAPIDOS -->
-        <div class="row mb-5 justify-content-center">
-            <div class="col-12 col-lg-10">
-                <form action="index.php" method="GET" class="row g-2 align-items-center bg-dark p-3 rounded border border-secondary">
-                    <input type="hidden" name="sec" value="catalogo_completo">
-                    <div class="col-12 col-md-5">
-                        <label for="termino" class="d-none">Buscar por nombre o alias</label>
-                        <input type="text" class="form-control bg-black text-light border-secondary" id="termino" name="termino"
-                            placeholder="Buscar juguete o modelo (ej: Fishbones)..."
-                            value="<?= htmlspecialchars($termino) ?>">
-                    </div>
+            <div class="bomba-catalogo-zona">
 
-                    <div class="col-6 col-md-3">
-                        <label for="origen" class="d-none">Filtrar por origen</label>
-                        <select name="origen" id="origen" class="form-select bg-black text-light border-secondary">
-                            <option value="">Todos los orígenes</option>
-                            <option value="Zaun" <?= $origenFiltro === 'Zaun' ? 'selected' : '' ?>>Origen: Zaun</option>
-                            <option value="Piltover" <?= $origenFiltro === 'Piltover' ? 'selected' : '' ?>>Origen: Piltover
-                            </option>
-                            <option value="Noxus" <?= $origenFiltro === 'Noxus' ? 'selected' : '' ?>>Origen: Noxus</option>
-                        </select>
-                    </div>
+                <button class="bomba-interactiva bomba-catalogo" id="bombaCatalogo" type="button" aria-label="Hacer explotar la bombita de Jinx">
+                    <img src="img/bombas/bomba.png" alt="Bombita del mono de Jinx">
+                </button>
 
-                    <div class="col-6 col-md-2">
-                        <label for="peligro_min" class="d-none">Peligro mínimo</label>
-                        <select name="peligro_min" id="peligro_min"
-                            class="form-select bg-black text-light border-secondary">
-                            <option value="">Peligro (Todos)</option>
-                            <option value="8" <?= $peligroMin === 8 ? 'selected' : '' ?>>Peligro 8+ (Alto)</option>
-                            <option value="10" <?= $peligroMin === 10 ? 'selected' : '' ?>>Peligro 10 (Letal)</option>
-                        </select>
-                    </div>
-
-                    <div class="col-12 col-md-2 d-flex gap-2">
-                        <button type="submit" class="btn btn-danger w-100 fw-bold">FILTRAR</button>
-                        <?PHP if ($termino !== '' || $origenFiltro !== '' || $peligroMin > 0) { ?>
-                            <a href="index.php?sec=catalogo_completo" class="btn btn-outline-light">X</a>
-                        <?PHP } ?>
-                    </div>
-                </form>
+                <div class="mensaje-jinx-catalogo" id="mensajeJinxCatalogo" role="status" aria-live="polite">
+                    <span class="mensaje-jinx-etiqueta">JINX // MENSAJE DEL DÍA</span>
+                    <p id="textoJinxCatalogo"></p>
+                    <span class="mensaje-jinx-firma">— LA GENIA DE ZAUN 💣</span>
+                </div>
             </div>
         </div>
+
+        
+<!-- PANEL DE BUSQUEDA Y FILTROS -->
+<section class="panel-inventario">
+
+    <div class="panel-inventario-encabezado">
+        <div>
+            <span class="panel-etiqueta">ZAUN // SISTEMA DE BÚSQUEDA</span>
+            <h2>LOCALIZÁ TU <span>ARTEFACTO</span></h2>
+            <p>Encontrá tu próximo juguete. Si explota, no es mi culpa.</p>
+        </div>
+
+        <span class="panel-codigo">SYS. 09 // JX</span>
+    </div>
+
+    <form action="index.php" method="GET" class="formulario-inventario">
+
+        <input type="hidden" name="sec" value="catalogo_completo">
+
+        <!-- BUSCADOR -->
+        <div class="campo-inventario campo-busqueda">
+            <label for="termino">BUSCAR EN EL INVENTARIO</label>
+
+            <div class="busqueda-input-contenedor">
+                <span class="icono-busqueda">⌕</span>
+
+                <input
+                    type="text"
+                    id="termino"
+                    name="termino"
+                    placeholder="Nombre, alias o modelo..."
+                    value="<?= htmlspecialchars($termino) ?>"
+                >
+            </div>
+        </div>
+
+        <!-- FILTRO DE ORIGEN -->
+        <div class="campo-inventario">
+            <label for="origen">ORIGEN</label>
+
+            <select name="origen" id="origen">
+                <option value="">Todos los orígenes</option>
+                <option value="Zaun" <?= $origenFiltro === 'Zaun' ? 'selected' : '' ?>>ZAUN</option>
+                <option value="Piltover" <?= $origenFiltro === 'Piltover' ? 'selected' : '' ?>>PILTOVER</option>
+                <option value="Noxus" <?= $origenFiltro === 'Noxus' ? 'selected' : '' ?>>NOXUS</option>
+            </select>
+        </div>
+
+        <!-- FILTRO DE PELIGRO -->
+        <div class="campo-inventario">
+            <label for="peligro_min">NIVEL DE PELIGRO</label>
+
+            <select name="peligro_min" id="peligro_min">
+                <option value="">Todos los niveles</option>
+                <option value="8" <?= $peligroMin == 8 ? 'selected' : '' ?>>PELIGRO 8+ // ALTO</option>
+                <option value="10" <?= $peligroMin == 10 ? 'selected' : '' ?>>PELIGRO 10 // LETAL</option>
+            </select>
+        </div>
+
+        <!-- BOTONES -->
+        <div class="acciones-inventario">
+
+            <button type="submit" class="btn-buscar-jinx">
+                <span>⌕</span> EJECUTAR BÚSQUEDA
+            </button>
+
+            <?PHP if ($termino !== '' || $origenFiltro !== '' || $peligroMin > 0) { ?>
+                <a href="index.php?sec=catalogo_completo" class="btn-limpiar-jinx" title="Limpiar filtros">
+                    ✕
+                </a>
+            <?PHP } ?>
+
+        </div>
+
+    </form>
+
+    <div class="panel-inventario-pie">
+        <span>● SISTEMA ACTIVO</span>
+        <span>PROPIEDAD DE JINX // NO TOCAR</span>
+    </div>
+
+</section>
+
 
         <div class="row g-4">
             <?PHP if (!empty($catalogo)) { ?>
