@@ -1,15 +1,14 @@
-
 <section id="la-culpable" class="presentacion-jinx">
     <div class="container py-5">
 
         <div class="encabezado-jinx text-center mb-5">
             <span class="subtitulo-jinx">ZAUN // ARCHIVOS CLASIFICADOS</span>
 
-            <h1>
+            <h2>
                 ¿BUSCABAS ALGO NORMAL?
                 <br>
                 <span>TE EQUIVOCASTE DE LUGAR.</span>
-            </h1>
+            </h2>
 
             <p>Bienvenido a mi pequeño rincón del caos.</p>
         </div>
@@ -19,9 +18,7 @@
             <!-- JINX -->
             <div class="col-12 col-lg-5">
                 <div class="jinx-personaje">
-                    <img src="img/grafitis/jinx.png"
-                        alt=""
-                        class="img-fluid">
+                    <img src="img/grafitis/jinx.png" alt="" class="img-fluid">
                 </div>
             </div>
 
@@ -68,4 +65,5 @@
                 </div>
             </div>
         </div>
+    </div>
 </section>

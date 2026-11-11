@@ -1,4 +1,3 @@
-
 <section class="inicio-jinx">
     <div class="inicio-escenario">
 
@@ -14,10 +13,10 @@
                 ZAUN // MERCADO CLANDESTINO
             </span>
 
-            <h1>
+            <h2 class="h1">
                 BIENVENIDO A MI
                 <span>PEQUEÑO CAOS.</span>
-            </h1>
+            </h2>
 
             <p>
                 ¿Buscabas algo aburrido y convencional?
@@ -27,8 +26,7 @@
                 no deberían existir.
             </p>
 
-            <a href="index.php?sec=catalogo_completo"
-               class="btn btn-inicio-jinx">
+            <a href="index.php?sec=catalogo_completo" class="btn btn-inicio-jinx">
                 EXPLORAR EL MERCADO ↗
             </a>
 
