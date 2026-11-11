@@ -9,15 +9,11 @@ class Autenticacion
      * @param string $password El password provisto
      * @return mixed Devuelve el rol en caso que las credenciales sean correctas, FALSE en caso de que no lo sean y Null en caso que el usuario no se encuentre en la BDD
      */
-    public static function log_in(string $usuario, string $password)
+    public static function log_in(string $usuario, string $password) : mixed
     {
 
 
         $datosUsuario = Usuario::usuario_x_username($usuario);
-
-        echo "<pre>";
-        print_r($datosUsuario);
-        echo "</pre>";
 
 
         if ($datosUsuario) {
@@ -31,13 +27,15 @@ class Autenticacion
                 $datosLogin['rol'] = $datosUsuario->getRol();
 
                 $_SESSION['loggedIn'] = $datosLogin;
-            } else {
+
+                return $datosLogin["rol"];
+            } 
+            else {
                 //EL PASSWORD NO ES CORRECTO
-
-
                 return FALSE;
             }
-        } else {
+        } 
+        else {
             //NO SE ENCONTRÓ EL USUARIO EN LA BASE DE DATOS
             return NULL;
         }
@@ -66,20 +64,19 @@ class Autenticacion
 
             if ($nivel > 1) { //RESTRICCION NIVEL 2 - ACCESO ÚNICAMENTE ADMINISTRADORES
 
-                if (
-                    $_SESSION['loggedIn']['rol'] == "admin"
-                    or
-                    $_SESSION['loggedIn']['rol'] == "superadmin"
-                ) {
+                if ($_SESSION['loggedIn']['rol'] == "admin" || $_SESSION['loggedIn']['rol'] == "superadmin") {
                     return TRUE; //SIGA PARA ADELANTE!
-                } else {                    
+                } 
+                else {                    
                     header('location: ../admin/index.php?sec=login');
                     return FALSE;
                 }
-            } else { //RESTRICCION NIVEL 1 - ACCESO PARA TODOS LOS USUARIOS
+            } 
+            else { //RESTRICCION NIVEL 1 - ACCESO PARA TODOS LOS USUARIOS
                 return TRUE; //SIGA PARA ADELANTE!
             }
-        } else {
+        } 
+        else {
             header("location: index.php?sec=login");
             return FALSE;
         }

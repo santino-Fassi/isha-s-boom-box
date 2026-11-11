@@ -30,7 +30,8 @@ class Vista
 
             if ($viewData->getActiva()) {              
                     $resultado = $viewData;               
-            } else {
+            }
+            else {
 
                 $viewNoDisp = new self();
 
@@ -39,7 +40,8 @@ class Vista
 
                 $resultado = $viewNoDisp;
             }
-        } else {
+        }
+        else {
 
             $view404 = new self();
 
