@@ -64,6 +64,10 @@ $categoriasDisponibles = Categoria::listado_menu();
 
                         <?PHP } ?>
 
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.php?sec=contacto">¿Problemas? ¡Me encantan!</a>
+                        </li>
+
                         <?PHP if ($userData) { ?>
                             <li class="nav-item">
                                 <a class="nav-link bg-danger text-light rounded me-2" href="index.php?sec=panel_usuario">🙍‍♂️​
