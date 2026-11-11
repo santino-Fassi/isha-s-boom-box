@@ -1,9 +1,3 @@
-
-/* ==========================================
-   JINX'S BLACK MARKET
-   IDENTIDAD VISUAL PRINCIPAL
-========================================== */
-
 /* VARIABLES */
 
 :root {
@@ -33,6 +27,11 @@
     box-sizing: border-box;
 }
 
+body {
+    max-width: 1280px;
+    margin: auto;
+}
+
 body.mercado-jinx {
     background-color: var(--fondo);
     color: var(--texto);
@@ -59,9 +58,7 @@ body.mercado-jinx {
     line-height: 1.7;
 }
 
-/* ==========================================
-   NAVEGACION
-========================================== */
+/*NAVEGACION */
 
 .navbar-jinx {
     background-color: #111317;
@@ -98,9 +95,7 @@ body.mercado-jinx {
     text-shadow: var(--brillo-cian);
 }
 
-/* ==========================================
-   PIE DE PAGINA
-========================================== */
+/* PIE DE PAGINA */
 
 .footer-jinx {
     background-color: #111317;
@@ -123,21 +118,15 @@ body.mercado-jinx {
     letter-spacing: 1px;
 }
 
-/* ==========================================
-   ENLACES Y TRANSICIONES
-========================================== */
+/* ENLACES Y TRANSICIONES */
 
 .mercado-jinx a {
     transition: var(--transicion);
 }
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
+/* RESPONSIVE*/
 
-/* ==========================================
-   CATALOGO - JINX'S BLACK MARKET
-========================================== */
+/*CATALOGO*/
 
 /* ENCABEZADO */
 
@@ -161,7 +150,7 @@ body.mercado-jinx {
     margin-bottom: 12px;
 }
 
-.encabezado-catalogo h1 {
+.encabezado-catalogo .h1 {
     font-size: clamp(2.8rem, 6vw, 4.5rem);
     margin-bottom: 10px;
     -webkit-text-stroke: 1.5px #646b75;
@@ -169,7 +158,7 @@ body.mercado-jinx {
     text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
 }
 
-.encabezado-catalogo h1 span {
+.encabezado-catalogo .h1 span {
     color: var(--rosa-jinx);
     text-shadow: 0 0 15px rgba(236, 57, 155, 0.25);
 }
@@ -250,9 +239,7 @@ body.mercado-jinx {
 }
 
 
-/* ==========================================
-   INFORMACION DEL PRODUCTO
-========================================== */
+/*INFORMACION DEL ARTEFACTO */
 
 .artefacto-body {
     padding: 22px 22px 12px;
@@ -518,7 +505,7 @@ body.mercado-jinx {
 }
 
 
-/* ===== IMÁGENES DECORATIVAS JINX ===== */
+/* IMÁGENES DECORATIVAS JINX  */
 
 .jinx-personaje {
     display: flex;
@@ -554,9 +541,7 @@ body.mercado-jinx {
 }
 
 
-/* =====================================
-   INICIO - JINX'S BLACK MARKET
-===================================== */
+/* INICIO */
 
 .inicio-jinx {
     background:
@@ -599,7 +584,7 @@ body.mercado-jinx {
     margin-bottom: 25px;
 }
 
-.inicio-contenido h1 {
+.inicio-contenido h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(4rem, 8vw, 7rem);
     line-height: 0.95;
@@ -608,7 +593,7 @@ body.mercado-jinx {
     text-shadow: 4px 4px 0 rgba(0, 197, 242, 0.20);
     animation: neon-general 6s infinite;
 }
-.inicio-contenido h1 span {
+.inicio-contenido h2 span {
     display: block;
     color: #EC399B;
     text-shadow: 0 0 20px rgba(236, 57, 155, 0.25);
@@ -806,7 +791,7 @@ body.mercado-jinx {
         transform: rotate(10deg);
     }
 
-    .inicio-contenido h1 {
+    .inicio-contenido h2 {
         font-size: clamp(3.5rem, 12vw, 5rem);
     }
 
@@ -827,7 +812,7 @@ body.mercado-jinx {
         height: 260px;
     }
 
-    .encabezado-catalogo h1 {
+    .encabezado-catalogo .h1 {
         font-size: 2.7rem;
     }
      .encabezado-jinx h2 {
