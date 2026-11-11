@@ -1,7 +1,6 @@
 <?PHP
 require_once 'functions/autoload.php';
 
-//Null Coalesce Solo esta disponible en PHP 7+
 $vista = Vista::validar_vista($_GET['sec'] ?? 'home');
 
 $userData = $_SESSION['loggedIn'] ?? FALSE;
@@ -15,7 +14,7 @@ $personajesDisponibles = Personaje::listado_menu();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Tiendita de Comics :: <?= $vista->getTitulo() ?></title>
+    <title>La caja explosiva de Isha :: <?= $vista->getTitulo() ?></title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
