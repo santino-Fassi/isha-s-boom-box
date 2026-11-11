@@ -41,5 +41,9 @@
             <img src="img/grafitis/grafitti3.png" alt="">
         </div>
 
+        <button class="bomba-interactiva" id="bombaJinx" type="button" aria-label="¡Hacer explotar la bombita de Jinx!">
+            <img src="img/bombas/bomba.png" alt="Bombita del mono de Jinx">
+        </button>
+
     </div>
 </section>

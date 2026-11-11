@@ -22,12 +22,12 @@ $categoriasDisponibles = Categoria::listado_menu();
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    
 
 
-    <link href="css/styles.css?v=2" rel="stylesheet">
+    <link href="css/styles.css?v=6" rel="stylesheet">
 
 </head>
 
@@ -100,12 +100,11 @@ $categoriasDisponibles = Categoria::listado_menu();
 
     <footer class="footer-jinx text-center">
         <p>Santino David Fassi y Camila Denis Gastager</p>
-        <p>Isha's Boom Box</p>
-        <small>Made in Zaun. No refunds. No regrets.</small>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    <p>Isha's Boom Box</p>
+    <small>Made in Zaun. No refunds. No regrets.</small>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="js/bomba.js" defer></script>
 </body>
 
 </html>

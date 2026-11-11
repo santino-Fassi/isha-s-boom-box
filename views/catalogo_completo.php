@@ -157,6 +157,5 @@ if ($peligroMin > 0) {
                 </div>
             <?PHP } ?>
         </div>
-
     </div>
 </section>
