@@ -1,7 +1,6 @@
 <?PHP
 require_once 'functions/autoload.php';
 
-//Null Coalesce Solo esta disponible en PHP 7+
 $vista = Vista::validar_vista($_GET['sec'] ?? 'home');
 
 $userData = $_SESSION['loggedIn'] ?? FALSE;
