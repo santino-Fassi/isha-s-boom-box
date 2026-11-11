@@ -394,7 +394,7 @@ class Artefacto
      * 
      * @param int $cantidad Esta es la cantidad de palabras a extraer (Opcional)
      */
-    public function get_bajada_reducida(int $cantidad = 10): string
+    public function get_descripcion_reducida(int $cantidad = 10): string
     {
         $texto = $this->descripcion;
 
