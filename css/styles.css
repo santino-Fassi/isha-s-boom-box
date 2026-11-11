@@ -606,13 +606,102 @@ body.mercado-jinx {
     margin-bottom: 30px;
     color: #E7E9ED;
     text-shadow: 4px 4px 0 rgba(0, 197, 242, 0.20);
+    animation: neon-general 6s infinite;
 }
-
 .inicio-contenido h1 span {
     display: block;
     color: #EC399B;
     text-shadow: 0 0 20px rgba(236, 57, 155, 0.25);
+    animation: neon-rosa 6s infinite;
 }
+
+/* LUZ GENERAL DEL CARTEL */
+
+@keyframes neon-general {
+
+
+    0%, 38%, 53%, 68%, 100% {
+        opacity: 1;
+        text-shadow:
+            0 0 5px #00C5F2,
+            0 0 15px rgba(0, 197, 242, 0.8),
+            0 0 30px rgba(0, 197, 242, 0.5);
+    }
+
+    39%, 42% {
+        opacity: 0.25;
+        text-shadow: none;
+    }
+
+    43%, 46% {
+        opacity: 0.08;
+        text-shadow: none;
+    }
+
+    47%, 52% {
+        opacity: 1;
+    }
+
+    69%, 73% {
+        opacity: 0.15;
+        text-shadow: none;
+    }
+
+    74%, 100% {
+        opacity: 1;
+    }
+}
+
+@keyframes neon-rosa {
+
+    0%, 38%, 53%, 68%, 100% {
+        color: #EC399B;
+        text-shadow:
+            0 0 5px #EC399B,
+            0 0 12px #EC399B,
+            0 0 25px rgba(236, 57, 155, 0.9),
+            0 0 50px rgba(236, 57, 155, 0.7),
+            0 0 80px rgba(236, 57, 155, 0.4);
+    }
+
+    39%, 42% {
+        color: #792C57;
+        text-shadow: 0 0 5px rgba(236, 57, 155, 0.2);
+    }
+
+    43%, 46% {
+        color: #351C2B;
+        text-shadow: none;
+    }
+
+    47% {
+        color: #FFFFFF;
+        text-shadow:
+            0 0 10px #FFFFFF,
+            0 0 30px #EC399B;
+    }
+
+    48%, 52% {
+        color: #EC399B;
+        text-shadow:
+            0 0 15px #EC399B,
+            0 0 35px rgba(236, 57, 155, 0.9);
+    }
+
+    69%, 73% {
+        color: #55233F;
+        text-shadow: none;
+    }
+
+    74%, 100% {
+        color: #EC399B;
+        text-shadow:
+            0 0 5px #EC399B,
+            0 0 15px #EC399B,
+            0 0 35px rgba(236, 57, 155, 0.8);
+    }
+}
+
 
 .inicio-contenido p {
     max-width: 650px;
@@ -793,3 +882,4 @@ body.mercado-jinx {
         width: 100px;
     }
 }
+
