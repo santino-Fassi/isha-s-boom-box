@@ -1,13 +1,885 @@
-pre{
-    border:thin solid gainsboro;
-    border-radius: 1em;
-    background-color: ghostwhite;
-    margin: 1em;
-    padding: 1em;
-    color: rgb(206, 6, 6);
-    white-space: pre-wrap;       /* css-3 */
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-    white-space: -pre-wrap;      /* Opera 4-6 */
-    white-space: -o-pre-wrap;    /* Opera 7 */
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+
+/* ==========================================
+   JINX'S BLACK MARKET
+   IDENTIDAD VISUAL PRINCIPAL
+========================================== */
+
+/* VARIABLES */
+
+:root {
+    --fondo: #17191D;
+    --fondo-secundario: #20242A;
+    --fondo-terciario: #2C3139;
+
+    --rosa-jinx: #EC399B;
+    --cian-jinx: #00C5F2;
+    --violeta-jinx: #A35BE8;
+    --celeste-jinx: #A9E8F5;
+
+    --texto: #E7E9ED;
+    --texto-secundario: #9BA3AE;
+
+    --borde: rgba(255, 255, 255, 0.10);
+
+    --brillo-rosa: 0 0 15px rgba(236, 57, 155, 0.35);
+    --brillo-cian: 0 0 15px rgba(0, 197, 242, 0.35);
+
+    --transicion: all 0.3s ease;
 }
+
+/* CONFIGURACION GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+body.mercado-jinx {
+    background-color: var(--fondo);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+/* TITULOS */
+
+.mercado-jinx h1,
+.mercado-jinx h2,
+.mercado-jinx h3,
+.mercado-jinx h4,
+.mercado-jinx h5 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1.5px;
+    color: var(--texto);
+}
+
+/* TEXTOS */
+
+.mercado-jinx p {
+    color: var(--texto-secundario);
+    line-height: 1.7;
+}
+
+/* ==========================================
+   NAVEGACION
+========================================== */
+
+.navbar-jinx {
+    background-color: #111317;
+    border-bottom: 2px solid var(--rosa-jinx);
+    padding: 16px 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.navbar-jinx .navbar-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--rosa-jinx);
+    transition: var(--transicion);
+}
+
+.navbar-jinx .navbar-brand:hover {
+    color: var(--cian-jinx);
+    text-shadow: var(--brillo-cian);
+}
+
+.navbar-jinx .nav-link {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--texto-secundario);
+    padding: 10px 14px !important;
+    transition: var(--transicion);
+    position: relative;
+}
+
+.navbar-jinx .nav-link:hover {
+    color: var(--cian-jinx);
+    text-shadow: var(--brillo-cian);
+}
+
+/* ==========================================
+   PIE DE PAGINA
+========================================== */
+
+.footer-jinx {
+    background-color: #111317;
+    border-top: 1px solid var(--rosa-jinx);
+    padding: 25px 15px;
+    margin-top: 60px;
+}
+
+.footer-jinx p {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 3px;
+    color: var(--rosa-jinx);
+    margin-bottom: 5px;
+}
+
+.footer-jinx small {
+    color: var(--texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* ==========================================
+   ENLACES Y TRANSICIONES
+========================================== */
+
+.mercado-jinx a {
+    transition: var(--transicion);
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+/* ==========================================
+   CATALOGO - JINX'S BLACK MARKET
+========================================== */
+
+/* ENCABEZADO */
+
+.catalogo-jinx {
+    background-color: var(--fondo);
+    min-height: 80vh;
+}
+
+.encabezado-catalogo {
+    position: relative;
+    padding-bottom: 25px;
+}
+
+.subtitulo-catalogo {
+    display: inline-block;
+    color: var(--cian-jinx);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+.encabezado-catalogo h1 {
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    margin-bottom: 10px;
+    -webkit-text-stroke: 1.5px #646b75;
+    paint-order: stroke fill;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+.encabezado-catalogo h1 span {
+    color: var(--rosa-jinx);
+    text-shadow: 0 0 15px rgba(236, 57, 155, 0.25);
+}
+
+.encabezado-catalogo p {
+    color: var(--texto-secundario);
+    font-size: 1rem;
+}
+
+
+.artefacto-card {
+    background-color: var(--fondo-secundario);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    transition: all 0.35s ease;
+    position: relative;
+}
+
+
+.artefacto-card:hover {
+    transform: translateY(-9px);
+    border-color: var(--cian-jinx);
+
+    box-shadow:
+        0 0 10px rgba(0, 197, 242, 0.20),
+        0 0 25px rgba(236, 57, 155, 0.12);
+}
+
+
+.artefacto-imagen {
+    position: relative;
+    overflow: hidden;
+    background-color: #111317;
+    height: 290px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--borde);
+}
+
+.artefacto-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 12px;
+
+    transition: transform 0.45s ease;
+}
+
+.artefacto-card:hover .artefacto-imagen img {
+    transform: scale(1.06);
+}
+
+
+.etiqueta-artefacto {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+
+    background-color: var(--rosa-jinx);
+    color: #fff;
+
+    padding: 6px 11px;
+    border-radius: 3px;
+
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    box-shadow: var(--brillo-rosa);
+}
+
+
+/* ==========================================
+   INFORMACION DEL PRODUCTO
+========================================== */
+
+.artefacto-body {
+    padding: 22px 22px 12px;
+}
+
+.artefacto-creador {
+    color: var(--rosa-jinx) !important;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.artefacto-body .card-title {
+    color: var(--texto);
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.artefacto-card:hover .card-title {
+    color: var(--cian-jinx);
+}
+
+.artefacto-descripcion {
+    color: var(--texto-secundario) !important;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+
+.artefacto-datos {
+    background-color: transparent;
+    border-top: 1px solid var(--borde);
+    border-bottom: 1px solid var(--borde);
+    margin-top: auto;
+}
+
+.artefacto-datos .list-group-item {
+    background-color: transparent;
+    color: var(--texto-secundario);
+    border-color: var(--borde);
+
+    padding: 11px 22px;
+    font-size: 0.85rem;
+}
+
+.artefacto-datos .list-group-item span {
+    display: inline-block;
+    min-width: 85px;
+    color: var(--cian-jinx);
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+.artefacto-footer {
+    padding: 20px 22px 22px;
+}
+
+.artefacto-precio {
+    margin-bottom: 18px;
+}
+
+.artefacto-precio span {
+    display: block;
+    color: var(--texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.artefacto-precio p {
+    color: var(--cian-jinx) !important;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+
+    text-shadow: 0 0 12px rgba(0, 197, 242, 0.2);
+}
+
+
+.btn-artefacto {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    padding: 12px 17px;
+
+    background-color: var(--rosa-jinx);
+    border: 1px solid var(--rosa-jinx);
+    border-radius: 5px;
+
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    transition: all 0.3s ease;
+}
+
+.btn-artefacto:hover {
+    background-color: transparent;
+    color: var(--rosa-jinx);
+    border-color: var(--rosa-jinx);
+
+    box-shadow: var(--brillo-rosa);
+    transform: translateY(-2px);
+}
+
+.btn-artefacto span {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-artefacto:hover span {
+    transform: translate(3px, -3px);
+}
+
+.catalogo-vacio {
+    background-color: var(--fondo-secundario);
+    border: 1px dashed var(--rosa-jinx);
+    border-radius: 12px;
+    padding: 55px 20px;
+}
+
+.catalogo-vacio h2 {
+    color: var(--rosa-jinx);
+}
+
+.catalogo-vacio p {
+    margin-bottom: 0;
+}
+
+
+.presentacion-jinx {
+    background: #17191D;
+    color: #E7E9ED;
+    padding: 35px 0;
+}
+
+.encabezado-jinx .subtitulo-jinx {
+    color: #00C5F2;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 4px;
+}
+
+.encabezado-jinx h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1;
+    margin: 20px 0;
+    color: #E7E9ED;
+    text-shadow: 3px 3px 0 rgba(0, 197, 242, 0.25);
+}
+
+.encabezado-jinx h2 span {
+    color: #EC399B;
+    -webkit-text-stroke: 1px #EC399B;
+}
+
+.encabezado-jinx p {
+    color: #9BA3AE;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.imagen-jinx {
+    position: relative;
+    padding: 12px;
+    background: #20242A;
+    border: 1px solid rgba(0, 197, 242, 0.45);
+    box-shadow: 8px 8px 0 rgba(236, 57, 155, 0.2);
+    transform: rotate(-1deg);
+}
+
+.imagen-jinx img {
+    display: block;
+    width: 100%;
+    max-height: 430px;
+    object-fit: cover;
+}
+
+.etiqueta-jinx {
+    position: absolute;
+    top: 25px;
+    left: -10px;
+    background: #EC399B;
+    color: #17191D;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 800;
+    padding: 7px 15px;
+    transform: rotate(-4deg);
+    letter-spacing: 1px;
+}
+
+.contenido-jinx {
+    padding: 10px;
+}
+
+.detalle-jinx {
+    color: #00C5F2;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.contenido-jinx h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.3rem, 4vw, 3.5rem);
+    margin: 15px 0 25px;
+}
+
+.contenido-jinx h3 span {
+    color: #EC399B;
+}
+
+.contenido-jinx p {
+    color: #C4CAD2;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.contenido-jinx .frase-jinx {
+    color: #A9E8F5;
+    border-left: 3px solid #EC399B;
+    padding: 12px 18px;
+    margin: 25px 0;
+    font-style: italic;
+    background: rgba(236, 57, 155, 0.06);
+}
+
+.firma-jinx {
+    display: flex;
+    flex-direction: column;
+    margin-top: 25px;
+}
+
+.firma-jinx span {
+    color: #9BA3AE;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.firma-jinx strong {
+    color: #EC399B;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 3px;
+}
+
+
+/* ===== IMÁGENES DECORATIVAS JINX ===== */
+
+.jinx-personaje {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.jinx-personaje img {
+    width: 100%;
+    max-width: 800px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 18px rgba(236, 57, 155, 0.18));
+}
+
+/* Mono junto al título */
+
+.contenido-jinx {
+    position: relative;
+}
+
+.mono-decorativo {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+}
+
+.mono-decorativo img {
+    width: 125px;
+    height: auto;
+    object-fit: contain;
+    transform: rotate(8deg);
+}
+
+
+/* =====================================
+   INICIO - JINX'S BLACK MARKET
+===================================== */
+
+.inicio-jinx {
+    background:
+        radial-gradient(ellipse at center, rgba(163, 91, 232, 0.10), transparent 65%),
+        #17191D;
+    color: #E7E9ED;
+    overflow: hidden;
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+}
+
+.inicio-escenario {
+    position: relative;
+    width: 100%;
+    min-height: 680px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+/* CONTENIDO */
+
+.inicio-contenido {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    width: 100%;
+    text-align: center;
+}
+
+.inicio-etiqueta {
+    display: inline-block;
+    color: #00C5F2;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 5px;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.inicio-contenido h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: 0.95;
+    margin-bottom: 30px;
+    color: #E7E9ED;
+    text-shadow: 4px 4px 0 rgba(0, 197, 242, 0.20);
+    animation: neon-general 6s infinite;
+}
+.inicio-contenido h1 span {
+    display: block;
+    color: #EC399B;
+    text-shadow: 0 0 20px rgba(236, 57, 155, 0.25);
+    animation: neon-rosa 6s infinite;
+}
+
+/* LUZ GENERAL DEL CARTEL */
+
+@keyframes neon-general {
+
+
+    0%, 38%, 53%, 68%, 100% {
+        opacity: 1;
+        text-shadow:
+            0 0 5px #00C5F2,
+            0 0 15px rgba(0, 197, 242, 0.8),
+            0 0 30px rgba(0, 197, 242, 0.5);
+    }
+
+    39%, 42% {
+        opacity: 0.25;
+        text-shadow: none;
+    }
+
+    43%, 46% {
+        opacity: 0.08;
+        text-shadow: none;
+    }
+
+    47%, 52% {
+        opacity: 1;
+    }
+
+    69%, 73% {
+        opacity: 0.15;
+        text-shadow: none;
+    }
+
+    74%, 100% {
+        opacity: 1;
+    }
+}
+
+@keyframes neon-rosa {
+
+    0%, 38%, 53%, 68%, 100% {
+        color: #EC399B;
+        text-shadow:
+            0 0 5px #EC399B,
+            0 0 12px #EC399B,
+            0 0 25px rgba(236, 57, 155, 0.9),
+            0 0 50px rgba(236, 57, 155, 0.7),
+            0 0 80px rgba(236, 57, 155, 0.4);
+    }
+
+    39%, 42% {
+        color: #792C57;
+        text-shadow: 0 0 5px rgba(236, 57, 155, 0.2);
+    }
+
+    43%, 46% {
+        color: #351C2B;
+        text-shadow: none;
+    }
+
+    47% {
+        color: #FFFFFF;
+        text-shadow:
+            0 0 10px #FFFFFF,
+            0 0 30px #EC399B;
+    }
+
+    48%, 52% {
+        color: #EC399B;
+        text-shadow:
+            0 0 15px #EC399B,
+            0 0 35px rgba(236, 57, 155, 0.9);
+    }
+
+    69%, 73% {
+        color: #55233F;
+        text-shadow: none;
+    }
+
+    74%, 100% {
+        color: #EC399B;
+        text-shadow:
+            0 0 5px #EC399B,
+            0 0 15px #EC399B,
+            0 0 35px rgba(236, 57, 155, 0.8);
+    }
+}
+
+
+.inicio-contenido p {
+    max-width: 650px;
+    margin: 0 auto 35px;
+    color: #C4CAD2;
+    font-size: 1.2rem;
+    line-height: 1.8;
+}
+
+/* BOTÓN */
+
+.btn-inicio-jinx {
+    display: inline-block;
+    background: #EC399B;
+    color: #17191D;
+    border: 2px solid #EC399B;
+    padding: 14px 35px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.btn-inicio-jinx:hover {
+    background: transparent;
+    color: #00C5F2;
+    border-color: #00C5F2;
+    box-shadow: 0 0 20px rgba(0, 197, 242, 0.35);
+    transform: translateY(-4px);
+}
+
+/* FIRMA */
+
+.inicio-firma {
+    margin-top: 35px;
+    color: #9BA3AE;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+}
+
+/* GRAFITIS LATERALES */
+
+.grafiti-inicio {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.grafiti-inicio img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.grafiti-izquierdo {
+    left: 2%;
+    top: 50%;
+    width: clamp(110px, 17vw, 800px);
+    transform: translateY(-50%) rotate(-10deg);
+}
+
+.grafiti-derecho {
+    right: 2%;
+    top: 50%;
+    width: clamp(100px, 15vw, 500px);
+    transform: translateY(-50%) rotate(9deg);
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 767px) {
+    .inicio-jinx,
+    .inicio-escenario {
+        min-height: 600px;
+    }
+
+    .inicio-escenario {
+        padding: 90px 20px;
+    }
+
+    .grafiti-izquierdo {
+        left: -35px;
+        top: 10px;
+        width: 110px;
+        opacity: 0.55;
+        transform: rotate(-15deg);
+    }
+
+    .grafiti-derecho {
+        right: -30px;
+        top: auto;
+        bottom: 5px;
+        width: 110px;
+        opacity: 0.55;
+        transform: rotate(10deg);
+    }
+
+    .inicio-contenido h1 {
+        font-size: clamp(3.5rem, 12vw, 5rem);
+    }
+
+    .inicio-contenido p {
+        font-size: 1.05rem;
+    }
+
+    .inicio-firma {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+    }
+
+    .catalogo-jinx {
+        padding-top: 35px !important;
+    }
+
+    .artefacto-imagen {
+        height: 260px;
+    }
+
+    .encabezado-catalogo h1 {
+        font-size: 2.7rem;
+    }
+     .encabezado-jinx h2 {
+        font-size: 2.8rem;
+    }
+
+    .imagen-jinx img {
+        max-height: 300px;
+    }
+    .jinx-personaje img {
+        max-height: 400px;
+    }
+
+    .mono-decorativo img {
+        width: 85px;
+    }
+
+}
+
+
+@media (max-width: 991px) {
+    .navbar-jinx {
+        padding: 12px 16px;
+    }
+
+    .navbar-jinx .navbar-collapse {
+        padding-top: 15px;
+    }
+    .artefacto-imagen {
+        height: 230px;
+    }
+
+    .artefacto-body,
+    .artefacto-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .imagen-jinx {
+        max-width: 650px;
+        margin: 0 auto;
+    }
+
+    .contenido-jinx {
+        padding: 10px 5px;
+    }
+    .jinx-personaje img {
+        max-height: 480px;
+        max-width: 360px;
+    }
+
+    .mono-decorativo img {
+        width: 100px;
+    }
+}
+

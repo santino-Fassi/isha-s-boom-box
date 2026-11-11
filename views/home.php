@@ -1,17 +1,47 @@
-<div class="d-flex justify-content-center p-5">
-    <div>
-        <h1 class="text-center mb-5 fw-bold">¡Bienvenidos a la Tiendita de Comics!</h1>
-        <div class="row mb-5 d-flex align-items-center">
-            <div class="col-7">
-                <div class="fs-4 text-center">
-                    <p>Nos alegra tener la oportunidad de ofrecerles una amplia variedad de cómics y novelas gráficas, desde los clásicos de siempre hasta las últimas publicaciones. En nuestra tienda, podrás encontrar algo para todos los gustos y edades, desde los fans más devotos hasta los recién llegados al mundo del cómic.</p>
-                    <p>Nuestro equipo está aquí para ayudarlo en todo lo que necesite, desde sugerencias y recomendaciones hasta resolver cualquier pregunta o problema que tenga. No dude en ponerse en contacto con nosotros si necesita ayuda o si tiene alguna pregunta sobre nuestro catálogo.</p>
-                </div>
 
-            </div>
-            <div class="col-5"><img src="img/home.png" class="d-block mx-auto img-fluid "></div>
+<section class="inicio-jinx">
+    <div class="inicio-escenario">
+
+        <!-- GRAFITI IZQUIERDO -->
+        <div class="grafiti-inicio grafiti-izquierdo">
+            <img src="img/grafitis/graffiti2.png" alt="">
         </div>
 
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="inicio-contenido">
+
+            <span class="inicio-etiqueta">
+                ZAUN // MERCADO CLANDESTINO
+            </span>
+
+            <h1>
+                BIENVENIDO A MI
+                <span>PEQUEÑO CAOS.</span>
+            </h1>
+
+            <p>
+                ¿Buscabas algo aburrido y convencional?
+                Entonces te equivocaste de lugar.
+                Acá vas a encontrar artefactos, rarezas
+                y algunas ideas que probablemente
+                no deberían existir.
+            </p>
+
+            <a href="index.php?sec=catalogo_completo"
+               class="btn btn-inicio-jinx">
+                EXPLORAR EL MERCADO ↗
+            </a>
+
+            <div class="inicio-firma">
+                NO REFUNDS. NO REGRETS. JUST CHAOS.
+            </div>
+
+        </div>
+
+        <!-- GRAFITI DERECHO -->
+        <div class="grafiti-inicio grafiti-derecho">
+            <img src="img/grafitis/grafitti3.png" alt="">
+        </div>
 
     </div>
-</div>
+</section>
