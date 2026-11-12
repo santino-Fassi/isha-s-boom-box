@@ -244,3 +244,125 @@ if (bombaCatalogo && mensajeCatalogo && textoCatalogo) {
     });
 }
 
+
+/* =====================================
+   BOMBITA DE SOBRE NOSOTROS
+===================================== */
+
+const bombaSocios = document.querySelector("#bombaSocios");
+const mensajeSocios = document.querySelector("#mensajeJinxSocios");
+const tarjetasSocios = document.querySelector(".socios-contenedor");
+
+
+if (bombaSocios && mensajeSocios && tarjetasSocios) {
+
+    let temporizadorSocios;
+
+    bombaSocios.addEventListener("click", function () {
+        console.log("¡SE HIZO CLIC EN LA BOMBITA DE SOCIOS!");
+
+        if (bombaSocios.classList.contains("explotando")) {
+            return;
+        }
+
+        clearTimeout(temporizadorSocios);
+
+        mensajeSocios.classList.remove("visible");
+        tarjetasSocios.classList.remove("socios-revelados");
+
+        bombaSocios.classList.remove("reapareciendo");
+        bombaSocios.classList.add("explotando");
+        bombaSocios.disabled = true;
+
+        const colores = [
+            "#EC399B",
+            "#00C5F2",
+            "#A35BE8",
+            "#FFF16A",
+            "#FFFFFF",
+            "#FF5A36"
+        ];
+
+        // DESTELLO
+        const destello = document.createElement("span");
+        destello.classList.add("destello-bomba");
+        bombaSocios.appendChild(destello);
+
+        // ONDA DE EXPLOSION
+        const onda = document.createElement("span");
+        onda.classList.add("onda-bomba");
+        bombaSocios.appendChild(onda);
+
+        // TEXTO BOOM
+        const boom = document.createElement("span");
+        boom.classList.add("texto-boom");
+        boom.textContent = "BOOM!";
+        bombaSocios.appendChild(boom);
+
+        // PARTICULAS
+        for (let i = 0; i < 36; i++) {
+
+            const particula = document.createElement("span");
+            particula.classList.add("particula-bomba");
+
+            const angulo = Math.random() * Math.PI * 2;
+            const distancia = 90 + Math.random() * 140;
+
+            const x = Math.cos(angulo) * distancia;
+            const y = Math.sin(angulo) * distancia;
+
+            particula.style.setProperty("--x", x + "px");
+            particula.style.setProperty("--y", y + "px");
+            particula.style.setProperty(
+                "--rotacion",
+                Math.random() * 720 + "deg"
+            );
+
+            particula.style.backgroundColor =
+                colores[Math.floor(Math.random() * colores.length)];
+
+            if (Math.random() > 0.5) {
+                particula.style.borderRadius = "50%";
+            } else {
+                particula.style.borderRadius = "2px";
+            }
+
+            bombaSocios.appendChild(particula);
+        }
+
+        // FINAL DE LA EXPLOSION
+        setTimeout(function () {
+
+            bombaSocios.querySelectorAll(
+                ".particula-bomba, .destello-bomba, .onda-bomba, .texto-boom"
+            ).forEach(function (elemento) {
+                elemento.remove();
+            });
+
+            bombaSocios.classList.remove("explotando");
+            bombaSocios.classList.add("reapareciendo");
+            bombaSocios.disabled = false;
+
+            // REVELAR EXPEDIENTE
+            mensajeSocios.classList.add("visible");
+
+            // RESALTAR LAS DOS TARJETAS
+            tarjetasSocios.classList.add("socios-revelados");
+
+            temporizadorSocios = setTimeout(function () {
+
+                mensajeSocios.classList.remove("visible");
+                tarjetasSocios.classList.remove("socios-revelados");
+
+            }, 4500);
+
+        }, 1100);
+
+        setTimeout(function () {
+            bombaSocios.classList.remove("reapareciendo");
+        }, 1700);
+
+    });
+}
+
+

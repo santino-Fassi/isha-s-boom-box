@@ -36,6 +36,8 @@ if ($peligroMin > 0) {
 
         <div class="catalogo-encabezado-fila">
 
+        <img src="img/grafitis/pow.png" alt="" class="grafiti-pow">
+
         <header class="encabezado-catalogo text-center mb-5">
             <span class="subtitulo-catalogo">ZAUN // INVENTARIO CLANDESTINO</span>
             <h2 class="h1">EL <span>ARSENAL</span></h2>
@@ -136,8 +138,7 @@ if ($peligroMin > 0) {
         <span>PROPIEDAD DE JINX // NO TOCAR</span>
     </div>
 
-</section>
-
+    </section>
 
         <div class="row g-4">
             <?PHP if (!empty($catalogo)) { ?>

@@ -754,6 +754,48 @@ body.mercado-jinx {
     transform: translateY(-50%) rotate(9deg);
 }
 
+/* GRAFITI YOU ARE A JINX */
+.presentacion-jinx {
+    position: relative;
+    isolation: isolate;
+}
+
+.grafiti-youjinx {
+    position: absolute;
+    top: 15%;
+    left: 70px;
+    width: 230px;
+    height: auto;
+    opacity: 0.9;
+    transform: rotate(-8deg);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.presentacion-jinx .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* GRAFITI POW POW */
+.catalogo-encabezado-fila {
+    position: relative;
+    z-index: 10;
+    overflow: visible;
+}
+
+.grafiti-pow {
+    position: absolute;
+    top: 50%;
+    right: -45px;
+    width: 350px;
+    height: auto;
+    opacity: 0.9;
+    transform: translateY(-50%) rotate(8deg);
+    z-index: 2;
+    pointer-events: none;
+    background: transparent;
+}
 
 /* =================================
    BOMBITA INTERACTIVA DE JINX
@@ -995,8 +1037,10 @@ body.mercado-jinx {
 }
 
 .bomba-catalogo-zona {
-    position: relative;
-    flex: 0 0 115px;
+     position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
     width: 115px;
     height: 110px;
     display: flex;
@@ -1026,10 +1070,11 @@ body.mercado-jinx {
 
 .mensaje-jinx-catalogo {
     position: absolute;
-    right: 100%;
+    left: 100%;
+    right: auto;
     top: 50%;
     z-index: 20;
-
+    
     width: 420px;
     min-height: 170px;
     padding: 28px 32px;
@@ -1116,11 +1161,12 @@ body.mercado-jinx {
     max-width: 1200px;
     margin: 15px auto 80px;
     padding: 20px;
+    padding-top: 15px;
 }
 
 .socios-encabezado {
     text-align: center;
-    margin-bottom: 45px;
+    margin-bottom: 5px;
 }
 
 .socios-encabezado > span {
@@ -1153,6 +1199,7 @@ body.mercado-jinx {
 .socios-contenedor {
     max-width: 1100px;
     margin: 0 auto;
+    margin-top: 0;
 }
 
 .socio-card {
@@ -1276,6 +1323,7 @@ body.mercado-jinx {
 
 .panel-inventario {
     position: relative;
+    z-index: 1;
     max-width: 1050px;
     margin: 35px auto 55px;
     padding: 28px 32px 18px;
@@ -1503,6 +1551,205 @@ body.mercado-jinx {
     color: #00C5F2;
 }
 
+
+
+/* =====================================
+   BOMBITA DE SOBRE NOSOTROS
+===================================== */
+
+/* ENCABEZADO */
+
+.socios-encabezado {
+    position: relative;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.socios-encabezado p {
+    margin-bottom: 0;
+}
+
+.socios-titulo-fila {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+.socios-titulo-fila h2 {
+    margin: 8px 0;
+}
+
+/* BOMBITA */
+
+.socios-jinx .bomba-socios-zona {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 75px;
+    height: 75px;
+    margin: 0;
+    padding: 0;
+}
+
+.socios-jinx .bomba-interactiva.bomba-socios {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 70px;
+    height: 70px;
+    margin: 0;
+    padding: 0;
+    flex-shrink: 0;
+    z-index: 5;
+    overflow: visible;
+}
+
+.socios-jinx .bomba-socios img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* MENSAJE SECRETO */
+
+.socios-jinx .mensaje-jinx-socios {
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    width: calc(100% - 30px);
+    max-width: 650px;
+    max-height: 0;
+
+    margin: 0 auto;
+    padding: 0 28px;
+
+    text-align: center;
+    background: linear-gradient(135deg, #302033, #17191D);
+
+    border: 0 solid transparent;
+    box-shadow: none;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transform: scale(.7) rotate(-3deg);
+
+    transition:
+        max-height .4s ease,
+        opacity .3s ease,
+        transform .3s ease,
+        padding .3s ease,
+        margin .3s ease,
+        visibility .3s ease;
+}
+
+.socios-jinx .mensaje-jinx-socios.visible {
+    max-height: 250px;
+
+    margin: 8px auto 12px;
+    padding: 22px 28px;
+
+    border: 2px solid var(--rosa-jinx);
+    border-left: 7px solid var(--cian-jinx);
+
+    box-shadow:
+        0 0 20px rgba(236,57,155,.25),
+        7px 7px 0 rgba(0,197,242,.12);
+
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+
+    transform: scale(1) rotate(0deg);
+
+    animation: expediente-entrada .5s cubic-bezier(.2,1.5,.4,1);
+}
+
+/* ANIMACIÓN DEL CARTEL */
+
+@keyframes expediente-entrada {
+    0% {
+        transform: scale(.5) rotate(-8deg);
+    }
+
+    70% {
+        transform: scale(1.08) rotate(2deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* CONTENIDO DEL CARTEL */
+
+.mensaje-socios-etiqueta {
+    display: block;
+    color: var(--cian-jinx);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.mensaje-jinx-socios h3 {
+    color: var(--rosa-jinx);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    margin: 8px 0 0;
+    text-shadow: 0 0 18px rgba(236,57,155,.5);
+}
+
+.mensaje-jinx-socios p {
+    color: var(--texto);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 0 0 12px;
+}
+
+.mensaje-socios-firma {
+    color: var(--texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: .8rem;
+    letter-spacing: 1.5px;
+}
+
+/* TARJETAS REVELADAS */
+
+.socios-contenedor {
+    max-width: 1100px;
+    margin: 0 auto !important;
+}
+
+.socios-contenedor.socios-revelados .socio-rosa {
+    border-color: var(--rosa-jinx);
+    box-shadow: 0 0 25px rgba(236,57,155,.5);
+}
+
+.socios-contenedor.socios-revelados .socio-cian {
+    border-color: var(--cian-jinx);
+    box-shadow: 0 0 25px rgba(0,197,242,.5);
+}
+
+.socios-contenedor .socio-card {
+    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+
+
 /* ==========================================
    RESPONSIVE
 ========================================== */
@@ -1532,6 +1779,14 @@ body.mercado-jinx {
         width: 110px;
         opacity: 0.55;
         transform: rotate(10deg);
+    }
+
+    .grafiti-youjinx {
+        display: none;
+    }
+    
+    .grafiti-pow {
+        display: none;
     }
 
     .inicio-contenido h1 {
@@ -1598,7 +1853,8 @@ body.mercado-jinx {
 
     .mensaje-jinx-catalogo {
     position: absolute;
-    right: 19%;
+    left: 50%;
+    right: auto;
     top: 50%;
     z-index: 20;
 
@@ -1719,14 +1975,58 @@ body.mercado-jinx {
         flex-direction: column;
         font-size: 0.7rem;
     }
-    .socios-jinx {
-        margin: 45px auto;
-        padding: 20px 15px;
-    }
+    .socios-titulo-fila {
+    gap: 8px;
+}
 
-    .socio-info {
-        padding: 22px;
-    }
+.socios-titulo-fila h2 {
+    font-size: 2.5rem;
+}
+
+.socios-jinx .bomba-socios-zona {
+    width: 60px;
+    height: 60px;
+}
+
+.socios-jinx .bomba-interactiva.bomba-socios {
+    width: 55px;
+    height: 55px;
+}
+
+.socios-jinx .mensaje-jinx-socios.visible {
+    padding: 18px 15px;
+    width: 100%;
+}
+
+.mensaje-jinx-socios h3 {
+    font-size: 2.7rem;
+}
+.socios-titulo-fila {
+    gap: 8px;
+}
+
+.socios-titulo-fila h2 {
+    font-size: 2.8rem;
+}
+
+.socios-jinx .bomba-socios-zona {
+    width: 60px;
+    height: 60px;
+}
+
+.socios-jinx .bomba-interactiva.bomba-socios {
+    width: 55px;
+    height: 55px;
+}
+
+.socios-jinx .mensaje-jinx-socios.visible {
+    max-height: 300px;
+    padding: 18px 15px;
+}
+
+.mensaje-jinx-socios h3 {
+    font-size: 2.7rem;
+}
 
 }
 
@@ -1741,6 +2041,12 @@ body.mercado-jinx {
     }
     .artefacto-imagen {
         height: 230px;
+    }
+
+    .grafiti-youjinx {
+        width: 130px;
+        left: -25px;
+        opacity: 0.55;
     }
 
     .artefacto-body,
@@ -1795,6 +2101,11 @@ body.mercado-jinx {
         height: 280px;
         min-height: 0;
         margin: 0 auto;
+    }
+    .grafiti-pow {
+        width: 115px;
+        right: -15px;
+        opacity: 0.65;
     }
 }
 
