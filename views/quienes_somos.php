@@ -1,4 +1,7 @@
 <section id="la-culpable" class="presentacion-jinx">
+
+    <img src="img/grafitis/YouJinx.png" alt="grafiti" class="grafiti-youjinx">
+
     <div class="container py-5">
 
         <div class="encabezado-jinx text-center mb-5">
@@ -74,9 +77,32 @@
     <!-- ENCABEZADO -->
     <div class="socios-encabezado">
         <span>ZAUN // EQUIPO DE OPERACIONES</span>
-        <h2>MIS <strong>SOCIOS</strong></h2>
+
+        <div class="socios-titulo-fila">
+            <h2>MIS <strong>SOCIOS</strong></h2>
+
+            <div class="bomba-socios-zona">
+                <button
+                    class="bomba-interactiva bomba-socios"
+                    id="bombaSocios"
+                    type="button"
+                    aria-label="Revelar los expedientes secretos de los socios">
+
+                    <img src="img/bombas/bomba.png" alt="Bombita de Jinx">
+                </button>
+            </div>
+        </div>
+
         <p>Dos mentes detrás de este pequeño caos.</p>
-    </div>
+        </div>
+
+        <div class="mensaje-jinx-socios" id="mensajeJinxSocios" role="status" aria-live="polite">
+            <span class="mensaje-socios-etiqueta">ZAUN // ARCHIVOS CONFIDENCIALES</span>
+            <h3>¡CULPABLES!</h3>
+            <p>DOS MENTES. UN SOLO DESASTRE.</p>
+            <span class="mensaje-socios-firma">RESPONSABLES DE ESTE PEQUEÑO CAOS // JINX</span>
+        </div>
+
 
     <div class="row g-4 socios-contenedor">
 

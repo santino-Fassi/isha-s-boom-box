@@ -2,6 +2,8 @@
 require_once 'functions/autoload.php';
 
 $vista = Vista::validar_vista($_GET['sec'] ?? 'home');
+$seccionActual = $vista->getNombre();
+$categoriaActual = $_GET['id'] ?? '';
 
 $userData = $_SESSION['loggedIn'] ?? FALSE;
 
@@ -27,7 +29,7 @@ $categoriasDisponibles = Categoria::listado_menu();
     
 
 
-    <link href="css/styles.css?v=6" rel="stylesheet">
+    <link href="css/styles.css?v=8" rel="stylesheet">
 
 </head>
 
@@ -45,23 +47,38 @@ $categoriasDisponibles = Categoria::listado_menu();
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto text-center align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php?sec=home">¡BOOM! ¿Te asusté?</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="index.php?sec=quienes_somos">Los sospechosos habituales</a>
+                            <a class="nav-link <?= $seccionActual === 'home' ? 'active' : '' ?>"
+                                href="index.php?sec=home"
+                                <?= $seccionActual === 'home' ? 'aria-current="page"' : '' ?>>
+                                ¡BOOM! ¿Te asusté?
+                            </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link active" href="index.php?sec=catalogo_completo">Arsenal</a>
+                            <a class="nav-link <?= $seccionActual === 'quienes_somos' ? 'active' : '' ?>"
+                                href="index.php?sec=quienes_somos"
+                                <?= $seccionActual === 'quienes_somos' ? 'aria-current="page"' : '' ?>>
+                                Los sospechosos habituales
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link <?= $seccionActual === 'catalogo_completo' ? 'active' : '' ?>"
+                                href="index.php?sec=catalogo_completo"
+                                <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
+                                Arsenal
+                            </a>
                         </li>
 
 
                         <?PHP foreach ($categoriasDisponibles as $c) { ?>
                             <li class="nav-item">
-                                <a class="nav-link" href="index.php?sec=catalogo&id=<?= $c['id'] ?>"><?= $c['nombre'] ?></a>
+                                <a class="nav-link <?= ($seccionActual === 'catalogo' && (string)$categoriaActual === (string)$c['id']) ? 'active' : '' ?>"
+                                    href="index.php?sec=catalogo&id=<?= $c['id'] ?>"
+                                    <?= ($seccionActual === 'catalogo' && (string)$categoriaActual === (string)$c['id']) ? 'aria-current="page"' : '' ?>>
+                                    <?= $c['nombre'] ?>
+                                </a>
                             </li>
-
-
                         <?PHP } ?>
 
                         <li class="nav-item">
@@ -108,7 +125,7 @@ $categoriasDisponibles = Categoria::listado_menu();
     <small>Made in Zaun. No refunds. No regrets.</small>
 </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="js/bomba.js" defer></script>
+    <script src="js/bomba.js?v=4" defer></script>
 </body>
 
 </html>
