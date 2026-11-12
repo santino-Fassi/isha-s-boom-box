@@ -146,7 +146,7 @@ body.mercado-jinx {
 }
 
 .encabezado-catalogo .h1 {
-    font-size: clamp(2.8rem, 8%, 4.5rem);
+    font-size: 5rem;
     margin-bottom: 10px;
     -webkit-text-stroke: 1.5px #646b75;
     paint-order: stroke fill;
@@ -797,9 +797,7 @@ body.mercado-jinx {
     background: transparent;
 }
 
-/* =================================
-   BOMBITA INTERACTIVA DE JINX
-================================= */
+/* BOMBITA */
 
 .bomba-interactiva {
     position: absolute;
@@ -840,9 +838,7 @@ body.mercado-jinx {
 }
 
 
-/* =================================
-   EXPLOSION CAOTICA DE JINX
-================================= */
+/* EXPLOSION BOMBA */
 
 .bomba-interactiva {
     overflow: visible;
@@ -932,7 +928,7 @@ body.mercado-jinx {
     }
 }
 
-/* PARTICULAS CAOTICAS */
+/* PARTICULAS BOMBA */
 
 .particula-bomba {
     position: absolute;
@@ -959,7 +955,7 @@ body.mercado-jinx {
     }
 }
 
-/* BOOM DE HISTORIETA */
+/* BOOM */
 
 .texto-boom {
     position: absolute;
@@ -1018,9 +1014,7 @@ body.mercado-jinx {
     }
 }
 
-/* =====================================
-   BOMBITA DEL CATALOGO
-===================================== */
+/* BOMBITA DEL CATALOGO */
 
 .catalogo-encabezado-fila {
     display: flex;
@@ -1064,9 +1058,7 @@ body.mercado-jinx {
     margin-top: 0;
 }
 
-/* =====================================
-   CARTEL DE JINX
-===================================== */
+/* CARTEL DE JINX */
 
 .mensaje-jinx-catalogo {
     position: absolute;
@@ -1555,204 +1547,6 @@ body.mercado-jinx {
 
 /* =====================================
    BOMBITA DE SOBRE NOSOTROS
-===================================== */
-
-/* ENCABEZADO */
-
-.socios-encabezado {
-    position: relative;
-    text-align: center;
-    margin-bottom: 0;
-}
-
-.socios-encabezado p {
-    margin-bottom: 0;
-}
-
-.socios-titulo-fila {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 18px;
-}
-
-.socios-titulo-fila h2 {
-    margin: 8px 0;
-}
-
-/* BOMBITA */
-
-.socios-jinx .bomba-socios-zona {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 75px;
-    height: 75px;
-    margin: 0;
-    padding: 0;
-}
-
-.socios-jinx .bomba-interactiva.bomba-socios {
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    width: 70px;
-    height: 70px;
-    margin: 0;
-    padding: 0;
-    flex-shrink: 0;
-    z-index: 5;
-    overflow: visible;
-}
-
-.socios-jinx .bomba-socios img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-/* MENSAJE SECRETO */
-
-.socios-jinx .mensaje-jinx-socios {
-    position: relative;
-    box-sizing: border-box;
-    overflow: hidden;
-
-    width: calc(100% - 30px);
-    max-width: 650px;
-    max-height: 0;
-
-    margin: 0 auto;
-    padding: 0 28px;
-
-    text-align: center;
-    background: linear-gradient(135deg, #302033, #17191D);
-
-    border: 0 solid transparent;
-    box-shadow: none;
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-
-    transform: scale(.7) rotate(-3deg);
-
-    transition:
-        max-height .4s ease,
-        opacity .3s ease,
-        transform .3s ease,
-        padding .3s ease,
-        margin .3s ease,
-        visibility .3s ease;
-}
-
-.socios-jinx .mensaje-jinx-socios.visible {
-    max-height: 250px;
-
-    margin: 8px auto 12px;
-    padding: 22px 28px;
-
-    border: 2px solid var(--rosa-jinx);
-    border-left: 7px solid var(--cian-jinx);
-
-    box-shadow:
-        0 0 20px rgba(236,57,155,.25),
-        7px 7px 0 rgba(0,197,242,.12);
-
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-
-    transform: scale(1) rotate(0deg);
-
-    animation: expediente-entrada .5s cubic-bezier(.2,1.5,.4,1);
-}
-
-/* ANIMACIÓN DEL CARTEL */
-
-@keyframes expediente-entrada {
-    0% {
-        transform: scale(.5) rotate(-8deg);
-    }
-
-    70% {
-        transform: scale(1.08) rotate(2deg);
-    }
-
-    100% {
-        transform: scale(1) rotate(0deg);
-    }
-}
-
-/* CONTENIDO DEL CARTEL */
-
-.mensaje-socios-etiqueta {
-    display: block;
-    color: var(--cian-jinx);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-}
-
-.mensaje-jinx-socios h3 {
-    color: var(--rosa-jinx);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    margin: 8px 0 0;
-    text-shadow: 0 0 18px rgba(236,57,155,.5);
-}
-
-.mensaje-jinx-socios p {
-    color: var(--texto);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    margin: 0 0 12px;
-}
-
-.mensaje-socios-firma {
-    color: var(--texto-secundario);
-    font-family: 'Rajdhani', sans-serif;
-    font-size: .8rem;
-    letter-spacing: 1.5px;
-}
-
-/* TARJETAS REVELADAS */
-
-.socios-contenedor {
-    max-width: 1100px;
-    margin: 0 auto !important;
-}
-
-.socios-contenedor.socios-revelados .socio-rosa {
-    border-color: var(--rosa-jinx);
-    box-shadow: 0 0 25px rgba(236,57,155,.5);
-}
-
-.socios-contenedor.socios-revelados .socio-cian {
-    border-color: var(--cian-jinx);
-    box-shadow: 0 0 25px rgba(0,197,242,.5);
-}
-
-.socios-contenedor .socio-card {
-    transition: border-color .3s ease, box-shadow .3s ease, transform .3s ease;
-}
-
-
-/* ==========================================
-   RESPONSIVE
-========================================== */
 
 @media (max-width: 767px) {
     .inicio-jinx,
