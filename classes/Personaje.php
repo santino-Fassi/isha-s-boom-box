@@ -45,7 +45,7 @@ class Personaje
         $PDOStatement->execute([$id]);
 
         $result = $PDOStatement->fetch();
-        return $result ?? null;
+        return $result !== false ? $result : null;
     }
 
     /**

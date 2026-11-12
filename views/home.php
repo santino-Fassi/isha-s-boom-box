@@ -3,7 +3,7 @@
 
         <!-- GRAFITI IZQUIERDO -->
         <div class="grafiti-inicio grafiti-izquierdo">
-            <img src="img/grafitis/grafitti3.png" alt="">
+            <img src="img/grafitis/grafitti3.webp" alt="">
         </div>
 
         <!-- CONTENIDO PRINCIPAL -->
@@ -13,10 +13,10 @@
                 ZAUN // MERCADO CLANDESTINO
             </span>
 
-            <h1>
+            <h2 class="h1">
                 BIENVENIDO A MI
                 <span>PEQUEÑO CAOS.</span>
-            </h1>
+            </h2>
 
             <p>
                 ¿Buscabas algo aburrido y convencional?
@@ -38,11 +38,11 @@
 
         <!-- GRAFITI DERECHO -->
         <div class="grafiti-inicio grafiti-derecho">
-            <img src="img/grafitis/grafitti3.png" alt="">
+            <img src="img/grafitis/grafitti3.webp" alt="">
         </div>
 
         <button class="bomba-interactiva" id="bombaJinx" type="button" aria-label="¡Hacer explotar la bombita de Jinx!">
-            <img src="img/bombas/bomba.png" alt="Bombita del mono de Jinx">
+            <img src="img/bombas/bomba.webp" alt="Bombita del mono de Jinx">
         </button>
 
     </div>

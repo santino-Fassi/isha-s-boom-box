@@ -28,27 +28,30 @@ class Vista
 
         if ($viewData) {
 
-            if ($viewData->getActiva()) {              
-                    $resultado = $viewData;               
+            if ($viewData->getActiva()) {
+                $resultado = $viewData;
+            } else {
+
+                $conexionNoDisponible = Conexion::getConexion();
+                $queryNoDisponible = "SELECT * FROM vistas WHERE nombre = ?";
+
+                $PDOStatementNoDisponible = $conexionNoDisponible->prepare($queryNoDisponible);
+                $PDOStatementNoDisponible->setFetchMode(PDO::FETCH_CLASS, self::class);
+                $PDOStatementNoDisponible->execute(["no_disponible"]);
+
+                $viewDataNoDisponible = $PDOStatementNoDisponible->fetch();
+                $resultado = $viewDataNoDisponible;
             }
-            else {
+        } else {
+            $conexion404 = Conexion::getConexion();
+            $query404 = "SELECT * FROM vistas WHERE nombre = ?";
 
-                $viewNoDisp = new self();
+            $PDOStatement404 = $conexion404->prepare($query404);
+            $PDOStatement404->setFetchMode(PDO::FETCH_CLASS, self::class);
+            $PDOStatement404->execute(["404"]);
 
-                $viewNoDisp->nombre = 'no_disponible';
-                $viewNoDisp->titulo = 'Página no disponible';
-
-                $resultado = $viewNoDisp;
-            }
-        }
-        else {
-
-            $view404 = new self();
-
-            $view404->nombre = '404';
-            $view404->titulo = 'Página no Econtrada';
-
-            $resultado = $view404;
+            $viewData404 = $PDOStatement404->fetch();
+            $resultado = $viewData404;
         }
 
         return $resultado;

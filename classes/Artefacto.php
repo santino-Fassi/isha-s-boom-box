@@ -56,7 +56,7 @@ class Artefacto
 
         $result = $PDOStatement->fetch();
 
-        return $result ?? null;
+        return $result !== false ? $result : null;
     }
 
     public static function catalogo_x_categoria(int $categoriaID): array
@@ -216,6 +216,43 @@ class Artefacto
         return $catalogo;
     }
 
+    /**
+     * Filtra el catálogo combinando término de búsqueda, origen y peligro mínimo
+     * @param string $termino Término de búsqueda
+     * @param string $origen Origen de los artefactos
+     * @param int $peligroMin Peligro mínimo de los artefactos
+     * @return array Lista de artefactos que cumplen con las condiciones
+     */
+    public static function catalogo_filtrado(string $termino = '', string $origen = '', int $peligroMin = 0): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM artefactos WHERE 1=1";
+        $params = [];
+
+        if (trim($termino) !== '') {
+            $query .= " AND (nombre LIKE :terminoNombre OR alias LIKE :terminoAlias)";
+            $terminoLimpio = "%" . trim($termino) . "%";
+            $params['terminoNombre'] = $terminoLimpio;
+            $params['terminoAlias'] = $terminoLimpio;
+        }
+
+        if ($origen !== '') {
+            $query .= " AND origen = :origen";
+            $params['origen'] = $origen;
+        }
+
+        if ($peligroMin > 0) {
+            $query .= " AND nivel_peligro >= :peligroMin";
+            $params['peligroMin'] = $peligroMin;
+        }
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->execute($params);
+
+        return $PDOStatement->fetchAll();
+    }
+
 
 
     /**
@@ -258,7 +295,7 @@ class Artefacto
             ]
         );
 
-        return $conexion->lastInsertId();
+        return (int) $conexion->lastInsertId();
     }
 
     /**

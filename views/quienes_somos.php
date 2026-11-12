@@ -1,6 +1,6 @@
 <section id="la-culpable" class="presentacion-jinx">
 
-    <img src="img/grafitis/YouJinx.png" alt="grafiti" class="grafiti-youjinx">
+    <img src="img/grafitis/you_jinx.webp" alt="grafiti" class="grafiti-youjinx">
 
     <div class="container py-5">
 
@@ -21,7 +21,7 @@
             <!-- JINX -->
             <div class="col-12 col-lg-5">
                 <div class="jinx-personaje">
-                    <img src="img/grafitis/jinx.png" alt="" class="img-fluid">
+                    <img src="img/grafitis/jinx.webp" alt="" class="img-fluid">
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 <div class="contenido-jinx">
 
                     <div class="mono-decorativo">
-                        <img src="img/grafitis/monoGrafiti.png" alt="">
+                        <img src="img/grafitis/mono_grafiti.webp" alt="">
                     </div>
 
                     <span class="detalle-jinx">
@@ -88,7 +88,7 @@
                     type="button"
                     aria-label="Revelar los expedientes secretos de los socios">
 
-                    <img src="img/bombas/bomba.png" alt="Bombita de Jinx">
+                    <img src="img/bombas/bomba.webp" alt="Bombita de Jinx">
                 </button>
             </div>
         </div>
@@ -150,8 +150,8 @@
                     </p>
 
                     <div class="socio-datos">
-                        <p><strong>EDAD:</strong>20</p>
-                        <p><strong>CORREO:</strong>santino.fassi@davinci.com</p>
+                        <p><strong>EDAD:</strong> 20 años</p>
+                        <p><strong>CORREO:</strong> santino.fassi@davinci.com</p>
                         <p><strong>INSTAGRAM:</strong> @santino_fassi</p>
                     </div>
 
