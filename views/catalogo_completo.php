@@ -1,33 +1,10 @@
 <?PHP
 $termino = $_GET['termino'] ?? '';
 $origenFiltro = $_GET['origen'] ?? '';
-$peligroMin = isset($_GET['peligro_min']) && $_GET['peligro_min'] !== '' ? $_GET['peligro_min'] : 0;
+$peligroMin = isset($_GET['peligro_min']) && $_GET['peligro_min'] !== '' ? (int) $_GET['peligro_min'] : 0;
 
 
-//TODO: Pasar los filtros a una unica funcion en Artefacto para no hacer 3 queries.
-$catalogo = Artefacto::catalogo_completo();
-
-$comparar = fn($a, $b) => $a->getId() <=> $b->getId();
-
-if ($termino !== '') {
-    $catalogo = Artefacto::buscador($termino);
-}
-
-if ($origenFiltro !== '') {
-    $catalogo = array_uintersect(
-        $catalogo,
-        Artefacto::catalogo_x_origen($origenFiltro),
-        $comparar
-    );
-}
-
-if ($peligroMin > 0) {
-    $catalogo = array_uintersect(
-        $catalogo,
-        Artefacto::catalogo_x_rango_peligro($peligroMin, 10),
-        $comparar
-    );
-}
+$catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
 ?>
 
@@ -36,18 +13,19 @@ if ($peligroMin > 0) {
 
         <div class="catalogo-encabezado-fila">
 
-        <img src="img/grafitis/pow.png" alt="" class="grafiti-pow">
+            <img src="img/grafitis/pow.webp" alt="" class="grafiti-pow">
 
-        <header class="encabezado-catalogo text-center mb-5">
-            <span class="subtitulo-catalogo">ZAUN // INVENTARIO CLANDESTINO</span>
-            <h2 class="h1">EL <span>ARSENAL</span></h2>
-            <p><strong>Artefactos, inventos y otras pequeñas maravillas</strong> listas para hacer ruido.</p>
-        </header>
+            <header class="encabezado-catalogo text-center mb-5">
+                <span class="subtitulo-catalogo">ZAUN // INVENTARIO CLANDESTINO</span>
+                <h2 class="h1">EL <span>ARSENAL</span></h2>
+                <p><strong>Artefactos, inventos y otras pequeñas maravillas</strong> listas para hacer ruido.</p>
+            </header>
 
             <div class="bomba-catalogo-zona">
 
-                <button class="bomba-interactiva bomba-catalogo" id="bombaCatalogo" type="button" aria-label="Hacer explotar la bombita de Jinx">
-                    <img src="img/bombas/bomba.png" alt="Bombita del mono de Jinx">
+                <button class="bomba-interactiva bomba-catalogo" id="bombaCatalogo" type="button"
+                    aria-label="Hacer explotar la bombita de Jinx">
+                    <img src="img/bombas/bomba.webp" alt="Bombita del mono de Jinx">
                 </button>
 
                 <div class="mensaje-jinx-catalogo" id="mensajeJinxCatalogo" role="status" aria-live="polite">
@@ -58,87 +36,81 @@ if ($peligroMin > 0) {
             </div>
         </div>
 
-        
-<!-- PANEL DE BUSQUEDA Y FILTROS -->
-<section class="panel-inventario">
 
-    <div class="panel-inventario-encabezado">
-        <div>
-            <span class="panel-etiqueta">ZAUN // SISTEMA DE BÚSQUEDA</span>
-            <h2>LOCALIZÁ TU <span>ARTEFACTO</span></h2>
-            <p>Encontrá tu próximo juguete. Si explota, no es mi culpa.</p>
-        </div>
+        <!-- PANEL DE BUSQUEDA Y FILTROS -->
+        <section class="panel-inventario">
 
-        <span class="panel-codigo">SYS. 09 // JX</span>
-    </div>
+            <div class="panel-inventario-encabezado">
+                <div>
+                    <span class="panel-etiqueta">ZAUN // SISTEMA DE BÚSQUEDA</span>
+                    <h2>LOCALIZÁ TU <span>ARTEFACTO</span></h2>
+                    <p>Encontrá tu próximo juguete. Si explota, no es mi culpa.</p>
+                </div>
 
-    <form action="index.php" method="GET" class="formulario-inventario">
-
-        <input type="hidden" name="sec" value="catalogo_completo">
-
-        <!-- BUSCADOR -->
-        <div class="campo-inventario campo-busqueda">
-            <label for="termino">BUSCAR EN EL INVENTARIO</label>
-
-            <div class="busqueda-input-contenedor">
-                <span class="icono-busqueda">⌕</span>
-
-                <input
-                    type="text"
-                    id="termino"
-                    name="termino"
-                    placeholder="Nombre, alias o modelo..."
-                    value="<?= htmlspecialchars($termino) ?>"
-                >
+                <span class="panel-codigo">SYS. 09 // JX</span>
             </div>
-        </div>
 
-        <!-- FILTRO DE ORIGEN -->
-        <div class="campo-inventario">
-            <label for="origen">ORIGEN</label>
+            <form action="index.php" method="GET" class="formulario-inventario">
 
-            <select name="origen" id="origen">
-                <option value="">Todos los orígenes</option>
-                <option value="Zaun" <?= $origenFiltro === 'Zaun' ? 'selected' : '' ?>>ZAUN</option>
-                <option value="Piltover" <?= $origenFiltro === 'Piltover' ? 'selected' : '' ?>>PILTOVER</option>
-                <option value="Noxus" <?= $origenFiltro === 'Noxus' ? 'selected' : '' ?>>NOXUS</option>
-            </select>
-        </div>
+                <input type="hidden" name="sec" value="catalogo_completo">
 
-        <!-- FILTRO DE PELIGRO -->
-        <div class="campo-inventario">
-            <label for="peligro_min">NIVEL DE PELIGRO</label>
+                <!-- BUSCADOR -->
+                <div class="campo-inventario campo-busqueda">
+                    <label for="termino">BUSCAR EN EL INVENTARIO</label>
 
-            <select name="peligro_min" id="peligro_min">
-                <option value="">Todos los niveles</option>
-                <option value="8" <?= $peligroMin == 8 ? 'selected' : '' ?>>PELIGRO 8+ // ALTO</option>
-                <option value="10" <?= $peligroMin == 10 ? 'selected' : '' ?>>PELIGRO 10 // LETAL</option>
-            </select>
-        </div>
+                    <div class="busqueda-input-contenedor">
+                        <span class="icono-busqueda">⌕</span>
 
-        <!-- BOTONES -->
-        <div class="acciones-inventario">
+                        <input type="text" id="termino" name="termino" placeholder="Nombre, alias o modelo..."
+                            value="<?= htmlspecialchars($termino) ?>">
+                    </div>
+                </div>
 
-            <button type="submit" class="btn-buscar-jinx">
-                <span>⌕</span> EJECUTAR BÚSQUEDA
-            </button>
+                <!-- FILTRO DE ORIGEN -->
+                <div class="campo-inventario">
+                    <label for="origen">ORIGEN</label>
 
-            <?PHP if ($termino !== '' || $origenFiltro !== '' || $peligroMin > 0) { ?>
-                <a href="index.php?sec=catalogo_completo" class="btn-limpiar-jinx" title="Limpiar filtros">
-                    ✕
-                </a>
-            <?PHP } ?>
+                    <select name="origen" id="origen">
+                        <option value="">Todos los orígenes</option>
+                        <option value="Zaun" <?= $origenFiltro === 'Zaun' ? 'selected' : '' ?>>ZAUN</option>
+                        <option value="Piltover" <?= $origenFiltro === 'Piltover' ? 'selected' : '' ?>>PILTOVER</option>
+                        <option value="Noxus" <?= $origenFiltro === 'Noxus' ? 'selected' : '' ?>>NOXUS</option>
+                    </select>
+                </div>
 
-        </div>
+                <!-- FILTRO DE PELIGRO -->
+                <div class="campo-inventario">
+                    <label for="peligro_min">NIVEL DE PELIGRO</label>
 
-    </form>
+                    <select name="peligro_min" id="peligro_min">
+                        <option value="">Todos los niveles</option>
+                        <option value="8" <?= $peligroMin == 8 ? 'selected' : '' ?>>PELIGRO 8+ // ALTO</option>
+                        <option value="10" <?= $peligroMin == 10 ? 'selected' : '' ?>>PELIGRO 10 // LETAL</option>
+                    </select>
+                </div>
 
-    <div class="panel-inventario-pie">
-        <span>● SISTEMA ACTIVO</span>
-        <span>PROPIEDAD DE JINX // NO TOCAR</span>
-    </div>
+                <!-- BOTONES -->
+                <div class="acciones-inventario">
 
-    </section>
+                    <button type="submit" class="btn-buscar-jinx">
+                        <span>⌕</span> EJECUTAR BÚSQUEDA
+                    </button>
+
+                    <?PHP if ($termino !== '' || $origenFiltro !== '' || $peligroMin > 0) { ?>
+                        <a href="index.php?sec=catalogo_completo" class="btn-limpiar-jinx" title="Limpiar filtros">
+                            ✕
+                        </a>
+                    <?PHP } ?>
+
+                </div>
+
+            </form>
+
+            <div class="panel-inventario-pie">
+                <span>PROPIEDAD DE JINX // NO TOCAR</span>
+            </div>
+
+        </section>
 
         <div class="row g-4">
             <?PHP if (!empty($catalogo)) { ?>
@@ -204,8 +176,7 @@ if ($peligroMin > 0) {
                         </article>
                     </div>
                 <?PHP } ?>
-            <?PHP } 
-            else { ?>
+            <?PHP } else { ?>
                 <div class="col-12">
                     <div class="catalogo-vacio text-center">
                         <h2>¡VAYA, QUÉ DESASTRE!</h2>

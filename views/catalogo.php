@@ -1,5 +1,5 @@
 <?PHP
-$idCategoria = isset($_GET['id']) ? $_GET['id'] : 0;
+$idCategoria = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $catalogo = Artefacto::catalogo_x_categoria($idCategoria);
 $datosCategoria = Categoria::get_x_id($idCategoria);
 ?>
@@ -89,7 +89,7 @@ $datosCategoria = Categoria::get_x_id($idCategoria);
             </div>
         <?PHP } else { ?>
             <div class="catalogo-vacio text-center my-5">
-                <h1>CATEGORÍA DESCONOCIDA</h1>
+                <h2 class="h1">CATEGORÍA DESCONOCIDA</h2>
                 <p>La sección que intentás buscar <span class="fw-bold">no existe en el inventario de Zaun</span>.</p>
                 <a href="index.php?sec=catalogo_completo" class="btn btn-artefacto mt-3">VOLVER AL ARSENAL COMPLETO</a>
             </div>

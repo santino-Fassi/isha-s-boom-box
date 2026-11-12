@@ -1,5 +1,5 @@
 <?PHP
-$id = isset($_GET['id']) ? $_GET['id'] : 0;
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $artefacto = Artefacto::get_x_id($id);
 ?>
 
@@ -76,13 +76,8 @@ $artefacto = Artefacto::get_x_id($id);
                                 <span>FECHA DE REGISTRO</span>
                                 <?= $artefacto->getFecha_fabricacion() ?>
                             </li>
-                            <!-- <li class="list-group-item">
-                                <span>ESTADO LEGAL</span>
-                                <?php //$artefacto->getRobado() ? 'Buscada por los Vigilantes' : 'Fabricación Propia' ?>
-                            </li> -->
                         </ul>
 
-                        <!-- COMPONENTES (TABLA PIVOT N:M) -->
                         <div class="px-3 mb-4">
                             <h4 class="h5 text-uppercase fw-bold mb-3">Componentes de Fabricación:</h4>
                             <?PHP if (!empty($componentes)) { ?>
@@ -114,8 +109,8 @@ $artefacto = Artefacto::get_x_id($id);
             </article>
         <?PHP } else { ?>
             <div class="catalogo-vacio text-center my-5">
-                <h1>ARTEFACTO NO ENCONTRADO</h1>
-                <p>El juguete que buscás <strong>ya fue vendido o explotó en mil pedazos</strong>.</p>
+                <h2 class="h1">ARTEFACTO NO ENCONTRADO</h2>
+                <p>El juguete que buscás <span class="fw-bold">ya fue vendido o explotó en mil pedazos</span>.</p>
                 <a href="index.php?sec=catalogo_completo" class="btn btn-artefacto mt-3">VOLVER AL ARSENAL</a>
             </div>
         <?PHP } ?>

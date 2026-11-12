@@ -579,7 +579,7 @@ body.mercado-jinx {
     margin-bottom: 25px;
 }
 
-.inicio-contenido h1 {
+.inicio-contenido .h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 6rem;
     line-height: 0.95;
@@ -589,7 +589,7 @@ body.mercado-jinx {
     animation: neon-general 6s infinite;
 }
 
-.inicio-contenido h1 span {
+.inicio-contenido .h1 span {
     display: block;
     color: #EC399B;
     text-shadow: 0 0 20px rgba(236, 57, 155, 0.25);
@@ -1822,7 +1822,6 @@ body.mercado-jinx {
     font-size: 2.7rem;
 }
 
-}
 
 
 @media (max-width: 991px) {
