@@ -67,3 +67,72 @@
         </div>
     </div>
 </section>
+
+
+<section class="socios-jinx">
+
+    <!-- ENCABEZADO -->
+    <div class="socios-encabezado">
+        <span>ZAUN // EQUIPO DE OPERACIONES</span>
+        <h2>MIS <strong>SOCIOS</strong></h2>
+        <p>Dos mentes detrás de este pequeño caos.</p>
+    </div>
+
+    <div class="row g-4 socios-contenedor">
+
+        <!-- SOCIA 1 -->
+        <div class="col-12 col-lg-6">
+            <article class="socio-card socio-rosa">
+
+                <div class="socio-foto">
+                    <img src="img/nosotros/gastager.webp" alt="Fotografía Gastager">
+                </div>
+
+                <div class="socio-info">
+                    <span class="socio-etiqueta">SOCIA // 001</span>
+
+                    <h3>Camila Gastager</h3>
+
+                    <p class="socio-descripcion">
+                        La mente detrás de este desastre. Diseño, creatividad y una cantidad cuestionable de ideas explosivas. Si algo sale mal, definitivamente era parte del plan. Ideas brillantes, decisiones cuestionables y cero intenciones de portarme bien. 
+                    </p>
+
+                    <div class="socio-datos">
+                        <p><strong>EDAD:</strong> 20 años</p>
+                        <p><strong>CORREO:</strong> camila.gastager@davinci.com</p>
+                        <p><strong>INSTAGRAM:</strong> @cami.gastager</p>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- SOCIO 2 -->
+        <div class="col-12 col-lg-6">
+            <article class="socio-card socio-cian">
+
+                <div class="socio-foto">
+                    <img src="img/nosotros/fassi.webp" alt="Fotografía Fassi">
+                </div>
+
+                <div class="socio-info">
+
+                    <span class="socio-etiqueta">SOCIO // 002</span>
+                    <h3>Santino Fassi</h3>
+
+                    <p class="socio-descripcion">
+                        El culpable oficial de este gran caos. Aporta ideas, soluciones y una pizca de cordura... aunque todavía estamos trabajando en eso. Juntos hacemos que las cosas exploten. No siempre sabe qué está pasando, pero siempre está dispuesto a apretar el botón rojo.
+                    </p>
+
+                    <div class="socio-datos">
+                        <p><strong>EDAD:</strong>20</p>
+                        <p><strong>CORREO:</strong>santino.fassi@davinci.com</p>
+                        <p><strong>INSTAGRAM:</strong> @santino_fassi</p>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+

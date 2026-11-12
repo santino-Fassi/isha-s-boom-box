@@ -1109,6 +1109,168 @@ body.mercado-jinx {
 }
 
 /* =====================================
+   SECCION MIS SOCIOS
+===================================== */
+
+.socios-jinx {
+    max-width: 1200px;
+    margin: 15px auto 80px;
+    padding: 20px;
+}
+
+.socios-encabezado {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.socios-encabezado > span {
+    color: var(--cian-jinx);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.socios-encabezado h2 {
+    color: var(--texto);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    margin: 8px 0;
+}
+
+.socios-encabezado h2 strong {
+    color: var(--rosa-jinx);
+    text-shadow: 0 0 15px rgba(236, 57, 155, .4);
+}
+
+.socios-encabezado p {
+    color: var(--texto-secundario);
+    font-family: 'Inter', sans-serif;
+}
+
+/* TARJETAS DE SOCIOS */
+
+.socios-contenedor {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.socio-card {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(145deg, #25232D, #17191D);
+    border: 1px solid var(--borde);
+    transition: var(--transicion);
+}
+
+.socio-card:hover {
+    transform: translateY(-5px);
+}
+
+.socio-rosa:hover {
+    border-color: var(--rosa-jinx);
+    box-shadow: 0 0 22px rgba(236, 57, 155, .2);
+}
+
+.socio-cian:hover {
+    border-color: var(--cian-jinx);
+    box-shadow: 0 0 22px rgba(0, 197, 242, .2);
+}
+
+/* FOTOGRAFIAS */
+
+.socio-foto {
+    flex: 0 0 250px;
+    width: 250px;
+    min-height: 100%;
+    overflow: hidden;
+    background: var(--fondo-terciario);
+}
+
+.socio-foto img {
+    display: block;
+    width: 250px;
+    height: 100%;
+    min-height: 320px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform .4s ease;
+}
+
+.socio-card:hover .socio-foto img {
+    transform: scale(1.04);
+}
+
+/* INFORMACION */
+
+.socio-info {
+    flex: 1;
+    min-width: 0;
+    padding: 25px 22px;
+}
+
+.socio-etiqueta {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.socio-rosa .socio-etiqueta {
+    color: var(--rosa-jinx);
+}
+
+.socio-cian .socio-etiqueta {
+    color: var(--cian-jinx);
+}
+
+.socio-info h3 {
+    color: var(--texto);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    margin: 8px 0 12px;
+}
+
+.socio-descripcion {
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    font-size: .88rem;
+    line-height: 1.6;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed rgba(255,255,255,.15);
+}
+
+.socio-datos {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.socio-datos p {
+    color: var(--texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: .9rem;
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.socio-datos strong {
+    color: var(--texto);
+    letter-spacing: 1px;
+}
+
+.socio-rosa .socio-datos strong {
+    color: var(--rosa-jinx);
+}
+
+.socio-cian .socio-datos strong {
+    color: var(--cian-jinx);
+}
+
+/* =====================================
    PANEL DE BUSQUEDA - ZAUN
 ===================================== */
 
@@ -1557,6 +1719,14 @@ body.mercado-jinx {
         flex-direction: column;
         font-size: 0.7rem;
     }
+    .socios-jinx {
+        margin: 45px auto;
+        padding: 20px 15px;
+    }
+
+    .socio-info {
+        padding: 22px;
+    }
 
 }
 
@@ -1609,6 +1779,22 @@ body.mercado-jinx {
 
     .btn-buscar-jinx {
         flex: 1;
+    }
+    .socio-card {
+        flex-direction: column;
+    }
+
+    .socio-foto {
+        width: 100%;
+        flex: none;
+        height: 280px;
+    }
+
+    .socio-foto img {
+        width: 250px;
+        height: 280px;
+        min-height: 0;
+        margin: 0 auto;
     }
 }
 
