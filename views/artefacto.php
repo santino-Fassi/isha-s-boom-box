@@ -10,7 +10,7 @@ $artefacto = Artefacto::get_x_id($id);
             ?>
             <header class="encabezado-catalogo text-center mb-5">
                 <span class="subtitulo-catalogo">
-                    <?= strtoupper($artefacto->getCategoria()) ?>
+                    <?= strtoupper($artefacto->getCategoria()->getNombre()) ?>
                 </span>
                 <h2 class="h1">
                     <?= strtoupper($artefacto->getNombre()) ?>
@@ -54,15 +54,15 @@ $artefacto = Artefacto::get_x_id($id);
                         <ul class="list-group list-group-flush artefacto-datos mb-4">
                             <li class="list-group-item">
                                 <span>CATEGORÍA</span>
-                                <?= $artefacto->getCategoria() ?>
+                                <?= $artefacto->getCategoria()->getNombre() ?>
                             </li>
                             <li class="list-group-item">
                                 <span>INVENTOR / CREADOR</span>
-                                <?= $artefacto->getCreador() ?>
+                                <?= $artefacto->getCreador()->getNombreCompleto() ?>
                             </li>
                             <li class="list-group-item">
                                 <span>PORTADOR HABITUAL</span>
-                                <?= $artefacto->getUsuario() ?>
+                                <?= $artefacto->getUsuario()->getNombreCompleto() ?>
                             </li>
                             <li class="list-group-item">
                                 <span>ORIGEN DE FABRICACIÓN</span>

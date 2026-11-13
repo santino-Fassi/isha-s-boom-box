@@ -5,9 +5,10 @@ class Artefacto
     private int $id;
     private string $nombre;
     private string $alias;
-    private int $categoria_id;
-    private int $personaje_creador_id;
-    private int $personaje_usuario_id;
+    private Categoria $categoria;
+    private Personaje $personaje_creador;
+    private Personaje $personaje_usuario;
+    private array $componentes;
     private string $origen;
     private int $nivel_peligro;
     private string $fecha_fabricacion;
@@ -16,6 +17,28 @@ class Artefacto
     private float $precio;
     private bool $robado;
 
+    private static array $campos_primitivos = ["id", "nombre", "alias", "origen", "nivel_peligro", "fecha_fabricacion", "descripcion", "imagen", "precio", "robado"];
+
+    private static function crearArtefacto($artefactoData): Artefacto
+    {
+        $artefacto = new self();
+
+        foreach (self::$campos_primitivos as $campo) {
+            $artefacto->{$campo} = $artefactoData[$campo];
+        }
+
+        $artefacto->categoria = Categoria::get_x_id($artefactoData["categoria_id"]);
+        $artefacto->personaje_creador = Personaje::get_x_id($artefactoData["personaje_creador_id"]);
+        $artefacto->personaje_usuario = Personaje::get_x_id($artefactoData["personaje_usuario_id"]);
+
+        $componentesIds = !empty($artefactoData["componentes"]) ? explode(",", $artefactoData["componentes"]) : [];
+
+        foreach ($componentesIds as $id) {
+            $artefacto->componentes[] = Componente::get_x_id($id);
+        }
+
+        return $artefacto;
+    }
 
     /**
      * Devuelve el catálgo completo
@@ -27,13 +50,20 @@ class Artefacto
 
         $conexion = Conexion::getConexion();
 
-        $query = "SELECT * FROM artefactos";
+        //$query = "SELECT * FROM artefactos";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
+            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute();
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -48,28 +78,39 @@ class Artefacto
     {
 
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM artefactos WHERE id = ?";
+        //$query = "SELECT * FROM artefactos WHERE id = ?";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
+            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.id = ? GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$id]);
+
 
         $result = $PDOStatement->fetch();
 
-        return $result !== false ? $result : null;
+        return $result !== false ? self::crearArtefacto($result) : null;
     }
 
     public static function catalogo_x_categoria(int $categoriaID): array
     {
         $conexion = Conexion::getConexion();
 
-        $query = "SELECT * FROM artefactos WHERE categoria_id = ?";
+        //$query = "SELECT * FROM artefactos WHERE categoria_id = ?";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
+            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.categoria_id = ? GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$categoriaID]);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -78,13 +119,20 @@ class Artefacto
     {
         $conexion = Conexion::getConexion();
 
-        $query = "SELECT * FROM artefactos WHERE personaje_creador_id = ?";
+        //$query = "SELECT * FROM artefactos WHERE personaje_creador_id = ?";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
+            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.personaje_creador_id = ? GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$creadorID]);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -93,13 +141,20 @@ class Artefacto
     {
         $conexion = Conexion::getConexion();
 
-        $query = "SELECT * FROM artefactos WHERE personaje_usuario_id = ?";
+        //$query = "SELECT * FROM artefactos WHERE personaje_usuario_id = ?";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
+            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.personaje_usuario_id = ? GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$usuarioID]);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -108,13 +163,20 @@ class Artefacto
     {
         $conexion = Conexion::getConexion();
 
-        $query = "SELECT * FROM artefactos WHERE origen = ?";
+        //$query = "SELECT * FROM artefactos WHERE origen = ?";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
+            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.origen = ? GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$origen]);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -126,30 +188,40 @@ class Artefacto
      * 
      * @return Artefacto[] Un array de objetos Artefacto
      */
-    public static function catalogo_x_rango_precio(int $minimo = 0, int $maximo = 0): array
+    public static function catalogo_x_rango_precio(float $minimo = 0, float $maximo = 0): array
     {
         $conexion = Conexion::getConexion();
 
-        if ($maximo) {
-            //Elegir artefactos con precio entre el mínimo y el máximo
-            $query = "SELECT * FROM artefactos WHERE precio BETWEEN :minimo AND :maximo";
+        if ($maximo > 0) {
+            $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+                FROM artefactos 
+                LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+                WHERE artefactos.precio BETWEEN :minimo AND :maximo
+                GROUP BY artefactos.id;";
             $valores = [
                 'minimo' => $minimo,
                 'maximo' => $maximo
             ];
         } else {
-            //Elegir artefactos con precio entre el mínimo y infinito
-            $query = "SELECT * FROM artefactos WHERE precio > :minimo";
+            $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+                FROM artefactos 
+                LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+                WHERE artefactos.precio >= :minimo
+                GROUP BY artefactos.id;";
             $valores = [
                 'minimo' => $minimo
             ];
         }
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute($valores);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -166,26 +238,36 @@ class Artefacto
     {
         $conexion = Conexion::getConexion();
 
-        if ($maximo) {
-            //Elegir artefactos con peligro entre el mínimo y el máximo
-            $query = "SELECT * FROM artefactos WHERE nivel_peligro BETWEEN :minimo AND :maximo";
+        if ($maximo > 0) {
+            $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+                FROM artefactos 
+                LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+                WHERE artefactos.nivel_peligro BETWEEN :minimo AND :maximo
+                GROUP BY artefactos.id;";
             $valores = [
                 'minimo' => $minimo,
                 'maximo' => $maximo
             ];
         } else {
-            //Elegir artefactos con peligro entre el mínimo y infinito
-            $query = "SELECT * FROM artefactos WHERE nivel_peligro > :minimo";
+            $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+                FROM artefactos 
+                LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+                WHERE artefactos.nivel_peligro >= :minimo
+                GROUP BY artefactos.id;";
             $valores = [
                 'minimo' => $minimo
             ];
         }
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute($valores);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -196,22 +278,27 @@ class Artefacto
      */
     public static function buscador(string $terminoBusqueda): array
     {
-
-
-        /*PROCESAR EL TERMINO DE BUSQUEDA */
         $terminoSanitizado = trim($terminoBusqueda);
 
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM artefactos WHERE nombre LIKE :terminoNombre OR alias LIKE :terminoAlias";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos 
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.nombre LIKE :terminoNombre OR artefactos.alias LIKE :terminoAlias
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([
             "terminoNombre" => "%$terminoSanitizado%",
             "terminoAlias" => "%$terminoSanitizado%"
         ]);
 
-        $catalogo = $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
 
         return $catalogo;
     }
@@ -224,33 +311,44 @@ class Artefacto
      * @return array Lista de artefactos que cumplen con las condiciones
      */
     public static function catalogo_filtrado(string $termino = '', string $origen = '', int $peligroMin = 0): array
-    {
+{
         $conexion = Conexion::getConexion();
-        $query = "SELECT * FROM artefactos WHERE 1=1";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos 
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE 1=1";
         $params = [];
 
         if (trim($termino) !== '') {
-            $query .= " AND (nombre LIKE :terminoNombre OR alias LIKE :terminoAlias)";
+            $query .= " AND (artefactos.nombre LIKE :terminoNombre OR artefactos.alias LIKE :terminoAlias)";
             $terminoLimpio = "%" . trim($termino) . "%";
             $params['terminoNombre'] = $terminoLimpio;
             $params['terminoAlias'] = $terminoLimpio;
         }
 
         if ($origen !== '') {
-            $query .= " AND origen = :origen";
+            $query .= " AND artefactos.origen = :origen";
             $params['origen'] = $origen;
         }
 
         if ($peligroMin > 0) {
-            $query .= " AND nivel_peligro >= :peligroMin";
+            $query .= " AND artefactos.nivel_peligro >= :peligroMin";
             $params['peligroMin'] = $peligroMin;
         }
 
+        $query .= " GROUP BY artefactos.id;";
+
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute($params);
 
-        return $PDOStatement->fetchAll();
+        $catalogo = [];
+
+        while ($result = $PDOStatement->fetch()) {
+            $catalogo[] = self::crearArtefacto($result);
+        }
+
+        return $catalogo;
     }
 
 
@@ -396,26 +494,11 @@ class Artefacto
      */
     public function get_componentes(): array
     {
-
-        $conexion = Conexion::getConexion();
-        $query = "SELECT componentes.* FROM componentes_x_artefacto
-            LEFT JOIN componentes ON componentes_x_artefacto.componente_id = componentes.id
-            WHERE artefacto_id = :artefacto_id";
-        $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->setFetchMode(PDO::FETCH_CLASS, 'Componente');
-        $PDOStatement->execute(
-            [
-                'artefacto_id' => $this->id
-            ]
-        );
-
-        $result = $PDOStatement->fetchAll();
-
-        return $result;
+        return $this->componentes;
     }
 
     /**
-     * Devuelve un array simple con los IDs de los componentes (para los checkboxes al editar)
+     * Devuelve un array simple con los IDs de los componentes
      */
     public function get_componentes_ids(): array
     {
@@ -457,146 +540,121 @@ class Artefacto
     /**
      * Devuelve el precio + IVA
      */
-    public function get_precio_iva()
+    public function get_precio_iva() : float
     {
         return $this->precio * 1.21;
     }
 
 
+	public function getId() : int {
+		return $this->id;
+	}
 
+	public function setId(int $value) {
+		$this->id = $value;
+	}
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
+	public function getNombre() : string {
+		return $this->nombre;
+	}
 
-    public function setId(int $value)
-    {
-        $this->id = $value;
-    }
+	public function setNombre(string $value) {
+		$this->nombre = $value;
+	}
 
-    public function getNombre(): string
-    {
-        return $this->nombre;
-    }
+	public function getAlias() : string {
+		return $this->alias;
+	}
 
-    public function setNombre(string $value)
-    {
-        $this->nombre = $value;
-    }
+	public function setAlias(string $value) {
+		$this->alias = $value;
+	}
 
-    public function getAlias(): string
-    {
-        return $this->alias;
-    }
+	public function getCategoria() : Categoria {
+		return $this->categoria;
+	}
 
-    public function setAlias(string $value)
-    {
-        $this->alias = $value;
-    }
+	public function setCategoria(Categoria $value) {
+		$this->categoria = $value;
+	}
 
-    public function getCategoria(): string
-    {
-        $categoria = Categoria::get_x_id($this->categoria_id);
+	public function getCreador() : Personaje {
+		return $this->personaje_creador;
+	}
 
-        return $categoria ? $categoria->getNombre() : "Sin categoria";
-    }
+	public function setCreador(Personaje $value) {
+		$this->personaje_creador = $value;
+	}
 
-    public function setCategoria_id(int $value)
-    {
-        $this->categoria_id = $value;
-    }
+	public function getUsuario() : Personaje {
+		return $this->personaje_usuario;
+	}
 
-    public function getCreador(): string
-    {
-        $creador = Personaje::get_x_id($this->personaje_creador_id);
-        return $creador ? $creador->getNombreCompleto() : "Desconocido";
-    }
+	public function setUsuario(Personaje $value) {
+		$this->personaje_usuario = $value;
+	}
 
-    public function setCreador_id(int $value)
-    {
-        $this->personaje_creador_id = $value;
-    }
+	public function getComponentes() : array {
+		return $this->componentes;
+	}
 
-    public function getUsuario(): string
-    {
-        $usuario = Personaje::get_x_id($this->personaje_usuario_id);
+	public function setComponentes(array $value) {
+		$this->componentes = $value;
+	}
 
-        return $usuario ? $usuario->getNombreCompleto() : "Desconocido";
-    }
+	public function getOrigen() : string {
+		return $this->origen;
+	}
 
-    public function setUsuario_id(int $value)
-    {
-        $this->personaje_usuario_id = $value;
-    }
+	public function setOrigen(string $value) {
+		$this->origen = $value;
+	}
 
-    public function getOrigen(): string
-    {
-        return $this->origen;
-    }
+	public function getNivel_peligro() : int {
+		return $this->nivel_peligro;
+	}
 
-    public function setOrigen(string $value)
-    {
-        $this->origen = $value;
-    }
+	public function setNivel_peligro(int $value) {
+		$this->nivel_peligro = $value;
+	}
 
-    public function getNivel_peligro(): int
-    {
-        return $this->nivel_peligro;
-    }
+	public function getFecha_fabricacion() : string {
+		return $this->fecha_fabricacion;
+	}
 
-    public function setNivel_peligro(int $value)
-    {
-        $this->nivel_peligro = $value;
-    }
+	public function setFecha_fabricacion(string $value) {
+		$this->fecha_fabricacion = $value;
+	}
 
-    public function getFecha_fabricacion(): string
-    {
-        return $this->fecha_fabricacion;
-    }
+	public function getDescripcion() : string {
+		return $this->descripcion;
+	}
 
-    public function setFecha_fabricacion(string $value)
-    {
-        $this->fecha_fabricacion = $value;
-    }
+	public function setDescripcion(string $value) {
+		$this->descripcion = $value;
+	}
 
-    public function getDescripcion(): string
-    {
-        return $this->descripcion;
-    }
+	public function getImagen() : string {
+		return $this->imagen;
+	}
 
-    public function setDescripcion(string $value)
-    {
-        $this->descripcion = $value;
-    }
+	public function setImagen(string $value) {
+		$this->imagen = $value;
+	}
 
-    public function getImagen(): string
-    {
-        return $this->imagen;
-    }
+	public function getPrecio() : float {
+		return $this->precio;
+	}
 
-    public function setImagen(string $value)
-    {
-        $this->imagen = $value;
-    }
+	public function setPrecio(float $value) {
+		$this->precio = $value;
+	}
 
-    public function getPrecio(): float
-    {
-        return $this->precio;
-    }
+	public function getRobado() : bool {
+		return $this->robado;
+	}
 
-    public function setPrecio(float $value)
-    {
-        $this->precio = $value;
-    }
-
-    public function getRobado(): bool
-    {
-        return $this->robado;
-    }
-
-    public function setRobado(bool $value)
-    {
-        $this->robado = $value;
-    }
+	public function setRobado(bool $value) {
+		$this->robado = $value;
+	}
 }

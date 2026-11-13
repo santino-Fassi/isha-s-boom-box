@@ -29,6 +29,7 @@
 
 body {
     max-width: 1280px;
+    overflow-x: hidden;
     margin: auto;
 }
 
@@ -1723,7 +1724,7 @@ body.mercado-jinx {
     }
 
     .mensaje-jinx-catalogo {
-        width: min(300px, 78%);
+        /* width: min(300px, 78%); */
         min-height: 150px;
         right: 23%;
         padding: 20px;
@@ -1825,6 +1826,12 @@ body.mercado-jinx {
 
 
 @media (max-width: 991px) {
+
+    .mensaje-jinx-catalogo {
+        width: 100vw;
+    }
+
+
     .navbar-jinx {
         padding: 12px 16px;
     }

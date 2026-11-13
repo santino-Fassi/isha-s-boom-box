@@ -29,7 +29,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                 </button>
 
                 <div class="mensaje-jinx-catalogo" id="mensajeJinxCatalogo" role="status" aria-live="polite">
-                    <span class="mensaje-jinx-etiqueta">JINX // MENSAJE DEL DÍA</span>
+                    <span class="mensaje-jinx-etiqueta">JINX</span>
                     <p id="textoJinxCatalogo"></p>
                     <span class="mensaje-jinx-firma">— LA GENIA DE ZAUN 💣</span>
                 </div>
@@ -106,10 +106,6 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
             </form>
 
-            <div class="panel-inventario-pie">
-                <span>PROPIEDAD DE JINX // NO TOCAR</span>
-            </div>
-
         </section>
 
         <div class="row g-4">
@@ -131,7 +127,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                             <!-- INFORMACION -->
                             <div class="card-body artefacto-body">
                                 <p class="artefacto-creador">
-                                    <strong><?= strtoupper($artefacto->getCategoria()) ?></strong> //
+                                    <strong><?= strtoupper($artefacto->getCategoria()->getNombre()) ?></strong> //
                                     <em><?= $artefacto->getAlias() ?></em>
                                 </p>
 
@@ -148,7 +144,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                             <ul class="list-group list-group-flush artefacto-datos">
                                 <li class="list-group-item">
                                     <span>CREADOR</span>
-                                    <?= $artefacto->getCreador() ?>
+                                    <?= $artefacto->getCreador()->getNombreCompleto() ?>
                                 </li>
                                 <li class="list-group-item">
                                     <span>ORIGEN</span>
