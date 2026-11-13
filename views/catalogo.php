@@ -51,11 +51,11 @@ $datosCategoria = Categoria::get_x_id($idCategoria);
                                 <ul class="list-group list-group-flush artefacto-datos">
                                     <li class="list-group-item">
                                         <span>CREADOR</span>
-                                        <?= $artefacto->getCreador() ?>
+                                        <?= $artefacto->getCreador()->getNombreCompleto() ?>
                                     </li>
                                     <li class="list-group-item">
                                         <span>PORTADOR</span>
-                                        <?= $artefacto->getUsuario() ?>
+                                        <?= $artefacto->getUsuario()->getNombreCompleto() ?>
                                     </li>
                                     <li class="list-group-item">
                                         <span>PELIGRO</span>
