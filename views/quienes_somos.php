@@ -12,7 +12,7 @@
                 <span>TE EQUIVOCASTE DE LUGAR.</span>
             </h2>
 
-            <p><strong>Bienvenido a mi pequeño rincón del caos.</strong></p>
+            <p><span class="fw-bold">Bienvenido a mi pequeño rincón del caos.</span></p>
         </div>
 
         <div class="row align-items-center g-4">
@@ -48,8 +48,8 @@
                     <p>
                         Cada objeto tiene una historia, cada pieza esconde
                         algo especial y nada está acá por casualidad.
-                        Coleccionables, rarezas y tesoros que no vas a encontrar
-                        dando una vuelta por las elegantes calles de Piltover.
+                        <em>Coleccionables, rarezas y tesoros que no vas a encontrar
+                        dando una vuelta por las elegantes calles de Piltover.</em>
                     </p>
 
                     <p class="frase-jinx">
@@ -91,7 +91,6 @@
         <span class="mensaje-socios-etiqueta">ZAUN // ARCHIVOS CONFIDENCIALES</span>
         <h3>¡CULPABLES!</h3>
         <p>DOS MENTES, UN SOLO DESASTRE.</p>
-        <span class="mensaje-socios-firma">RESPONSABLES DE ESTE PEQUEÑO CAOS // JINX</span>
     </div>
 
     <div class="row g-4 socios-contenedor">
