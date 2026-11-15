@@ -91,7 +91,7 @@
     <div class="mensaje-jinx-socios" id="mensajeJinxSocios" role="status" aria-live="polite">
         <span class="mensaje-socios-etiqueta">ZAUN // ARCHIVOS CONFIDENCIALES</span>
         <h3>¡CULPABLES!</h3>
-        <p>DOS MENTES. UN SOLO DESASTRE.</p>
+        <p>DOS MENTES, UN SOLO DESASTRE.</p>
         <span class="mensaje-socios-firma">RESPONSABLES DE ESTE PEQUEÑO CAOS // JINX</span>
     </div>
 
