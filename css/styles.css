@@ -1456,6 +1456,229 @@ body.mercado-jinx {
     color: #00C5F2;
 }
 
+/* MESA DE INSPECCIÓN Y REGATEO COMPACTA */
+.titulo-inspeccion {
+    font-size: 2.5rem !important;
+}
+
+.retrato-vendedor {
+    width: 95px;
+    height: 95px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.miniatura-inspeccion {
+    width: 68px;
+    height: 68px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.cita-vendedor {
+    background: rgba(236, 57, 155, 0.08);
+    border-left: 4px solid var(--rosa-jinx);
+}
+
+.card-vendedor-giro {
+    animation: entrada-giro-izquierda 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform-origin: center center;
+}
+
+@keyframes entrada-giro-izquierda {
+    0% {
+        opacity: 0;
+        transform: translateX(100vw) rotate(360deg) scale(0.3);
+    }
+    75% {
+        opacity: 1;
+        transform: translateX(-12px) rotate(-6deg) scale(1.02);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg) scale(1);
+    }
+}
+
+.opcion-regateo {
+    cursor: pointer;
+    transition: var(--transicion);
+}
+
+.opcion-regateo:hover {
+    border-color: var(--cian-jinx) !important;
+    box-shadow: var(--brillo-cian);
+    transform: translateX(4px);
+}
+
+.opcion-regateo:has(input:checked) {
+    border-color: var(--rosa-jinx) !important;
+    background-color: rgba(236, 57, 155, 0.12) !important;
+    box-shadow: var(--brillo-rosa);
+}
+
+.bloque-respuesta {
+    max-width: 720px;
+}
+
+.btn-encargar-regateo {
+    max-width: 340px;
+}
+
+/* 2. Animación del artefacto y argumentos: foco prendiéndose en la oscuridad */
+.card-foco-zaun {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    border-top: 2px solid rgba(0, 197, 242, 0.65);
+    animation: foco-encendido 1.35s ease-out 0.15s forwards;
+}
+
+/* Haz de luz cenital que cae desde arriba sobre la tarjeta */
+.card-foco-zaun::before {
+    content: "";
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    height: 220px;
+    background: radial-gradient(
+        ellipse at 50% 0%,
+        rgba(169, 232, 245, 0.28) 0%,
+        rgba(0, 197, 242, 0.10) 45%,
+        transparent 75%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.card-foco-zaun > * {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes foco-encendido {
+    0%, 15% {
+        opacity: 0;
+        filter: brightness(0) grayscale(1);
+        box-shadow: none;
+    }
+    20% {
+        opacity: 0.45;
+        filter: brightness(1.6) contrast(1.2);
+        box-shadow: 0 -10px 25px rgba(0, 197, 242, 0.35);
+    }
+    24% {
+        opacity: 0.06;
+        filter: brightness(0.15) grayscale(0.8);
+        box-shadow: none;
+    }
+    34% {
+        opacity: 0.8;
+        filter: brightness(1.4);
+        box-shadow: 0 -12px 30px rgba(0, 197, 242, 0.45);
+    }
+    39% {
+        opacity: 0.18;
+        filter: brightness(0.3);
+        box-shadow: none;
+    }
+    52% {
+        opacity: 1;
+        filter: brightness(1.75);
+        box-shadow:
+            0 -15px 40px rgba(169, 232, 245, 0.55),
+            0 0 25px rgba(0, 197, 242, 0.35);
+    }
+    64% {
+        opacity: 0.88;
+        filter: brightness(0.85);
+    }
+    100% {
+        opacity: 1;
+        filter: brightness(1);
+        box-shadow:
+            0 -6px 22px rgba(0, 197, 242, 0.18),
+            0 0 18px rgba(0, 0, 0, 0.45);
+    }
+}
+
+/* BOMBAS DE RESULTADO DE INSPECCIÓN */
+.zona-bombas-resultado {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 700px;
+    margin: 25px auto 10px;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.bomba-interactiva.bomba-resultado {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: 95px;
+    height: 95px;
+}
+
+
+.zona-bombas-resultado.estado-exito .onda-bomba {
+    border-color: #00F59B;
+}
+
+.zona-bombas-resultado.estado-exito .destello-bomba {
+    box-shadow:
+        0 0 30px #ffffff,
+        0 0 70px #00F59B,
+        0 0 110px #FFF16A;
+}
+
+.zona-bombas-resultado.estado-exito .texto-boom {
+    text-shadow:
+        4px 4px 0 #198754,
+        7px 7px 0 #00F59B,
+        0 0 25px #00F59B;
+}
+
+
+.zona-bombas-resultado.estado-neutral .onda-bomba {
+    border-color: #00C5F2;
+}
+
+.zona-bombas-resultado.estado-neutral .destello-bomba {
+    box-shadow:
+        0 0 30px #ffffff,
+        0 0 70px #00C5F2,
+        0 0 110px #A9E8F5;
+}
+
+.zona-bombas-resultado.estado-neutral .texto-boom {
+    text-shadow:
+        4px 4px 0 #007799,
+        7px 7px 0 #00C5F2,
+        0 0 25px #00C5F2;
+}
+
+
+.zona-bombas-resultado.estado-fallo .onda-bomba {
+    border-color: #FF2A55;
+}
+
+.zona-bombas-resultado.estado-fallo .destello-bomba {
+    box-shadow:
+        0 0 30px #ffffff,
+        0 0 70px #FF2A55,
+        0 0 110px #FF5A36;
+}
+
+.zona-bombas-resultado.estado-fallo .texto-boom {
+    text-shadow:
+        4px 4px 0 #DC3545,
+        7px 7px 0 #FF5A36,
+        0 0 25px #FF2A55;
+}
 
 /* X-Small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */

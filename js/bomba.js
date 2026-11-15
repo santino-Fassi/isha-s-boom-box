@@ -173,3 +173,51 @@ if (bombaSocios && mensajeSocios && tarjetasSocios) {
         });
     });
 }
+
+const zonaBombasResultado = document.querySelector(".zona-bombas-resultado");
+
+if (zonaBombasResultado) {
+    const estadoRegateo = zonaBombasResultado.dataset.estado;
+    const bombasResultado = zonaBombasResultado.querySelectorAll(".bomba-resultado");
+
+    const paletasResultado = {
+        exito: [
+            "#00F59B",
+            "#28A745",
+            "#80FFDB",
+            "#FFF16A",
+            "#FFFFFF",
+            "#20C997"
+        ],
+        neutral: [
+            "#00C5F2",
+            "#A9E8F5",
+            "#36F2FF",
+            "#42B9E8",
+            "#FFFFFF",
+            "#9BA3AE"
+        ],
+        fallo: [
+            "#FF2A55",
+            "#DC3545",
+            "#FF5A36",
+            "#FF9E00",
+            "#FFF16A",
+            "#FFFFFF"
+        ]
+    };
+
+    const paletaElegida = paletasResultado[estadoRegateo] || coloresJinx;
+
+    bombasResultado.forEach((bomba, indice) => {
+        // Explotan solas al cargar la vista
+        setTimeout(() => {
+            detonarBomba(bomba, paletaElegida);
+        }, 300 + indice * 220);
+
+        // También quedan activas
+        bomba.addEventListener("click", () => {
+            detonarBomba(bomba, paletaElegida);
+        });
+    });
+}
