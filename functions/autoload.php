@@ -1,7 +1,13 @@
-<?PHP
+<?php
 session_start();
 
-function autoloadClasses($nombreClase)
+/**
+ * Carga automáticamente el archivo de la clase solicitada dentro del directorio classes.
+ *
+ * @param string $nombreClase Nombre de la clase a incluir.
+ * @return void
+ */
+function autoloadClasses(string $nombreClase): void
 {
     $archivoClase = __DIR__ . "/../classes/$nombreClase.php";
 

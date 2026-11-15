@@ -1,12 +1,10 @@
 <section class="inicio-jinx">
     <div class="inicio-escenario">
 
-        <!-- GRAFITI IZQUIERDO -->
         <div class="grafiti-inicio grafiti-izquierdo">
-            <img src="img/grafitis/grafitti3.webp" alt="">
+            <img src="img/grafitis/grafitti3.webp" alt="Grafiti callejero de Jinx en Zaun">
         </div>
 
-        <!-- CONTENIDO PRINCIPAL -->
         <div class="inicio-contenido">
 
             <span class="inicio-etiqueta">
@@ -36,9 +34,8 @@
 
         </div>
 
-        <!-- GRAFITI DERECHO -->
         <div class="grafiti-inicio grafiti-derecho">
-            <img src="img/grafitis/grafitti3.webp" alt="">
+            <img src="img/grafitis/grafitti3.webp" alt="Grafiti callejero de Jinx en Zaun">
         </div>
 
         <button class="bomba-interactiva" id="bombaJinx" type="button" aria-label="¡Hacer explotar la bombita de Jinx!">

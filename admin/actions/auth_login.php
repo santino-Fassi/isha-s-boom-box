@@ -1,18 +1,16 @@
-<?PHP
+<?php
 require_once "../../functions/autoload.php";
 
 $postData = $_POST;
 
-$login = Autenticacion::log_in($postData['username'], $postData['pass']);
-
+$login = Autenticacion::log_in($postData['username'] ?? '', $postData['pass'] ?? '');
 
 if ($login) {
-
-    if ($login == "usuario") {
-        header('location: ../../index.php?sec=catalogo_completo');
+    if ($login === "usuario") {
+        header('Location: ../../index.php?sec=catalogo_completo');
     } else {
-        header('location: ../index.php?sec=dashboard');
+        header('Location: ../index.php?sec=dashboard');
     }
 } else {
-    header('location: ../../index.php?sec=login');
+    header('Location: ../../index.php?sec=login');
 }

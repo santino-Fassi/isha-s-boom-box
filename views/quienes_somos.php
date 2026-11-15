@@ -1,6 +1,6 @@
 <section id="la-culpable" class="presentacion-jinx">
 
-    <img src="img/grafitis/you_jinx.webp" alt="grafiti" class="grafiti-youjinx">
+    <img src="img/grafitis/you_jinx.webp" alt="Grafiti de Jinx" class="grafiti-youjinx">
 
     <div class="container py-5">
 
@@ -18,19 +18,17 @@
 
         <div class="row align-items-center g-4">
 
-            <!-- JINX -->
             <div class="col-12 col-lg-5">
                 <div class="jinx-personaje">
-                    <img src="img/grafitis/jinx.webp" alt="" class="img-fluid">
+                    <img src="img/grafitis/jinx.webp" alt="Ilustración de Jinx" class="img-fluid">
                 </div>
             </div>
 
-            <!-- CONTENIDO -->
             <div class="col-12 col-lg-7">
                 <div class="contenido-jinx">
 
                     <div class="mono-decorativo">
-                        <img src="img/grafitis/mono_grafiti.webp" alt="">
+                        <img src="img/grafitis/mono_grafiti.webp" alt="Grafiti del mono explosivo de Jinx">
                     </div>
 
                     <span class="detalle-jinx">
@@ -62,7 +60,7 @@
 
                     <div class="firma-jinx">
                         <span>CON CARIÑO Y UN POQUITO DE PÓLVORA,</span>
-                        <strong>JINX.</strong>
+                        <span class="fw-bold firma-nombre">JINX.</span>
                     </div>
 
                 </div>
@@ -71,47 +69,39 @@
     </div>
 </section>
 
-
 <section class="socios-jinx">
 
-    <!-- ENCABEZADO -->
     <div class="socios-encabezado">
         <span>ZAUN // EQUIPO DE OPERACIONES</span>
 
         <div class="socios-titulo-fila">
-            <h2>MIS <strong>SOCIOS</strong></h2>
+            <h2>MIS <span class="fw-bold">SOCIOS</span></h2>
 
             <div class="bomba-socios-zona">
-                <button
-                    class="bomba-interactiva bomba-socios"
-                    id="bombaSocios"
-                    type="button"
+                <button class="bomba-interactiva bomba-socios" id="bombaSocios" type="button"
                     aria-label="Revelar los expedientes secretos de los socios">
-
                     <img src="img/bombas/bomba.webp" alt="Bombita de Jinx">
                 </button>
             </div>
         </div>
 
         <p>Dos mentes detrás de este pequeño caos.</p>
-        </div>
+    </div>
 
-        <div class="mensaje-jinx-socios" id="mensajeJinxSocios" role="status" aria-live="polite">
-            <span class="mensaje-socios-etiqueta">ZAUN // ARCHIVOS CONFIDENCIALES</span>
-            <h3>¡CULPABLES!</h3>
-            <p>DOS MENTES. UN SOLO DESASTRE.</p>
-            <span class="mensaje-socios-firma">RESPONSABLES DE ESTE PEQUEÑO CAOS // JINX</span>
-        </div>
-
+    <div class="mensaje-jinx-socios" id="mensajeJinxSocios" role="status" aria-live="polite">
+        <span class="mensaje-socios-etiqueta">ZAUN // ARCHIVOS CONFIDENCIALES</span>
+        <h3>¡CULPABLES!</h3>
+        <p>DOS MENTES. UN SOLO DESASTRE.</p>
+        <span class="mensaje-socios-firma">RESPONSABLES DE ESTE PEQUEÑO CAOS // JINX</span>
+    </div>
 
     <div class="row g-4 socios-contenedor">
 
-        <!-- SOCIA 1 -->
         <div class="col-12 col-lg-6">
             <article class="socio-card socio-rosa">
 
                 <div class="socio-foto">
-                    <img src="img/nosotros/gastager.webp" alt="Fotografía Gastager">
+                    <img src="img/nosotros/gastager.webp" alt="Fotografía de Camila Gastager">
                 </div>
 
                 <div class="socio-info">
@@ -120,28 +110,26 @@
                     <h3>Camila Gastager</h3>
 
                     <p class="socio-descripcion">
-                        La mente detrás de este desastre. Diseño, creatividad y una cantidad cuestionable de ideas explosivas. Si algo sale mal, definitivamente era parte del plan. Ideas brillantes, decisiones cuestionables y cero intenciones de portarme bien. 
+                        La mente detrás de este desastre. Diseño, creatividad y una cantidad cuestionable de ideas explosivas. Si algo sale mal, definitivamente era parte del plan. Ideas brillantes, decisiones cuestionables y cero intenciones de portarme bien.
                     </p>
 
                     <div class="socio-datos">
-                        <p><strong>EDAD:</strong> 20 años</p>
-                        <p><strong>CORREO:</strong> camila.gastager@davinci.com</p>
-                        <p><strong>INSTAGRAM:</strong> @cami.gastager</p>
+                        <p><span class="fw-bold">EDAD:</span> 20 años</p>
+                        <p><span class="fw-bold">CORREO:</span> camila.gastager@davinci.com</p>
+                        <p><span class="fw-bold">INSTAGRAM:</span> @cami.gastager</p>
                     </div>
                 </div>
             </article>
         </div>
 
-        <!-- SOCIO 2 -->
         <div class="col-12 col-lg-6">
             <article class="socio-card socio-cian">
 
                 <div class="socio-foto">
-                    <img src="img/nosotros/fassi.webp" alt="Fotografía Fassi">
+                    <img src="img/nosotros/fassi.webp" alt="Fotografía de Santino Fassi">
                 </div>
 
                 <div class="socio-info">
-
                     <span class="socio-etiqueta">SOCIO // 002</span>
                     <h3>Santino Fassi</h3>
 
@@ -150,15 +138,12 @@
                     </p>
 
                     <div class="socio-datos">
-                        <p><strong>EDAD:</strong> 20 años</p>
-                        <p><strong>CORREO:</strong> santino.fassi@davinci.com</p>
-                        <p><strong>INSTAGRAM:</strong> @santino_fassi</p>
+                        <p><span class="fw-bold">EDAD:</span> 20 años</p>
+                        <p><span class="fw-bold">CORREO:</span> santino.fassi@davinci.com</p>
+                        <p><span class="fw-bold">INSTAGRAM:</span> @santino_fassi</p>
                     </div>
-
                 </div>
             </article>
         </div>
     </div>
 </section>
-
-
