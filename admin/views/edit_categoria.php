@@ -10,7 +10,7 @@ $categoria = Categoria::get_x_id($id);
         <?php if ($categoria) { ?>
             <form class="row g-3" action="actions/edit_categoria_acc.php?id=<?= $categoria->getId() ?>" method="POST">
 
-                <div class="col-12 col-md-6 mb-3">
+                <div class="col-12 mb-3">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre"
                         value="<?= htmlspecialchars($categoria->getNombre()) ?>" required>

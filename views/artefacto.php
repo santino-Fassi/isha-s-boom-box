@@ -1,5 +1,5 @@
 <?PHP
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+$id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $artefacto = Artefacto::get_x_id($id);
 ?>
 
@@ -16,14 +16,16 @@ $artefacto = Artefacto::get_x_id($id);
                     <?= strtoupper($artefacto->getNombre()) ?>
                     <span>(<?= $artefacto->getAlias() ?>)</span>
                 </h2>
-                <p>Especificaciones completas del artefacto registradas en el <span class="fw-bold">archivo clandestino de Zaun</span>.</p>
+                <p>Especificaciones completas del artefacto registradas en el <span class="fw-bold">archivo clandestino de
+                        Zaun</span>.</p>
             </header>
 
             <article class="card artefacto-card mb-5 p-3 p-md-4 <?= $artefacto->getRobado() ? 'border-danger' : '' ?>">
                 <div class="row g-4 align-items-center">
 
-                    <!-- IMAGEN DEL ARTEFACTO -->
-                    <div class="col-12 col-md-5">
+
+
+                    <div class="col-12 col-md-6">
                         <div class="artefacto-imagen position-relative">
                             <span class="etiqueta-artefacto <?= $artefacto->getRobado() ? 'bg-danger text-light' : '' ?>">
                                 <?= $artefacto->getRobado() ? '¡BOTÍN ROBADO!' : 'DISEÑO ORIGINAL DEL SUBMUNDO' ?>
@@ -33,12 +35,12 @@ $artefacto = Artefacto::get_x_id($id);
                         </div>
                     </div>
 
-                    <!-- FICHA COMPLETA -->
-                    <div class="col-12 col-md-7 d-flex flex-column">
+                    <div class="col-12 col-md-6">
                         <div class="card-body artefacto-body">
                             <p class="artefacto-creador">
-                                <span class="fw-bold">CÓDIGO DE MODELO:</span> <span
-                                    class="fst-italic"><?= $artefacto->getAlias() ?></span>
+                                <span class="fw-bold">CÓDIGO DE MODELO:</span> <span class="fst-italic">
+                                    <?= $artefacto->getAlias() ?>
+                                </span>
                             </p>
 
                             <h3 class="card-title fs-2 mb-3">
@@ -46,10 +48,16 @@ $artefacto = Artefacto::get_x_id($id);
                             </h3>
 
                             <p class="card-text artefacto-descripcion fs-5">
-                                <span class="fw-bold">Descripción de Jinx:</span> <span
-                                    class="fst-italic"><?= $artefacto->getDescripcion() ?></span>
+                                <span class="fw-bold">Descripción de Jinx:</span> <span class="fst-italic">
+                                    <?= $artefacto->getDescripcion() ?>
+                                </span>
                             </p>
                         </div>
+                    </div>
+
+
+                    <!-- FICHA COMPLETA -->
+                    <div class="col-12 d-flex flex-column">
 
                         <ul class="list-group list-group-flush artefacto-datos mb-4">
                             <li class="list-group-item">

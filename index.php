@@ -64,21 +64,28 @@ $categoriasDisponibles = Categoria::listado_menu();
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link <?= $seccionActual === 'catalogo_completo' ? 'active' : '' ?>"
-                                href="index.php?sec=catalogo_completo" <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
-                                Arsenal
-                            </a>
-                        </li>
-
-
-                        <?PHP foreach ($categoriasDisponibles as $c) { ?>
-                            <li class="nav-item">
-                                <a class="nav-link <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'active' : '' ?>"
-                                    href="index.php?sec=catalogo&id=<?= $c['id'] ?>" <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'aria-current="page"' : '' ?>>
-                                    <?= $c['nombre'] ?>
+                            <div class="btn-group">
+                                <a class="nav-link <?= $seccionActual === 'catalogo_completo' ? 'active' : '' ?>"
+                                    href="index.php?sec=catalogo_completo" <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
+                                    Arsenal
                                 </a>
-                            </li>
-                        <?PHP } ?>
+                                <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="visually-hidden">Mostrar opciones</span>
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <?PHP foreach ($categoriasDisponibles as $c) { ?>
+                                        <li class="dropdown-item">
+                                            <a class="nav-link <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'active' : '' ?>"
+                                                href="index.php?sec=catalogo&id=<?= $c['id'] ?>"
+                                                <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'aria-current="page"' : '' ?>>
+                                                <?= $c['nombre'] ?>
+                                            </a>
+                                        </li>
+                                    <?PHP } ?>
+                                </ul>
+                            </div>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link <?= $seccionActual === 'contacto' ? 'active' : '' ?>"
