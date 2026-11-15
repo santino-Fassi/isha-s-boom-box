@@ -1,4 +1,5 @@
-<?PHP
+<?php
+
 class Vista
 {
     private int $id;
@@ -7,154 +8,160 @@ class Vista
     private int $activa;
     private int $restringida;
 
-
     /**
-     * Valida el identificador de una vista y devuelve un objeto con los datos de la misma
-     * @param ?string $vista El identificador de la vista, o null
+     * Busca una vista en la base de datos según su nombre identificador.
      *
-     * @return Vista devuelve objeto Vista
+     * @param string $nombre Identificador de la vista.
+     * @return ?Vista Instancia de Vista o null si no se encuentra.
      */
-    public static function validar_vista(?string $vista): Vista
+    private static function obtener_x_nombre(string $nombre): ?Vista
     {
-
         $conexion = Conexion::getConexion();
         $query = "SELECT * FROM vistas WHERE nombre = ?";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
-        $PDOStatement->execute([$vista]);
+        $PDOStatement->execute([$nombre]);
 
-        $viewData = $PDOStatement->fetch();
+        $result = $PDOStatement->fetch();
+
+        return $result !== false ? $result : null;
+    }
+
+    /**
+     * Valida el identificador de una vista solicitada y devuelve la instancia correspondiente.
+     * Si la vista no está activa devuelve la vista no_disponible, y si no existe devuelve la vista 404.
+     *
+     * @param ?string $vista Identificador de la vista recibida por GET.
+     * @return Vista Instancia de la vista validada.
+     */
+    public static function validar_vista(?string $vista): Vista
+    {
+        $viewData = $vista ? self::obtener_x_nombre($vista) : null;
 
         if ($viewData) {
-
             if ($viewData->getActiva()) {
                 $resultado = $viewData;
             } else {
-
-                $conexionNoDisponible = Conexion::getConexion();
-                $queryNoDisponible = "SELECT * FROM vistas WHERE nombre = ?";
-
-                $PDOStatementNoDisponible = $conexionNoDisponible->prepare($queryNoDisponible);
-                $PDOStatementNoDisponible->setFetchMode(PDO::FETCH_CLASS, self::class);
-                $PDOStatementNoDisponible->execute(["no_disponible"]);
-
-                $viewDataNoDisponible = $PDOStatementNoDisponible->fetch();
-                $resultado = $viewDataNoDisponible;
+                $resultado = self::obtener_x_nombre('no_disponible');
             }
         } else {
-            $conexion404 = Conexion::getConexion();
-            $query404 = "SELECT * FROM vistas WHERE nombre = ?";
+            $resultado = self::obtener_x_nombre('404');
+        }
 
-            $PDOStatement404 = $conexion404->prepare($query404);
-            $PDOStatement404->setFetchMode(PDO::FETCH_CLASS, self::class);
-            $PDOStatement404->execute(["404"]);
-
-            $viewData404 = $PDOStatement404->fetch();
-            $resultado = $viewData404;
+        if (!$resultado) {
+            $resultado = new self();
+            $resultado->nombre = '404';
+            $resultado->titulo = 'Página no encontrada';
+            $resultado->activa = 1;
+            $resultado->restringida = 0;
         }
 
         return $resultado;
     }
 
-
     /**
-     * Get the value of nombre
-     */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
-
-    /**
-     * Set the value of nombre
+     * Devuelve el identificador único de la vista.
      *
-     * @return  self
+     * @return int ID de la vista.
      */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of titulo
-     */
-    public function getTitulo()
-    {
-        return $this->titulo;
-    }
-
-    /**
-     * Set the value of titulo
-     *
-     * @return  self
-     */
-    public function setTitulo($titulo)
-    {
-        $this->titulo = $titulo;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of id
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * Set the value of id
+     * Establece el identificador único de la vista.
      *
-     * @return  self
+     * @param int $id Nuevo ID de la vista.
+     * @return void
      */
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
-
-        return $this;
     }
 
     /**
-     * Get the value of activa
+     * Devuelve el nombre clave del archivo de la vista.
+     *
+     * @return string Nombre identificador de la vista.
      */
-    public function getActiva()
+    public function getNombre(): string
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Establece el nombre clave del archivo de la vista.
+     *
+     * @param string $nombre Nuevo nombre de la vista.
+     * @return void
+     */
+    public function setNombre(string $nombre): void
+    {
+        $this->nombre = $nombre;
+    }
+
+    /**
+     * Devuelve el título de la vista para mostrar en el navegador.
+     *
+     * @return string Título de la vista.
+     */
+    public function getTitulo(): string
+    {
+        return $this->titulo;
+    }
+
+    /**
+     * Establece el título de la vista.
+     *
+     * @param string $titulo Nuevo título de la vista.
+     * @return void
+     */
+    public function setTitulo(string $titulo): void
+    {
+        $this->titulo = $titulo;
+    }
+
+    /**
+     * Indica si la vista se encuentra activa y disponible para el público.
+     *
+     * @return int Estado de activación (1 activa, 0 inactiva).
+     */
+    public function getActiva(): int
     {
         return $this->activa;
     }
 
     /**
-     * Set the value of activa
+     * Establece el estado de activación de la vista.
      *
-     * @return  self
+     * @param int $activa Nuevo estado de activación.
+     * @return void
      */
-    public function setActiva($activa)
+    public function setActiva(int $activa): void
     {
         $this->activa = $activa;
-
-        return $this;
     }
 
     /**
-     * Get the value of restringida
+     * Devuelve el nivel de restricción de acceso de la vista.
+     *
+     * @return int Nivel de restricción.
      */
-    public function getRestringida()
+    public function getRestringida(): int
     {
         return $this->restringida;
     }
 
     /**
-     * Set the value of restringida
+     * Establece el nivel de restricción de acceso de la vista.
      *
-     * @return  self
+     * @param int $restringida Nuevo nivel de restricción.
+     * @return void
      */
-    public function setRestringida($restringida)
+    public function setRestringida(int $restringida): void
     {
         $this->restringida = $restringida;
-
-        return $this;
     }
 }

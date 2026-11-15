@@ -45,6 +45,59 @@ class Componente
         return $lista;
     }
 
+    /**
+     * Inserta un nuevo componente a la base de datos
+     * @param string $nombre
+     * @param string $descripcion
+     */
+    public static function insert(string $nombre, string $descripcion)
+    {
+
+        $conexion = Conexion::getConexion();
+        $query = "INSERT INTO componentes (`nombre`, `descripcion`) VALUES (:nombre, :descripcion)";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute(
+            [
+                'nombre' => $nombre,
+                'descripcion' => $descripcion,
+            ]
+        );
+    }
+
+    /**
+     * Edita los datos de un componente en la base de datos
+     * @param string $nombre
+     * @param string $descripcion
+     */
+    public function edit(string $nombre, string $descripcion)
+    {
+
+        $conexion = Conexion::getConexion();
+        $query = " UPDATE componentes 
+                    SET nombre = :nombre, descripcion = :descripcion WHERE id = :id";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([
+            'nombre' => $nombre,
+            'descripcion' => $descripcion,
+            'id' => $this->id
+        ]);
+    }
+
+
+    /**
+     * Elimina esta instancia de la base de datos
+     */
+    public function delete()
+    {
+        $conexion = Conexion::getConexion();
+        $query = "DELETE FROM componentes WHERE id = ?";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([$this->id]);
+    }
+
     public function getId(): int
     {
         return $this->id;

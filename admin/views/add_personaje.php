@@ -1,46 +1,43 @@
-<div class="row my-5">
+<section class="row my-5">
     <div class="col">
-        <h1 class="text-center mb-5 fw-bold">Agregar un nuevo personaje</h1>
-
+        <h2 class="h1 text-center mb-5 fw-bold">Agregar un nuevo personaje</h2>
 
         <form class="row g-3" action="actions/add_personaje_acc.php" method="POST" enctype="multipart/form-data">
 
-            <div class="col-md-6 mb-3">
+            <div class="col-12 col-md-6 mb-3">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <div class="col-12 col-md-6 mb-3">
                 <label for="alias" class="form-label">Alias</label>
                 <input type="text" class="form-control" id="alias" name="alias" required>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <div class="col-12 col-md-6 mb-3">
+                <label for="faccion" class="form-label">Facción</label>
+                <select class="form-select" id="faccion" name="faccion" required>
+                    <option value="" selected disabled>Elija una opción</option>
+                    <option value="Zaun">Zaun</option>
+                    <option value="Piltover">Piltover</option>
+                    <option value="Noxus">Noxus</option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-6 mb-3">
                 <label for="imagen" class="form-label">Imagen</label>
                 <input class="form-control" type="file" id="imagen" name="imagen" required>
             </div>
 
-            <div class="col-md-6 mb-3">
-                <label for="primera_aparicion" class="form-label">Primera aparición</label>
-                <input type="number" class="form-control" id="primera_aparicion" name="primera_aparicion" required>
-                <div class="form-text">Ingresar el año con 4 dígitos.</div>
+            <div class="col-12 mb-3">
+                <label for="biografia" class="form-label">Biografía</label>
+                <textarea class="form-control" id="biografia" name="biografia" rows="5" required></textarea>
             </div>
 
-            <div class="col-md-12 mb-3">
-                <label for="creador" class="form-label">Creador(es)</label>
-                <input type="text" class="form-control" id="creador" name="creador" required>
-                <div class="form-text">En caso de que sean múltiples creadores, separar los nombres con comas.</div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Cargar</button>
             </div>
-
-            <div class="col-md-12 mb-3">
-                <label for="bio" class="form-label">Biografia</label>
-                <textarea class="form-control" id="bio" name="bio"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Cargar</button>
 
         </form>
-
     </div>
-
-</div>
+</section>

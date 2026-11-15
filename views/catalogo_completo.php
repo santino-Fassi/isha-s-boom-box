@@ -13,7 +13,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
         <div class="catalogo-encabezado-fila">
 
-            <img src="img/grafitis/pow.webp" alt="" class="grafiti-pow">
+            <img src="img/grafitis/pow.webp" alt="Ilustración de Jinx disparando con su mano" class="grafiti-pow">
 
             <header class="encabezado-catalogo text-center mb-5">
                 <span class="subtitulo-catalogo">ZAUN // INVENTARIO CLANDESTINO</span>
@@ -43,7 +43,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
             <div class="panel-inventario-encabezado">
                 <div>
                     <span class="panel-etiqueta">ZAUN // SISTEMA DE BÚSQUEDA</span>
-                    <h2>LOCALIZÁ TU <span>ARTEFACTO</span></h2>
+                    <h3 class="h2">LOCALIZÁ TU <span>ARTEFACTO</span></h3>
                     <p>Encontrá tu próximo juguete. Si explota, no es mi culpa.</p>
                 </div>
 
@@ -127,8 +127,8 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                             <!-- INFORMACION -->
                             <div class="card-body artefacto-body">
                                 <p class="artefacto-creador">
-                                    <strong><?= strtoupper($artefacto->getCategoria()->getNombre()) ?></strong> //
-                                    <em><?= $artefacto->getAlias() ?></em>
+                                    <span class="fw-bold"><?= strtoupper($artefacto->getCategoria()->getNombre()) ?></span> //
+                                    <span class="fst-italic"><?= $artefacto->getAlias() ?></span>
                                 </p>
 
                                 <h3 class="card-title">
@@ -136,7 +136,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                                 </h3>
 
                                 <p class="card-text artefacto-descripcion">
-                                    <strong>Nota de Jinx:</strong> <em><?= $artefacto->get_descripcion_reducida(14) ?></em>
+                                    <span class="fw-bold">Nota de Jinx:</span> <span class="fst-italic"><?= $artefacto->get_descripcion_reducida(14) ?></span>
                                 </p>
                             </div>
 
@@ -160,7 +160,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                             <div class="artefacto-footer">
                                 <div class="artefacto-precio">
                                     <span>PRECIO DEL ARTEFACTO</span>
-                                    <p><strong><?= $artefacto->get_precio_formateado() ?></strong></p>
+                                    <p><span class="fw-bold"><?= $artefacto->get_precio_formateado() ?></span></p>
                                 </div>
 
                                 <a href="index.php?sec=artefacto&id=<?= $artefacto->getId() ?>" class="btn btn-artefacto">
@@ -176,7 +176,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                 <div class="col-12">
                     <div class="catalogo-vacio text-center">
                         <h2>¡VAYA, QUÉ DESASTRE!</h2>
-                        <p>No encontramos ningún artefacto con esos parámetros en el escondite de <strong>Jinx</strong>.</p>
+                        <p>No encontramos ningún artefacto con esos parámetros en el escondite de <span class="fw-bold">Jinx</span>.</p>
                     </div>
                 </div>
             <?PHP } ?>
