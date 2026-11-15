@@ -17,6 +17,11 @@
     box-sizing: border-box;
 }
 
+body {
+    max-width: 1280px;
+    margin: auto;
+}
+
 body.modo-admin {
     background-color: var(--hex-fondo);
     color: var(--hex-texto);
