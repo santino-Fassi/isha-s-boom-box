@@ -31,7 +31,7 @@ $categoriasDisponibles = Categoria::listado_menu();
 
 
 
-    <link href="css/styles.css?v=8" rel="stylesheet">
+    <link href="css/styles.css?v=9" rel="stylesheet">
 
 </head>
 

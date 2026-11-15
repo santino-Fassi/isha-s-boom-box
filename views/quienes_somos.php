@@ -7,13 +7,12 @@
         <div class="encabezado-jinx text-center mb-5">
             <span class="subtitulo-jinx">ZAUN // ARCHIVOS CLASIFICADOS</span>
 
-            <h2>
-                ¿BUSCABAS ALGO NORMAL?
+            <h2 class="h1">¿BUSCABAS ALGO NORMAL?
                 <br>
                 <span>TE EQUIVOCASTE DE LUGAR.</span>
             </h2>
 
-            <p>Bienvenido a mi pequeño rincón del caos.</p>
+            <p><strong>Bienvenido a mi pequeño rincón del caos.</strong></p>
         </div>
 
         <div class="row align-items-center g-4">
@@ -110,7 +109,7 @@
                     <h3>Camila Gastager</h3>
 
                     <p class="socio-descripcion">
-                        La mente detrás de este desastre. Diseño, creatividad y una cantidad cuestionable de ideas explosivas. Si algo sale mal, definitivamente era parte del plan. Ideas brillantes, decisiones cuestionables y cero intenciones de portarme bien.
+                        La mente detrás de este desastre. Diseño, creatividad y una cantidad cuestionable de ideas explosivas. Si algo sale mal, definitivamente era parte del plan.
                     </p>
 
                     <div class="socio-datos">
@@ -134,7 +133,7 @@
                     <h3>Santino Fassi</h3>
 
                     <p class="socio-descripcion">
-                        El culpable oficial de este gran caos. Aporta ideas, soluciones y una pizca de cordura... aunque todavía estamos trabajando en eso. Juntos hacemos que las cosas exploten. No siempre sabe qué está pasando, pero siempre está dispuesto a apretar el botón rojo.
+                        El culpable oficial de este gran caos. Aporta ideas, soluciones y una pizca de cordura... aunque todavía estamos trabajando en eso. Siempre está dispuesto a apretar el botón rojo.
                     </p>
 
                     <div class="socio-datos">

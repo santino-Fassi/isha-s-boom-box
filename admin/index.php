@@ -25,7 +25,7 @@ $seccionActual = $vista->getNombre();
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/styles.css?v=2" rel="stylesheet">
 </head>
 
 <body class="modo-admin">

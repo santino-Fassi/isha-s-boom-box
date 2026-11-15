@@ -23,9 +23,9 @@ $componentes = Componente::listado_completo();
                             <td><?= $componente->getDescripcion() ?></td>
                             <td>
                                 <a href="index.php?sec=edit_componente&id=<?= $componente->getId() ?>" role="button"
-                                    class="d-block btn btn-sm btn-warning mb-1">Editar</a>
+                                    class="btn btn-hextech btn-editar w-100">Editar</a>
                                 <a href="index.php?sec=delete_componente&id=<?= $componente->getId() ?>" role="button"
-                                    class="d-block btn btn-sm btn-danger">Eliminar</a>
+                                    class="d-block btn btn-sm btn-hextech btn-eliminar mt-4">Eliminar</a>
                             </td>
                         </tr>
                     <?php } ?>
@@ -33,7 +33,7 @@ $componentes = Componente::listado_completo();
             </table>
         </div>
 
-        <a href="index.php?sec=add_componente" class="btn btn-primary w-100 mt-3">Cargar nuevo Componente</a>
+        <a href="index.php?sec=add_componente" class="btn btn-hextech btn-agregar w-100 mt-3">Cargar nuevo Componente</a>
 
     </div>
 </section>

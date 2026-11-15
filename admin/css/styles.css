@@ -112,6 +112,301 @@ body.modo-admin {
     width: 45%;
 }
 
+/* DASHBOARD HEXTECH */
+
+.dashboard-hextech {
+    padding: 45px 0 20px;
+}
+
+.dashboard-encabezado {
+    max-width: 750px;
+    margin: 0 auto 40px;
+}
+
+.dashboard-etiqueta {
+    display: inline-block;
+    color: var(--hex-azul);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 15px;
+}
+
+.dashboard-encabezado h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-shadow: 0 0 15px rgba(215, 180, 91, 0.2);
+}
+
+.dashboard-encabezado p {
+    color: var(--hex-texto-secundario);
+    line-height: 1.7;
+}
+
+.dashboard-linea {
+    width: 90px;
+    height: 2px;
+    margin: 25px auto 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--hex-dorado),
+        var(--hex-azul),
+        transparent
+    );
+}
+
+/* MÓDULOS */
+
+.dashboard-modulos {
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.modulo-hextech {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    min-height: 280px;
+    padding: 25px;
+    overflow: hidden;
+
+    background: linear-gradient(
+        145deg,
+        var(--hex-superficie),
+        #122337
+    );
+
+    border: 1px solid rgba(165, 226, 246, 0.15);
+    border-top: 3px solid var(--hex-dorado);
+
+    color: var(--hex-texto);
+    text-decoration: none;
+
+    transition: all 0.35s ease;
+}
+
+.modulo-azul {
+    border-top-color: var(--hex-azul);
+}
+
+.modulo-numero {
+    color: var(--hex-texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.modulo-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 58px;
+    height: 58px;
+    margin: 25px 0 20px;
+
+    border: 1px solid var(--hex-dorado);
+    color: var(--hex-dorado);
+    font-size: 2rem;
+
+    background: rgba(215, 180, 91, 0.08);
+    transform: rotate(45deg);
+}
+
+.modulo-azul .modulo-icono {
+    border-color: var(--hex-azul);
+    color: var(--hex-azul);
+    background: rgba(66, 185, 232, 0.08);
+}
+
+.modulo-icono {
+    text-shadow: 0 0 12px currentColor;
+}
+
+.modulo-hextech h3 {
+    color: var(--hex-dorado-claro);
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+}
+
+.modulo-azul h3 {
+    color: var(--hex-azul-claro);
+}
+
+.modulo-hextech p {
+    color: var(--hex-texto-secundario);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.modulo-acceso {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    color: var(--hex-dorado);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.modulo-azul .modulo-acceso {
+    color: var(--hex-azul);
+}
+
+.modulo-acceso span {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+/* EFECTO HOVER */
+
+.modulo-hextech:hover {
+    color: var(--hex-texto);
+    background: linear-gradient(
+        145deg,
+        var(--hex-superficie-hover),
+        #172B40
+    );
+    border-color: var(--hex-dorado);
+    transform: translateY(-6px);
+    box-shadow:
+        0 0 15px rgba(215, 180, 91, 0.15),
+        0 0 30px rgba(66, 185, 232, 0.12);
+}
+
+.modulo-azul:hover {
+    border-color: var(--hex-azul);
+    box-shadow:
+        0 0 15px rgba(66, 185, 232, 0.2),
+        0 0 30px rgba(66, 185, 232, 0.12);
+}
+
+.modulo-hextech:hover .modulo-acceso span {
+    transform: translateX(7px);
+}
+
+/* PIE DEL DASHBOARD */
+
+.dashboard-pie {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    margin-top: 45px;
+
+    color: var(--hex-texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+/* BOTONES HEXTECH */
+
+.btn-hextech {
+    border: 1px solid var(--hex-dorado);
+    background: linear-gradient(
+        135deg,
+        #192E42,
+        #25445C
+    );
+    color: var(--hex-dorado-claro);
+
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+/* EDITAR */
+
+.btn-editar:hover {
+    background: var(--hex-dorado);
+    color: #101D2B;
+    border-color: var(--hex-dorado-claro);
+
+    box-shadow:
+        0 0 10px rgba(215, 180, 91, 0.4),
+        0 0 20px rgba(215, 180, 91, 0.2);
+}
+
+/* ELIMINAR */
+
+.btn-eliminar {
+    border-color: var(--hex-azul);
+    color: var(--hex-azul-claro);
+}
+
+.btn-eliminar:hover {
+    background: var(--hex-azul);
+    color: #101D2B;
+    border-color: var(--hex-azul-claro);
+
+    box-shadow:
+        0 0 10px rgba(66, 185, 232, 0.4),
+        0 0 20px rgba(66, 185, 232, 0.2);
+}
+
+/* ESTADO AL PRESIONAR */
+
+.btn-hextech:active {
+    transform: scale(0.97);
+}
+.btn-hextech.btn-sm {
+    padding: 7px 14px;
+    font-size: 0.9rem;
+}
+
+/* AGREGAR - HEXTECH AZUL */
+
+.btn-agregar {
+    background: linear-gradient(
+        135deg,
+        #193B52,
+        #176080
+    );
+
+    border: 1px solid var(--hex-azul);
+    color: var(--hex-azul-claro);
+
+    padding: 12px 20px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+
+    box-shadow: 0 0 10px rgba(66, 185, 232, 0.08);
+}
+
+.btn-agregar:hover {
+    background: linear-gradient(
+        135deg,
+        var(--hex-azul),
+        #248BB5
+    );
+
+    border-color: var(--hex-azul-claro);
+    color: #101D2B;
+
+    box-shadow:
+        0 0 12px rgba(66, 185, 232, 0.4),
+        0 0 25px rgba(66, 185, 232, 0.2);
+
+    transform: translateY(-2px);
+}
+
 /* X-Small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */
 

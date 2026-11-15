@@ -27,7 +27,7 @@ $personaje = Personaje::get_x_id($id);
             <p><?= $personaje->getBiografia() ?></p>
 
             <a href="actions/delete_personaje_acc.php?id=<?= $personaje->getId() ?>" role="button"
-                class="d-block btn btn-sm btn-danger mt-4">Eliminar</a>
+                class="d-block btn btn-sm btn-hextech btn-eliminar mt-4">Eliminar</a>
         </div>
     <?php } else { ?>
         <div class="col-12 text-center">

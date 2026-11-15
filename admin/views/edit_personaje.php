@@ -51,7 +51,7 @@ $personaje = Personaje::get_x_id($id);
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-warning w-100">Editar</button>
+                    <button type="submit" class="btn btn-hextech btn-editar w-100">Editar</button>
                 </div>
 
             </form>

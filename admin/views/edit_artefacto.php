@@ -137,7 +137,7 @@ $componentesSeleccionados = $artefacto ? $artefacto->get_componentes_ids() : [];
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-warning w-100">Editar</button>
+                    <button type="submit" class="btn btn-hextech btn-editar w-100">Editar</button>
                 </div>
             </form>
         <?php } else { ?>

@@ -16,7 +16,7 @@ $categoria = Categoria::get_x_id($id);
             <p><?= $categoria->getDescripcion() ?></p>
 
             <a href="actions/delete_categoria_acc.php?id=<?= $categoria->getId() ?>" role="button"
-                class="d-block btn btn-sm btn-danger mt-4">Eliminar</a>
+                class="d-block btn btn-sm btn-hextech btn-eliminar mt-4">Eliminar</a>
         </div>
     <?php } else { ?>
         <div class="col-12 text-center">
