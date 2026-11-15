@@ -109,7 +109,10 @@ $artefacto = Artefacto::get_x_id($id);
                                 <p class="h1"><?= $artefacto->get_precio_formateado() ?></p>
                             </div>
 
-                            <a href="#" class="btn btn-artefacto">ENCARGAR ESTE ARTEFACTO<span>→</span></a>
+                            <a href="#" class="btn btn-artefacto mb-3">ENCARGAR ESTE ARTEFACTO<span>→</span></a>
+                            <a href="index.php?sec=inspeccion&id=<?= $artefacto->getId() ?>" class="btn btn-outline-secondary d-flex align-items-center justify-content-between flex-fill text-decoration-none px-3">
+                                <span>INSPECCIONAR</span>
+                            </a>
                         </div>
                     </div>
 
