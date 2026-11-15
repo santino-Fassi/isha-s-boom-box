@@ -63,7 +63,23 @@ $categoriasDisponibles = Categoria::listado_menu();
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link <?= $seccionActual === 'catalogo_completo' ? 'active' : '' ?>"
+                                href="index.php?sec=catalogo_completo" <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
+                                Arsenal
+                            </a>
+                        </li>
+
+                        <?PHP foreach ($categoriasDisponibles as $c) { ?>
+                            <li class="nav-item d-lg-none">
+                                <a class="nav-link <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'active' : '' ?>"
+                                    href="index.php?sec=catalogo&id=<?= $c['id'] ?>" <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'aria-current="page"' : '' ?>>
+                                    <?= $c['nombre'] ?>
+                                </a>
+                            </li>
+                        <?PHP } ?>
+
+                        <li class="nav-item d-none d-lg-block">
                             <div class="btn-group">
                                 <a class="nav-link <?= $seccionActual === 'catalogo_completo' ? 'active' : '' ?>"
                                     href="index.php?sec=catalogo_completo" <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
