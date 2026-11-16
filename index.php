@@ -85,7 +85,7 @@ $categoriasDisponibles = Categoria::listado_menu();
                                     href="index.php?sec=catalogo_completo" <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
                                     Arsenal
                                 </a>
-                                <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+                                <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split arsenal-boton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <span class="visually-hidden">Mostrar opciones</span>
                                 </button>
