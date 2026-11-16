@@ -45,16 +45,24 @@ $seccionActual = $vista->getNombre();
 
                         <?php if ($userData) { ?>
                             <li class="nav-item">
-                                <a class="nav-link <?= $seccionActual === 'admin_categorias' ? 'active' : '' ?>" href="index.php?sec=admin_categorias">Administrar Categorías</a>
+                                <a class="nav-link <?= $seccionActual === 'admin_categorias' ? 'active' : '' ?>"
+                                    href="index.php?sec=admin_categorias">Administrar Categorías</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link <?= $seccionActual === 'admin_personajes' ? 'active' : '' ?>" href="index.php?sec=admin_personajes">Administrar Personajes</a>
+                                <a class="nav-link <?= $seccionActual === 'admin_personajes' ? 'active' : '' ?>"
+                                    href="index.php?sec=admin_personajes">Administrar Personajes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link <?= $seccionActual === 'admin_componentes' ? 'active' : '' ?>" href="index.php?sec=admin_componentes">Administrar Componentes</a>
+                                <a class="nav-link <?= $seccionActual === 'admin_componentes' ? 'active' : '' ?>"
+                                    href="index.php?sec=admin_componentes">Administrar Componentes</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link <?= $seccionActual === 'admin_artefactos' ? 'active' : '' ?>" href="index.php?sec=admin_artefactos">Administrar Artefactos</a>
+                                <a class="nav-link <?= $seccionActual === 'admin_artefactos' ? 'active' : '' ?>"
+                                    href="index.php?sec=admin_artefactos">Administrar Artefactos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link <?= $seccionActual === 'admin_regateos' ? 'active' : '' ?>"
+                                    href="index.php?sec=admin_regateos">Administrar Regateos</a>
                             </li>
                             <li class="nav-item">
                                 <span class="nav-link bg-danger text-light rounded me-2">🙍‍♂️

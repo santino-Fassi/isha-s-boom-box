@@ -8,7 +8,7 @@ if ($artefacto && isset($_GET['reiniciar'])) {
 }
 
 if ($artefacto) {
-    $regateo = Regateo::crearRegateo($artefacto);
+    $regateo = Regateo::crear_regateo_x_artefacto($artefacto);
     $vendedor = $regateo->getVendedor();
 
     if ($estrategiaRecibida !== '') {

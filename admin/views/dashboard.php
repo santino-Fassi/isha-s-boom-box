@@ -1,4 +1,3 @@
-
 <section class="dashboard-hextech">
 
     <div class="dashboard-encabezado text-center">
@@ -84,6 +83,20 @@
                     y administrá los objetos disponibles.
                 </p>
 
+                <span class="modulo-acceso">ACCEDER AL MÓDULO <span>→</span></span>
+            </a>
+        </div>
+
+        <!-- REGATEOS -->
+        <div class="col">
+            <a href="index.php?sec=admin_regateos" class="modulo-hextech modulo-azul">
+                <div class="modulo-numero">05 // NEGOTIATIONS</div>
+                <div class="modulo-icono">💬</div>
+                <h3>GESTIÓN DE REGATEOS</h3>
+                <p>
+                    Configurá las personalidades, las 3 instancias de diálogo
+                    y las respuestas de negociación de cada personaje.
+                </p>
                 <span class="modulo-acceso">ACCEDER AL MÓDULO <span>→</span></span>
             </a>
         </div>

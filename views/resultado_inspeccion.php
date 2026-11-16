@@ -5,7 +5,7 @@ $artefacto = Artefacto::get_x_id($id);
 
 $resultado = null;
 if ($artefacto) {
-    $regateo = Regateo::crearRegateo($artefacto);
+    $regateo = Regateo::crear_regateo_x_artefacto($artefacto);
     $vendedor = $regateo->getVendedor();
 
     if ($estrategiaElegida !== '') {

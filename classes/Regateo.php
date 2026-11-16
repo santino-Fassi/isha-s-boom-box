@@ -26,6 +26,49 @@ class Regateo
     ];
 
     /**
+     * Construye una instancia de Regateo a partir de los datos de la base de datos (igual que crearArtefacto).
+     */
+    private static function crearRegateo($regateoData): Regateo
+    {
+        $regateo = new self();
+
+        foreach (self::$campos_primitivos as $campo) {
+            $regateo->{$campo} = $regateoData[$campo];
+        }
+
+        $regateo->vendedor = Personaje::get_x_id($regateoData['personaje_id']);
+
+        $regateo->instancias = [
+            1 => [
+                'mensaje' => $regateoData['mensaje_1'],
+                'opciones' => [
+                    'tecnico' => $regateoData['opcion_tecnica_1'],
+                    'frontal' => $regateoData['opcion_frontal_1'],
+                    'caotico' => $regateoData['opcion_caotica_1']
+                ]
+            ],
+            2 => [
+                'mensaje' => $regateoData['mensaje_2'],
+                'opciones' => [
+                    'frontal' => $regateoData['opcion_frontal_2'],
+                    'caotico' => $regateoData['opcion_caotica_2'],
+                    'tecnico' => $regateoData['opcion_tecnica_2']
+                ]
+            ],
+            3 => [
+                'mensaje' => $regateoData['mensaje_3'],
+                'opciones' => [
+                    'caotico' => $regateoData['opcion_caotica_3'],
+                    'tecnico' => $regateoData['opcion_tecnica_3'],
+                    'frontal' => $regateoData['opcion_frontal_3']
+                ]
+            ]
+        ];
+
+        return $regateo;
+    }
+
+    /**
      * Busca en la base de datos la configuración de regateo según el ID del personaje.
      *
      * @param int $personajeId ID del personaje portador.
@@ -58,46 +101,200 @@ class Regateo
      * @param Artefacto $artefacto Instancia del artefacto a negociar.
      * @return Regateo Instancia completa de Regateo.
      */
-    public static function crearRegateo(Artefacto $artefacto): Regateo
+    public static function crear_regateo_x_artefacto(Artefacto $artefacto): Regateo
     {
-        $regateo = new self();
+        $datos = self::obtener_datos_x_personaje($artefacto->getUsuario()->getId());
+        $regateo = self::crearRegateo($datos);
         $regateo->artefacto = $artefacto;
         $regateo->vendedor = $artefacto->getUsuario();
 
-        $datos = self::obtener_datos_x_personaje($regateo->vendedor->getId());
+        return $regateo;
+    }
 
-        foreach (self::$campos_primitivos as $campo) {
-            $regateo->{$campo} = $datos[$campo];
+    /**
+     * Devuelve el listado completo de regateos para el ABM.
+     *
+     * @return Regateo[]
+     */
+    public static function listado_completo(): array
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM regateos";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $PDOStatement->execute();
+
+        $lista = [];
+        while ($result = $PDOStatement->fetch()) {
+            $lista[] = self::crearRegateo($result);
         }
 
-        $regateo->instancias = [
-            1 => [
-                'mensaje' => $datos['mensaje_1'],
-                'opciones' => [
-                    'tecnico' => $datos['opcion_tecnica_1'],
-                    'frontal' => $datos['opcion_frontal_1'],
-                    'caotico' => $datos['opcion_caotica_1']
-                ]
-            ],
-            2 => [
-                'mensaje' => $datos['mensaje_2'],
-                'opciones' => [
-                    'frontal' => $datos['opcion_frontal_2'],
-                    'caotico' => $datos['opcion_caotica_2'],
-                    'tecnico' => $datos['opcion_tecnica_2']
-                ]
-            ],
-            3 => [
-                'mensaje' => $datos['mensaje_3'],
-                'opciones' => [
-                    'caotico' => $datos['opcion_caotica_3'],
-                    'tecnico' => $datos['opcion_tecnica_3'],
-                    'frontal' => $datos['opcion_frontal_3']
-                ]
-            ]
-        ];
+        return $lista;
+    }
 
-        return $regateo;
+    /**
+     * Devuelve los datos de un regateo en particular según su ID.
+     *
+     * @param int $id El ID único del regateo.
+     * @return ?Regateo
+     */
+    public static function get_x_id(int $id): ?Regateo
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT * FROM regateos WHERE id = ?";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
+        $PDOStatement->execute([$id]);
+
+        $result = $PDOStatement->fetch();
+
+        return $result !== false ? self::crearRegateo($result) : null;
+    }
+
+    /**
+     * Inserta un nuevo regateo en la base de datos.
+     */
+    public static function insert(
+        int $personaje_id,
+        string $personalidad,
+        string $mensaje_1,
+        string $opcion_tecnica_1,
+        string $opcion_frontal_1,
+        string $opcion_caotica_1,
+        string $mensaje_2,
+        string $opcion_tecnica_2,
+        string $opcion_frontal_2,
+        string $opcion_caotica_2,
+        string $mensaje_3,
+        string $opcion_tecnica_3,
+        string $opcion_frontal_3,
+        string $opcion_caotica_3,
+        string $estrategia_correcta,
+        string $estrategia_intermedia,
+        string $respuesta_exito,
+        string $respuesta_neutral,
+        string $respuesta_fallo
+    ): int {
+        $conexion = Conexion::getConexion();
+        $query = "INSERT INTO regateos VALUES (
+            NULL, :personaje_id, :personalidad,
+            :mensaje_1, :opcion_tecnica_1, :opcion_frontal_1, :opcion_caotica_1,
+            :mensaje_2, :opcion_tecnica_2, :opcion_frontal_2, :opcion_caotica_2,
+            :mensaje_3, :opcion_tecnica_3, :opcion_frontal_3, :opcion_caotica_3,
+            :estrategia_correcta, :estrategia_intermedia,
+            :respuesta_exito, :respuesta_neutral, :respuesta_fallo
+        )";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([
+            'personaje_id' => $personaje_id,
+            'personalidad' => $personalidad,
+            'mensaje_1' => $mensaje_1,
+            'opcion_tecnica_1' => $opcion_tecnica_1,
+            'opcion_frontal_1' => $opcion_frontal_1,
+            'opcion_caotica_1' => $opcion_caotica_1,
+            'mensaje_2' => $mensaje_2,
+            'opcion_tecnica_2' => $opcion_tecnica_2,
+            'opcion_frontal_2' => $opcion_frontal_2,
+            'opcion_caotica_2' => $opcion_caotica_2,
+            'mensaje_3' => $mensaje_3,
+            'opcion_tecnica_3' => $opcion_tecnica_3,
+            'opcion_frontal_3' => $opcion_frontal_3,
+            'opcion_caotica_3' => $opcion_caotica_3,
+            'estrategia_correcta' => $estrategia_correcta,
+            'estrategia_intermedia' => $estrategia_intermedia,
+            'respuesta_exito' => $respuesta_exito,
+            'respuesta_neutral' => $respuesta_neutral,
+            'respuesta_fallo' => $respuesta_fallo
+        ]);
+
+        return (int) $conexion->lastInsertId();
+    }
+
+    /**
+     * Edita los datos de este regateo en la base de datos.
+     */
+    public function edit(
+        int $personaje_id,
+        string $personalidad,
+        string $mensaje_1,
+        string $opcion_tecnica_1,
+        string $opcion_frontal_1,
+        string $opcion_caotica_1,
+        string $mensaje_2,
+        string $opcion_tecnica_2,
+        string $opcion_frontal_2,
+        string $opcion_caotica_2,
+        string $mensaje_3,
+        string $opcion_tecnica_3,
+        string $opcion_frontal_3,
+        string $opcion_caotica_3,
+        string $estrategia_correcta,
+        string $estrategia_intermedia,
+        string $respuesta_exito,
+        string $respuesta_neutral,
+        string $respuesta_fallo
+    ) {
+        $conexion = Conexion::getConexion();
+        $query = "UPDATE regateos SET
+            personaje_id = :personaje_id,
+            personalidad = :personalidad,
+            mensaje_1 = :mensaje_1,
+            opcion_tecnica_1 = :opcion_tecnica_1,
+            opcion_frontal_1 = :opcion_frontal_1,
+            opcion_caotica_1 = :opcion_caotica_1,
+            mensaje_2 = :mensaje_2,
+            opcion_tecnica_2 = :opcion_tecnica_2,
+            opcion_frontal_2 = :opcion_frontal_2,
+            opcion_caotica_2 = :opcion_caotica_2,
+            mensaje_3 = :mensaje_3,
+            opcion_tecnica_3 = :opcion_tecnica_3,
+            opcion_frontal_3 = :opcion_frontal_3,
+            opcion_caotica_3 = :opcion_caotica_3,
+            estrategia_correcta = :estrategia_correcta,
+            estrategia_intermedia = :estrategia_intermedia,
+            respuesta_exito = :respuesta_exito,
+            respuesta_neutral = :respuesta_neutral,
+            respuesta_fallo = :respuesta_fallo
+        WHERE id = :id";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([
+            'id' => $this->id,
+            'personaje_id' => $personaje_id,
+            'personalidad' => $personalidad,
+            'mensaje_1' => $mensaje_1,
+            'opcion_tecnica_1' => $opcion_tecnica_1,
+            'opcion_frontal_1' => $opcion_frontal_1,
+            'opcion_caotica_1' => $opcion_caotica_1,
+            'mensaje_2' => $mensaje_2,
+            'opcion_tecnica_2' => $opcion_tecnica_2,
+            'opcion_frontal_2' => $opcion_frontal_2,
+            'opcion_caotica_2' => $opcion_caotica_2,
+            'mensaje_3' => $mensaje_3,
+            'opcion_tecnica_3' => $opcion_tecnica_3,
+            'opcion_frontal_3' => $opcion_frontal_3,
+            'opcion_caotica_3' => $opcion_caotica_3,
+            'estrategia_correcta' => $estrategia_correcta,
+            'estrategia_intermedia' => $estrategia_intermedia,
+            'respuesta_exito' => $respuesta_exito,
+            'respuesta_neutral' => $respuesta_neutral,
+            'respuesta_fallo' => $respuesta_fallo
+        ]);
+    }
+
+    /**
+     * Elimina esta instancia de la base de datos.
+     */
+    public function delete()
+    {
+        $conexion = Conexion::getConexion();
+        $query = "DELETE FROM regateos WHERE id = ?";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([$this->id]);
     }
 
     /**
@@ -280,9 +477,19 @@ class Regateo
         return $this->id;
     }
 
+    public function setId(int $value)
+    {
+        $this->id = $value;
+    }
+
     public function getPersonaje_id(): int
     {
         return $this->personaje_id;
+    }
+
+    public function setPersonaje_id(int $value)
+    {
+        $this->personaje_id = $value;
     }
 
     public function getPersonalidad(): string
@@ -290,9 +497,69 @@ class Regateo
         return $this->personalidad;
     }
 
+    public function setPersonalidad(string $value)
+    {
+        $this->personalidad = $value;
+    }
+
     public function getInstancias(): array
     {
         return $this->instancias;
+    }
+
+    public function setInstancias(array $value)
+    {
+        $this->instancias = $value;
+    }
+
+    public function getEstrategia_correcta(): string
+    {
+        return $this->estrategia_correcta;
+    }
+
+    public function setEstrategia_correcta(string $value)
+    {
+        $this->estrategia_correcta = $value;
+    }
+
+    public function getEstrategia_intermedia(): string
+    {
+        return $this->estrategia_intermedia;
+    }
+
+    public function setEstrategia_intermedia(string $value)
+    {
+        $this->estrategia_intermedia = $value;
+    }
+
+    public function getRespuesta_exito(): string
+    {
+        return $this->respuesta_exito;
+    }
+
+    public function setRespuesta_exito(string $value)
+    {
+        $this->respuesta_exito = $value;
+    }
+
+    public function getRespuesta_neutral(): string
+    {
+        return $this->respuesta_neutral;
+    }
+
+    public function setRespuesta_neutral(string $value)
+    {
+        $this->respuesta_neutral = $value;
+    }
+
+    public function getRespuesta_fallo(): string
+    {
+        return $this->respuesta_fallo;
+    }
+
+    public function setRespuesta_fallo(string $value)
+    {
+        $this->respuesta_fallo = $value;
     }
 
     public function getArtefacto(): Artefacto
@@ -300,8 +567,18 @@ class Regateo
         return $this->artefacto;
     }
 
+    public function setArtefacto(Artefacto $value)
+    {
+        $this->artefacto = $value;
+    }
+
     public function getVendedor(): Personaje
     {
         return $this->vendedor;
+    }
+
+    public function setVendedor(Personaje $value)
+    {
+        $this->vendedor = $value;
     }
 }
