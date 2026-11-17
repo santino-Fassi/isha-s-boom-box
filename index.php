@@ -24,14 +24,12 @@ $categoriasDisponibles = Categoria::listado_menu();
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
-
-    <link href="css/styles.css?v=9" rel="stylesheet">
+    <link href="css/styles.css?v=10" rel="stylesheet">
 
 </head>
 
@@ -112,9 +110,18 @@ $categoriasDisponibles = Categoria::listado_menu();
 
                         <?PHP if ($userData) { ?>
                             <li class="nav-item">
-                                <a class="nav-link bg-danger text-light rounded me-2"
-                                    href="index.php?sec=panel_usuario">🙍‍♂️​
-                                    <?= $userData['nombre_completo'] ?? "" ?> </a>
+                                <a class="nav-link usuario-navbar" href="index.php?sec=panel_usuario">
+
+                                    <span class="usuario-navbar-icono">
+                                        <i class="bi bi-fingerprint"></i>
+                                    </span>
+
+                                    <span class="usuario-navbar-info">
+                                        <small>SOCIO ACTIVO</small>
+                                        <strong><?= htmlspecialchars($userData['nombre_completo'] ?? '', ENT_QUOTES, 'UTF-8') ?></strong>
+                                    </span>
+                                    <i class="bi bi-chevron-right usuario-navbar-flecha"></i>
+                                </a>
                             </li>
                         <?PHP } ?>
 
