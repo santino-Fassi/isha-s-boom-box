@@ -6,15 +6,14 @@ class Componente
     private string $nombre;
     private string $descripcion;
 
-
     /**
-     * Devuelve los datos de un componente en particular
-     * @param int $id El ID único del componente
-     * @return ?Componente Componente solicitado o null si la ID no existe.
+     * Busca y devuelve un componente específico según su identificador único.
+     *
+     * @param int $id Identificador único del componente.
+     * @return ?Componente Instancia de Componente o null si no existe.
      */
     public static function get_x_id(int $id): ?Componente
     {
-
         $conexion = Conexion::getConexion();
         $query = "SELECT * FROM componentes WHERE id = ?";
 
@@ -24,13 +23,13 @@ class Componente
 
         $result = $PDOStatement->fetch();
 
-        return $result ? $result : null;
+        return $result !== false ? $result : null;
     }
 
     /**
-     * Devuelve el listado completo de componentes disponibles
-     * 
-     * @return Componente[] Un array de objetos Componente
+     * Devuelve el listado completo de componentes disponibles en la base de datos.
+     *
+     * @return Componente[] Array de instancias de Componente.
      */
     public static function listado_completo(): array
     {
@@ -41,41 +40,39 @@ class Componente
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
         $PDOStatement->execute();
 
-        $lista = $PDOStatement->fetchAll();
-        return $lista;
+        return $PDOStatement->fetchAll();
     }
 
     /**
-     * Inserta un nuevo componente a la base de datos
-     * @param string $nombre
-     * @param string $descripcion
+     * Inserta un nuevo componente en la base de datos.
+     *
+     * @param string $nombre Nombre del componente.
+     * @param string $descripcion Descripción técnica del componente.
+     * @return void
      */
-    public static function insert(string $nombre, string $descripcion)
+    public static function insert(string $nombre, string $descripcion): void
     {
-
         $conexion = Conexion::getConexion();
         $query = "INSERT INTO componentes (`nombre`, `descripcion`) VALUES (:nombre, :descripcion)";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-            ]
-        );
+        $PDOStatement->execute([
+            'nombre' => $nombre,
+            'descripcion' => $descripcion
+        ]);
     }
 
     /**
-     * Edita los datos de un componente en la base de datos
-     * @param string $nombre
-     * @param string $descripcion
+     * Actualiza los datos de este componente en la base de datos.
+     *
+     * @param string $nombre Nuevo nombre del componente.
+     * @param string $descripcion Nueva descripción del componente.
+     * @return void
      */
-    public function edit(string $nombre, string $descripcion)
+    public function edit(string $nombre, string $descripcion): void
     {
-
         $conexion = Conexion::getConexion();
-        $query = " UPDATE componentes 
-                    SET nombre = :nombre, descripcion = :descripcion WHERE id = :id";
+        $query = "UPDATE componentes SET nombre = :nombre, descripcion = :descripcion WHERE id = :id";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute([
@@ -85,11 +82,12 @@ class Componente
         ]);
     }
 
-
     /**
-     * Elimina esta instancia de la base de datos
+     * Elimina el registro de este componente de la base de datos.
+     *
+     * @return void
      */
-    public function delete()
+    public function delete(): void
     {
         $conexion = Conexion::getConexion();
         $query = "DELETE FROM componentes WHERE id = ?";
@@ -98,32 +96,65 @@ class Componente
         $PDOStatement->execute([$this->id]);
     }
 
+    /**
+     * Devuelve el identificador único del componente.
+     *
+     * @return int ID del componente.
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $value)
+    /**
+     * Establece el identificador único del componente.
+     *
+     * @param int $value Nuevo ID del componente.
+     * @return void
+     */
+    public function setId(int $value): void
     {
         $this->id = $value;
     }
 
+    /**
+     * Devuelve el nombre del componente.
+     *
+     * @return string Nombre del componente.
+     */
     public function getNombre(): string
     {
         return $this->nombre;
     }
 
-    public function setNombre(string $value)
+    /**
+     * Establece el nombre del componente.
+     *
+     * @param string $value Nuevo nombre del componente.
+     * @return void
+     */
+    public function setNombre(string $value): void
     {
         $this->nombre = $value;
     }
 
+    /**
+     * Devuelve la descripción técnica del componente.
+     *
+     * @return string Descripción del componente.
+     */
     public function getDescripcion(): string
     {
         return $this->descripcion;
     }
 
-    public function setDescripcion(string $value)
+    /**
+     * Establece la descripción técnica del componente.
+     *
+     * @param string $value Nueva descripción del componente.
+     * @return void
+     */
+    public function setDescripcion(string $value): void
     {
         $this->descripcion = $value;
     }

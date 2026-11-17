@@ -1,14 +1,13 @@
-<?PHP
+<?php
 require_once 'functions/autoload.php';
 
 $vista = Vista::validar_vista($_GET['sec'] ?? 'home');
 $seccionActual = $vista->getNombre();
 $categoriaActual = $_GET['id'] ?? '';
 
-$userData = $_SESSION['loggedIn'] ?? FALSE;
+$userData = $_SESSION['loggedIn'] ?? false;
 
 $categoriasDisponibles = Categoria::listado_menu();
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -21,16 +20,15 @@ $categoriasDisponibles = Categoria::listado_menu();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-
-    <link href="css/styles.css?v=10" rel="stylesheet">
-
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 
 <body class="mercado-jinx">
@@ -42,7 +40,7 @@ $categoriasDisponibles = Categoria::listado_menu();
                 <a class="navbar-brand" href="index.php">Isha's Boom Box</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                    aria-label="Alternar navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -68,14 +66,14 @@ $categoriasDisponibles = Categoria::listado_menu();
                             </a>
                         </li>
 
-                        <?PHP foreach ($categoriasDisponibles as $c) { ?>
+                        <?php foreach ($categoriasDisponibles as $c) { ?>
                             <li class="nav-item d-lg-none">
                                 <a class="nav-link <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'active' : '' ?>"
                                     href="index.php?sec=catalogo&id=<?= $c['id'] ?>" <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'aria-current="page"' : '' ?>>
                                     <?= $c['nombre'] ?>
                                 </a>
                             </li>
-                        <?PHP } ?>
+                        <?php } ?>
 
                         <li class="nav-item d-none d-lg-block">
                             <div class="btn-group">
@@ -83,12 +81,13 @@ $categoriasDisponibles = Categoria::listado_menu();
                                     href="index.php?sec=catalogo_completo" <?= $seccionActual === 'catalogo_completo' ? 'aria-current="page"' : '' ?>>
                                     Arsenal
                                 </a>
-                                <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split arsenal-boton"
+                                <button type="button"
+                                    class="btn btn-dark dropdown-toggle dropdown-toggle-split arsenal-boton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <span class="visually-hidden">Mostrar opciones</span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <?PHP foreach ($categoriasDisponibles as $c) { ?>
+                                    <?php foreach ($categoriasDisponibles as $c) { ?>
                                         <li class="dropdown-item">
                                             <a class="nav-link <?= ($seccionActual === 'catalogo' && (string) $categoriaActual === (string) $c['id']) ? 'active' : '' ?>"
                                                 href="index.php?sec=catalogo&id=<?= $c['id'] ?>"
@@ -96,7 +95,7 @@ $categoriasDisponibles = Categoria::listado_menu();
                                                 <?= $c['nombre'] ?>
                                             </a>
                                         </li>
-                                    <?PHP } ?>
+                                    <?php } ?>
                                 </ul>
                             </div>
                         </li>
@@ -108,30 +107,29 @@ $categoriasDisponibles = Categoria::listado_menu();
                             </a>
                         </li>
 
-                        <?PHP if ($userData) { ?>
+                        <?php if ($userData) { ?>
                             <li class="nav-item">
                                 <a class="nav-link usuario-navbar" href="index.php?sec=panel_usuario">
-
                                     <span class="usuario-navbar-icono">
                                         <i class="bi bi-fingerprint"></i>
                                     </span>
 
                                     <span class="usuario-navbar-info">
                                         <small>SOCIO ACTIVO</small>
-                                        <strong><?= htmlspecialchars($userData['nombre_completo'] ?? '', ENT_QUOTES, 'UTF-8') ?></strong>
+                                        <span
+                                            class="fw-bold"><?= htmlspecialchars($userData['nombre_completo'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>
                                     </span>
                                     <i class="bi bi-chevron-right usuario-navbar-flecha"></i>
                                 </a>
                             </li>
-                        <?PHP } ?>
+                        <?php } ?>
 
-                        <li class="nav-item <?= $userData ? "d-none" : "" ?>">
+                        <li class="nav-item <?= $userData ? 'd-none' : '' ?>">
                             <a class="nav-link fw-bold active" href="index.php?sec=login">Login</a>
                         </li>
 
-                        <li class="nav-item <?= $userData ? "" : "d-none" ?>">
-                            <a class="nav-link fw-bold" href="admin/actions/auth_logout.php">Logout <span
-                                    class="fw-light"></span></a>
+                        <li class="nav-item <?= $userData ? '' : 'd-none' ?>">
+                            <a class="nav-link fw-bold" href="admin/actions/auth_logout.php">Logout</a>
                         </li>
 
                         <?php if ($userData) { ?>
@@ -145,9 +143,8 @@ $categoriasDisponibles = Categoria::listado_menu();
         </nav>
     </header>
 
-
     <main>
-        <?PHP
+        <?php
         require_once "views/{$vista->getNombre()}.php";
         ?>
     </main>
@@ -157,10 +154,11 @@ $categoriasDisponibles = Categoria::listado_menu();
         <p>Isha's Boom Box</p>
         <small>Made in Zaun. No refunds. No regrets.</small>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
-    <script src="js/bomba.js?v=4" defer></script>
+    <script src="js/bomba.js" defer></script>
 </body>
 
 </html>

@@ -20,8 +20,7 @@ $mensajeCliente = htmlspecialchars(trim($_POST['mensaje'] ?? ''));
                         y salva a las profundidades de <span class="fst-italic"><?= $faccionCliente ?></span>.
                     </p>
                     <p>
-                        Registramos tu interés por <span
-                            class="fw-bold"><?= $artefactoInteres ?: 'nuestro arsenal general' ?></span> y te enviaremos
+                        Registramos tu interés por <span class="fw-bold"><?= $artefactoInteres ?></span> y te enviaremos
                         las coordenadas de entrega a <span class="fst-italic"><?= $emailCliente ?></span>.
                     </p>
                     <blockquote class="blockquote my-3 p-3 bg-dark rounded border border-secondary">
@@ -30,7 +29,6 @@ $mensajeCliente = htmlspecialchars(trim($_POST['mensaje'] ?? ''));
                     <a href="index.php?sec=catalogo_completo" class="btn btn-artefacto mt-3">SEGUIR REVISANDO EL
                         ARSENAL</a>
                 </article>
-
             </div>
         </div>
 

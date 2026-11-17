@@ -1,11 +1,9 @@
-<?PHP
+<?php
 $termino = $_GET['termino'] ?? '';
 $origenFiltro = $_GET['origen'] ?? '';
 $peligroMin = isset($_GET['peligro_min']) && $_GET['peligro_min'] !== '' ? (int) $_GET['peligro_min'] : 0;
 
-
 $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
-
 ?>
 
 <section class="catalogo-jinx py-5">
@@ -15,7 +13,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
             <img src="img/grafitis/pow.webp" alt="Ilustración de Jinx disparando con su mano" class="grafiti-pow">
 
-            <header class="encabezado-catalogo text-center mb-5">
+            <header class="encabezado-catalogo text-center">
                 <span class="subtitulo-catalogo">ZAUN // INVENTARIO CLANDESTINO</span>
                 <h2 class="h1">EL <span>ARSENAL</span></h2>
                 <p><strong>Artefactos, inventos y otras pequeñas maravillas</strong> listas para hacer ruido.</p>
@@ -36,8 +34,6 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
             </div>
         </div>
 
-
-        <!-- PANEL DE BUSQUEDA Y FILTROS -->
         <section class="panel-inventario">
 
             <div class="panel-inventario-encabezado">
@@ -54,7 +50,6 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
                 <input type="hidden" name="sec" value="catalogo_completo">
 
-                <!-- BUSCADOR -->
                 <div class="campo-inventario campo-busqueda">
                     <label for="termino">BUSCAR EN EL INVENTARIO</label>
 
@@ -66,7 +61,6 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                     </div>
                 </div>
 
-                <!-- FILTRO DE ORIGEN -->
                 <div class="campo-inventario">
                     <label for="origen">ORIGEN</label>
 
@@ -78,29 +72,27 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                     </select>
                 </div>
 
-                <!-- FILTRO DE PELIGRO -->
                 <div class="campo-inventario">
                     <label for="peligro_min">NIVEL DE PELIGRO</label>
 
                     <select name="peligro_min" id="peligro_min">
                         <option value="">Todos los niveles</option>
-                        <option value="8" <?= $peligroMin == 8 ? 'selected' : '' ?>>PELIGRO 8+ // ALTO</option>
-                        <option value="10" <?= $peligroMin == 10 ? 'selected' : '' ?>>PELIGRO 10 // LETAL</option>
+                        <option value="8" <?= $peligroMin === 8 ? 'selected' : '' ?>>PELIGRO 8+ // ALTO</option>
+                        <option value="10" <?= $peligroMin === 10 ? 'selected' : '' ?>>PELIGRO 10 // LETAL</option>
                     </select>
                 </div>
 
-                <!-- BOTONES -->
                 <div class="acciones-inventario">
 
                     <button type="submit" class="btn-buscar-jinx">
                         <span>⌕</span> EJECUTAR BÚSQUEDA
                     </button>
 
-                    <?PHP if ($termino !== '' || $origenFiltro !== '' || $peligroMin > 0) { ?>
+                    <?php if ($termino !== '' || $origenFiltro !== '' || $peligroMin > 0) { ?>
                         <a href="index.php?sec=catalogo_completo" class="btn-limpiar-jinx" title="Limpiar filtros">
                             ✕
                         </a>
-                    <?PHP } ?>
+                    <?php } ?>
 
                 </div>
 
@@ -109,13 +101,12 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
         </section>
 
         <div class="row g-4">
-            <?PHP if (!empty($catalogo)) { ?>
-                <?PHP foreach ($catalogo as $artefacto) { ?>
+            <?php if (!empty($catalogo)) { ?>
+                <?php foreach ($catalogo as $artefacto) { ?>
                     <div class="col-12 col-md-6 col-lg-4 d-flex">
                         <article
                             class="card artefacto-card h-100 w-100 <?= $artefacto->getRobado() ? 'artefacto-robado border-danger' : '' ?>">
 
-                            <!-- IMAGEN -->
                             <div class="artefacto-imagen">
                                 <span class="etiqueta-artefacto <?= $artefacto->getRobado() ? 'bg-danger text-light' : '' ?>">
                                     <?= $artefacto->getRobado() ? '¡EXPROPIADO POR JINX!' : 'FABRICACIÓN ZAUNITA' ?>
@@ -124,7 +115,6 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                                     alt="Imagen ilustrativa de <?= $artefacto->getNombre() ?> (<?= $artefacto->getAlias() ?>)">
                             </div>
 
-                            <!-- INFORMACION -->
                             <div class="card-body artefacto-body">
                                 <p class="artefacto-creador">
                                     <span class="fw-bold"><?= strtoupper($artefacto->getCategoria()->getNombre()) ?></span> //
@@ -136,11 +126,11 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                                 </h3>
 
                                 <p class="card-text artefacto-descripcion">
-                                    <span class="fw-bold">Nota de Jinx:</span> <span class="fst-italic"><?= $artefacto->get_descripcion_reducida(14) ?></span>
+                                    <span class="fw-bold">Nota de Jinx:</span>
+                                    <span class="fst-italic"><?= $artefacto->get_descripcion_reducida(14) ?></span>
                                 </p>
                             </div>
 
-                            <!-- DATOS TECNICOS -->
                             <ul class="list-group list-group-flush artefacto-datos">
                                 <li class="list-group-item">
                                     <span>CREADOR</span>
@@ -156,7 +146,6 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
                                 </li>
                             </ul>
 
-                            <!-- PRECIO Y BOTON -->
                             <div class="artefacto-footer">
                                 <div class="artefacto-precio">
                                     <span>PRECIO DEL ARTEFACTO</span>
@@ -171,15 +160,16 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
                         </article>
                     </div>
-                <?PHP } ?>
-            <?PHP } else { ?>
+                <?php } ?>
+            <?php } else { ?>
                 <div class="col-12">
                     <div class="catalogo-vacio text-center">
                         <h2>¡VAYA, QUÉ DESASTRE!</h2>
-                        <p>No encontramos ningún artefacto con esos parámetros en el escondite de <span class="fw-bold">Jinx</span>.</p>
+                        <p>No encontramos ningún artefacto con esos parámetros en el escondite de <span
+                                class="fw-bold">Jinx</span>.</p>
                     </div>
                 </div>
-            <?PHP } ?>
+            <?php } ?>
         </div>
     </div>
 </section>

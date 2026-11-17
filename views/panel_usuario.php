@@ -1,35 +1,26 @@
-
-<?PHP
-
+<?php
 $userData = $_SESSION['loggedIn'] ?? [];
 
-$idUsuario = $userData['id'] ?? '---';
-$nombreCompleto = $userData['nombre_completo'] ?? 'No disponible';
-$nombreUsuario = $userData['username'] ?? 'No disponible';
-$email = $userData['email'] ?? 'No disponible';
-$rol = $userData['rol'] ?? 'No disponible';
-
-// Función para escapar los datos
-$escapar = function ($dato) {
-    return htmlspecialchars((string) $dato, ENT_QUOTES, 'UTF-8');
-};
-
+$idUsuario = htmlspecialchars((string) ($userData['id'] ?? '---'), ENT_QUOTES, 'UTF-8');
+$nombreCompleto = htmlspecialchars((string) ($userData['nombre_completo'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
+$nombreUsuario = htmlspecialchars((string) ($userData['username'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
+$email = htmlspecialchars((string) ($userData['email'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
+$rol = htmlspecialchars((string) ($userData['rol'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
 ?>
 
 <section class="panel-usuario-jinx py-5">
 
     <div class="container">
 
-        <!-- ENCABEZADO -->
         <header class="perfil-encabezado text-center mb-5">
 
             <span class="perfil-subtitulo">
                 ZAUN // BASE DE DATOS CLANDESTINA
             </span>
 
-            <h1>
+            <h2 class="h1">
                 REGISTRO DE <span>IDENTIDAD</span>
-            </h1>
+            </h2>
 
             <p>
                 Parece que tenemos un nuevo socio en el negocio.
@@ -38,13 +29,10 @@ $escapar = function ($dato) {
 
         </header>
 
-
-        <!-- EXPEDIENTE -->
-        <?PHP if ($userData): ?>
+        <?php if (!empty($userData)) { ?>
 
             <article class="expediente-jinx">
 
-                <!-- BARRA SUPERIOR -->
                 <div class="expediente-barra">
 
                     <div class="expediente-luces">
@@ -59,8 +47,6 @@ $escapar = function ($dato) {
 
                 </div>
 
-
-                <!-- CONTENIDO -->
                 <div class="expediente-contenido">
 
                     <div class="expediente-cabecera">
@@ -70,7 +56,7 @@ $escapar = function ($dato) {
                                 ARCHIVO PERSONAL
                             </span>
 
-                            <h2>IDENTIDAD DEL CLIENTE</h2>
+                            <h3>IDENTIDAD DEL CLIENTE</h3>
                         </div>
 
                         <div class="expediente-estado">
@@ -80,8 +66,6 @@ $escapar = function ($dato) {
 
                     </div>
 
-
-                    <!-- IDENTIFICACIÓN -->
                     <div class="identidad-usuario">
 
                         <div class="usuario-icono">
@@ -96,9 +80,7 @@ $escapar = function ($dato) {
                                 NOMBRE DE USUARIO
                             </span>
 
-                            <h3>
-                                <?= $escapar($nombreUsuario); ?>
-                            </h3>
+                            <h4><?= $nombreUsuario ?></h4>
 
                             <span class="usuario-verificado">
                                 <i class="bi bi-patch-check-fill"></i>
@@ -109,13 +91,11 @@ $escapar = function ($dato) {
 
                         <div class="sello-usuario">
                             <span>ACCESO</span>
-                            <strong>AUTORIZADO</strong>
+                            <span class="fw-bold">AUTORIZADO</span>
                         </div>
 
                     </div>
 
-
-                    <!-- DATOS PERSONALES -->
                     <div class="datos-usuario">
 
                         <div class="dato-usuario">
@@ -123,9 +103,7 @@ $escapar = function ($dato) {
                                 01 // NOMBRE COMPLETO
                             </span>
 
-                            <p>
-                                <?= $escapar($nombreCompleto); ?>
-                            </p>
+                            <p><?= $nombreCompleto ?></p>
                         </div>
 
                         <div class="dato-usuario">
@@ -133,9 +111,7 @@ $escapar = function ($dato) {
                                 02 // ROL ASIGNADO
                             </span>
 
-                            <p class="dato-rol">
-                                <?= $escapar($rol); ?>
-                            </p>
+                            <p class="dato-rol"><?= $rol ?></p>
                         </div>
 
                         <div class="dato-usuario dato-email">
@@ -143,13 +119,11 @@ $escapar = function ($dato) {
                                 03 // CORREO ELECTRÓNICO
                             </span>
 
-                            <p><?= $escapar($email); ?></p>
+                            <p><?= $email ?></p>
                         </div>
 
                     </div>
 
-
-                    <!-- PIE DEL EXPEDIENTE -->
                     <div class="expediente-pie">
 
                         <div class="expediente-mensaje">
@@ -164,7 +138,7 @@ $escapar = function ($dato) {
                         </div>
 
                         <div class="codigo-barras">
-                            <span>ZAUN // EXPEDIENTE N.º <?= $escapar($idUsuario); ?></span>
+                            <span>ZAUN // EXPEDIENTE N.º <?= $idUsuario ?></span>
                             <div></div>
                             <small>BLACK MARKET DATABASE</small>
                         </div>
@@ -173,18 +147,17 @@ $escapar = function ($dato) {
 
                 </div>
 
-                <!-- DECORACIÓN -->
                 <div class="expediente-esquina"></div>
 
             </article>
 
-        <?PHP else: ?>
+        <?php } else { ?>
 
             <div class="alert alert-dark text-center">
                 No se encontró una sesión activa.
             </div>
 
-        <?PHP endif; ?>
+        <?php } ?>
 
     </div>
 

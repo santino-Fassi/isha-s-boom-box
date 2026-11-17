@@ -7,7 +7,6 @@ if ($artefacto && isset($_GET['reiniciar'])) {
     Regateo::reiniciarRegateo($artefacto->getId());
 }
 
-
 if ($artefacto && $estrategiaRecibida === '') {
     unset($_SESSION['progreso_regateo'][$artefacto->getId()]);
     unset($_SESSION['regateo_activo_id'][$artefacto->getId()]);
@@ -47,15 +46,18 @@ if ($artefacto && $regateo) {
             <header class="encabezado-catalogo text-center pb-3 mb-3">
                 <h2 class="h1 titulo-inspeccion mb-1">NEGOCIAR <span>ARTEFACTO</span></h2>
                 <p class="small mb-0">
-                    Superá las <span class="fw-bold">3 instancias</span> con <span class="fw-bold"><?= $vendedor->getNombreCompleto() ?></span>: lograr más aciertos te da un <span class="fw-bold">10% de descuento</span>, pero más errores suman un <span class="fst-italic">5% de recargo</span>.
+                    Superá las <span class="fw-bold">3 instancias</span> con <span
+                        class="fw-bold"><?= $vendedor->getNombreCompleto() ?></span>: lograr más aciertos te da un <span
+                        class="fw-bold">10% de descuento</span>, pero más errores suman un <span class="fst-italic">5% de
+                        recargo</span>.
                 </p>
             </header>
 
             <div class="row g-3 align-items-stretch">
 
-                <!-- COLUMNA IZQUIERDA: PERSONAJE Y MENSAJE DE LA INSTANCIA ACTUAL -->
                 <div class="col-12 col-lg-5 d-flex">
-                    <article class="card artefacto-card <?= $esPrimeraRonda ? 'card-vendedor-giro' : '' ?> w-100 p-3 border-info d-flex flex-column justify-content-between">
+                    <article
+                        class="card artefacto-card <?= $esPrimeraRonda ? 'card-vendedor-giro' : '' ?> w-100 p-3 border-info d-flex flex-column justify-content-between">
                         <div>
                             <div class="d-flex align-items-center gap-3 mb-3">
                                 <img src="img/personajes/<?= $vendedor->getImagen() ?>"
@@ -67,15 +69,18 @@ if ($artefacto && $regateo) {
                                     </span>
                                     <h3 class="fs-3 mb-0"><?= $vendedor->getNombre() ?> (<?= $vendedor->getAlias() ?>)</h3>
                                     <p class="artefacto-creador small mb-0">
-                                        <span class="fw-bold">PERSONALIDAD:</span> <span class="fst-italic"><?= $regateo->getPersonalidad() ?></span>
+                                        <span class="fw-bold">PERSONALIDAD:</span> <span
+                                            class="fst-italic"><?= $regateo->getPersonalidad() ?></span>
                                     </p>
                                 </div>
                             </div>
 
                             <div class="p-2 px-3 bg-dark rounded border border-secondary mb-3">
-                                <h4 class="h6 text-info text-uppercase fw-bold mb-1 small">Expediente Psicológico (Pista):</h4>
+                                <h4 class="h6 text-info text-uppercase fw-bold mb-1 small">Expediente Psicológico (Pista):
+                                </h4>
                                 <p class="small mb-0">
-                                    <span class="fw-bold">Historial:</span> <span class="fst-italic"><?= $vendedor->getBiografia() ?></span>
+                                    <span class="fw-bold">Historial:</span> <span
+                                        class="fst-italic"><?= $vendedor->getBiografia() ?></span>
                                 </p>
                             </div>
                         </div>
@@ -91,9 +96,9 @@ if ($artefacto && $regateo) {
                     </article>
                 </div>
 
-                <!-- COLUMNA DERECHA: ARTEFACTO, 3 CIRCULITOS DE ESTADO Y OPCIONES -->
                 <div class="col-12 col-lg-7 d-flex">
-                    <article class="card artefacto-card w-100 p-3 d-flex flex-column justify-content-between <?= $esPrimeraRonda ? 'card-foco-zaun' : '' ?>">
+                    <article
+                        class="card artefacto-card w-100 p-3 d-flex flex-column justify-content-between <?= $esPrimeraRonda ? 'card-foco-zaun' : '' ?>">
 
                         <div class="d-flex align-items-center gap-3 p-2 bg-dark rounded border border-secondary mb-3">
                             <img src="img/artefactos/<?= $artefacto->getImagen() ?>"
@@ -105,7 +110,8 @@ if ($artefacto && $regateo) {
                                 </p>
                                 <h3 class="fs-4 mb-0 text-light"><?= $artefacto->getNombre() ?></h3>
                                 <p class="small mb-0">
-                                    <span class="fw-bold">Peligro:</span> <?= $artefacto->getNivel_peligro() ?>/10 — <span class="fst-italic">Origen: <?= $artefacto->getOrigen() ?></span>
+                                    <span class="fw-bold">Peligro:</span> <?= $artefacto->getNivel_peligro() ?>/10 — <span
+                                        class="fst-italic">Origen: <?= $artefacto->getOrigen() ?></span>
                                 </p>
                             </div>
                             <div class="text-end pe-2">
@@ -116,8 +122,8 @@ if ($artefacto && $regateo) {
                             </div>
                         </div>
 
-                        <!-- BARRA DE ESTADO CON LOS 3 CIRCULITOS -->
-                        <div class="d-flex flex-wrap justify-content-between align-items-center p-2 px-3 bg-dark rounded border border-secondary mb-3 gap-2">
+                        <div
+                            class="d-flex flex-wrap justify-content-between align-items-center p-2 px-3 bg-dark rounded border border-secondary mb-3 gap-2">
                             <span class="small fw-bold text-uppercase text-light">
                                 Ronda <?= $rondaActual ?> de 3 — Estado de la negociación:
                             </span>
@@ -129,7 +135,7 @@ if ($artefacto && $regateo) {
                                         : (($i + 1 === $rondaActual) ? 'circulo-activo' : 'circulo-pendiente');
                                     $iconoCirculo = $eleccionRonda ? $eleccionRonda['icono'] : ($i + 1);
                                     $tituloCirculo = $eleccionRonda ? $eleccionRonda['etiqueta'] : 'Instancia ' . ($i + 1);
-                                ?>
+                                    ?>
                                     <span class="circulo-instancia <?= $claseCirculo ?>" title="<?= $tituloCirculo ?>">
                                         <?= $iconoCirculo ?>
                                     </span>
@@ -145,11 +151,12 @@ if ($artefacto && $regateo) {
                                 </h4>
                                 <div class="d-flex flex-column gap-2">
                                     <?php foreach ($regateo->getOpcionesActuales() as $clave => $textoOpcion) { ?>
-                                        <label class="d-flex align-items-center gap-3 p-2 px-3 rounded bg-dark border border-secondary opcion-regateo">
+                                        <label class="d-flex align-items-center gap-3 p-2 px-3 rounded opcion-regateo">
                                             <input class="form-check-input m-0 fs-5 flex-shrink-0" type="radio"
                                                 name="estrategia" value="<?= $clave ?>" required>
                                             <span class="text-light small">
-                                                <span class="fw-bold">Argumento:</span> <span class="fst-italic">«<?= $textoOpcion ?>»</span>
+                                                <span class="fw-bold">Argumento:</span> <span
+                                                    class="fst-italic">«<?= $textoOpcion ?>»</span>
                                             </span>
                                         </label>
                                     <?php } ?>

@@ -1,11 +1,11 @@
-<?PHP
+<?php
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $artefacto = Artefacto::get_x_id($id);
 ?>
 
 <section class="catalogo-jinx py-5">
     <div class="container">
-        <?PHP if (!empty($artefacto)) {
+        <?php if (!empty($artefacto)) {
             $componentes = $artefacto->get_componentes();
             ?>
             <header class="encabezado-catalogo text-center mb-5">
@@ -23,8 +23,6 @@ $artefacto = Artefacto::get_x_id($id);
             <article class="card artefacto-card mb-5 p-3 p-md-4 <?= $artefacto->getRobado() ? 'border-danger' : '' ?>">
                 <div class="row g-4 align-items-center">
 
-
-
                     <div class="col-12 col-md-6">
                         <div class="artefacto-imagen position-relative">
                             <span class="etiqueta-artefacto <?= $artefacto->getRobado() ? 'bg-danger text-light' : '' ?>">
@@ -38,9 +36,8 @@ $artefacto = Artefacto::get_x_id($id);
                     <div class="col-12 col-md-6">
                         <div class="card-body artefacto-body">
                             <p class="artefacto-creador">
-                                <span class="fw-bold">CÓDIGO DE MODELO:</span> <span class="fst-italic">
-                                    <?= $artefacto->getAlias() ?>
-                                </span>
+                                <span class="fw-bold">CÓDIGO DE MODELO:</span>
+                                <span class="fst-italic"><?= $artefacto->getAlias() ?></span>
                             </p>
 
                             <h3 class="card-title fs-2 mb-3">
@@ -48,15 +45,12 @@ $artefacto = Artefacto::get_x_id($id);
                             </h3>
 
                             <p class="card-text artefacto-descripcion fs-5">
-                                <span class="fw-bold">Descripción de Jinx:</span> <span class="fst-italic">
-                                    <?= $artefacto->getDescripcion() ?>
-                                </span>
+                                <span class="fw-bold">Descripción de Jinx:</span>
+                                <span class="fst-italic"><?= $artefacto->getDescripcion() ?></span>
                             </p>
                         </div>
                     </div>
 
-
-                    <!-- FICHA COMPLETA -->
                     <div class="col-12 d-flex flex-column">
 
                         <ul class="list-group list-group-flush artefacto-datos mb-4">
@@ -88,19 +82,19 @@ $artefacto = Artefacto::get_x_id($id);
 
                         <div class="px-3 mb-4">
                             <h4 class="h5 text-uppercase fw-bold mb-3">Componentes de Fabricación:</h4>
-                            <?PHP if (!empty($componentes)) { ?>
+                            <?php if (!empty($componentes)) { ?>
                                 <div class="d-flex flex-wrap gap-2">
-                                    <?PHP foreach ($componentes as $comp) { ?>
+                                    <?php foreach ($componentes as $comp) { ?>
                                         <span class="badge bg-dark border border-info text-info p-2"
                                             title="<?= htmlspecialchars($comp->getDescripcion()) ?>">
                                             ⚙️ <?= $comp->getNombre() ?>
                                         </span>
-                                    <?PHP } ?>
+                                    <?php } ?>
                                 </div>
-                            <?PHP } else { ?>
+                            <?php } else { ?>
                                 <p><span class="fst-italic">Este artefacto no registra componentes específicos en el
                                         archivo.</span></p>
-                            <?PHP } ?>
+                            <?php } ?>
                         </div>
 
                         <div class="artefacto-footer mt-auto">
@@ -111,21 +105,22 @@ $artefacto = Artefacto::get_x_id($id);
 
                             <a href="#" class="btn btn-artefacto mb-3">ENCARGAR ESTE ARTEFACTO<span>→</span></a>
                             <?php if (Regateo::personaje_tiene_regateo($artefacto->getUsuario()->getId())) { ?>
-                            <a href="index.php?sec=inspeccion&id=<?= $artefacto->getId() ?>" class="btn btn-outline-secondary d-flex align-items-center justify-content-between flex-fill text-decoration-none px-3">
-                                NEGOCIAR<span>→</span>
-                            </a>
-                            <?php }?>
+                                <a href="index.php?sec=inspeccion&id=<?= $artefacto->getId() ?>"
+                                    class="btn btn-outline-secondary d-flex align-items-center justify-content-between flex-fill text-decoration-none px-3">
+                                    NEGOCIAR<span>→</span>
+                                </a>
+                            <?php } ?>
                         </div>
                     </div>
 
                 </div>
             </article>
-        <?PHP } else { ?>
+        <?php } else { ?>
             <div class="catalogo-vacio text-center my-5">
                 <h2 class="h1">ARTEFACTO NO ENCONTRADO</h2>
                 <p>El juguete que buscás <span class="fw-bold">ya fue vendido o explotó en mil pedazos</span>.</p>
                 <a href="index.php?sec=catalogo_completo" class="btn btn-artefacto mt-3">VOLVER AL ARSENAL</a>
             </div>
-        <?PHP } ?>
+        <?php } ?>
     </div>
 </section>
