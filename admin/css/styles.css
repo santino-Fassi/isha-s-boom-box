@@ -846,6 +846,10 @@ No media query for `xs` since this is the default in Bootstrap */
     .navbar-hextech .navbar-collapse {
         padding-top: 0;
     }
+
+    .navbar-hextech .nav-link {
+        font-size: small;
+    }
 }
 
 /* X-Large devices (large desktops, 1200px and up) */

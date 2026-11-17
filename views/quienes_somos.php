@@ -113,7 +113,7 @@
 
                     <div class="socio-datos">
                         <p><span class="fw-bold">EDAD:</span> 20 años</p>
-                        <p><span class="fw-bold">CORREO:</span> camila.gastager@davinci.com</p>
+                        <p><span class="fw-bold">CORREO:</span> camila.gastager@davinci.edu.ar</p>
                         <p><span class="fw-bold">INSTAGRAM:</span> @cami.gastager</p>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
 
                     <div class="socio-datos">
                         <p><span class="fw-bold">EDAD:</span> 20 años</p>
-                        <p><span class="fw-bold">CORREO:</span> santino.fassi@davinci.com</p>
+                        <p><span class="fw-bold">CORREO:</span> santino.fassi@davinci.edu.ar</p>
                         <p><span class="fw-bold">INSTAGRAM:</span> @santino_fassi</p>
                     </div>
                 </div>
