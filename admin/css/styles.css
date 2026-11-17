@@ -45,7 +45,7 @@ body.modo-admin {
     letter-spacing: 1.5px;
 }
 
-/* Navegación Hextech (Mobile-First) */
+/* Navegación Hextech */
 
 .navbar-hextech {
     background-color: #0B1723;
@@ -113,11 +113,12 @@ body.modo-admin {
     width: 15%;
 }
 
-.col-biografia-admin, .col-descripcion-admin {
+.col-biografia-admin,
+.col-descripcion-admin {
     width: 45%;
 }
 
-/* DASHBOARD HEXTECH */
+/* Panel principal Hextech */
 
 .dashboard-hextech {
     padding: 45px 0 20px;
@@ -162,8 +163,6 @@ body.modo-admin {
     );
 }
 
-/* MÓDULOS */
-
 .dashboard-modulos {
     max-width: 1050px;
     margin: 0 auto;
@@ -177,19 +176,11 @@ body.modo-admin {
     min-height: 280px;
     padding: 25px;
     overflow: hidden;
-
-    background: linear-gradient(
-        145deg,
-        var(--hex-superficie),
-        #122337
-    );
-
+    background: linear-gradient(145deg, var(--hex-superficie), #122337);
     border: 1px solid rgba(165, 226, 246, 0.15);
     border-top: 3px solid var(--hex-dorado);
-
     color: var(--hex-texto);
     text-decoration: none;
-
     transition: all 0.35s ease;
 }
 
@@ -209,27 +200,21 @@ body.modo-admin {
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 58px;
     height: 58px;
     margin: 25px 0 20px;
-
     border: 1px solid var(--hex-dorado);
     color: var(--hex-dorado);
     font-size: 2rem;
-
     background: rgba(215, 180, 91, 0.08);
     transform: rotate(45deg);
+    text-shadow: 0 0 12px currentColor;
 }
 
 .modulo-azul .modulo-icono {
     border-color: var(--hex-azul);
     color: var(--hex-azul);
     background: rgba(66, 185, 232, 0.08);
-}
-
-.modulo-icono {
-    text-shadow: 0 0 12px currentColor;
 }
 
 .modulo-hextech h3 {
@@ -255,9 +240,7 @@ body.modo-admin {
     align-items: center;
     margin-top: auto;
     padding-top: 15px;
-
     border-top: 1px solid rgba(255, 255, 255, 0.12);
-
     color: var(--hex-dorado);
     font-family: 'Rajdhani', sans-serif;
     font-size: 0.85rem;
@@ -274,15 +257,9 @@ body.modo-admin {
     transition: transform 0.3s ease;
 }
 
-/* EFECTO HOVER */
-
 .modulo-hextech:hover {
     color: var(--hex-texto);
-    background: linear-gradient(
-        145deg,
-        var(--hex-superficie-hover),
-        #172B40
-    );
+    background: linear-gradient(145deg, var(--hex-superficie-hover), #172B40);
     border-color: var(--hex-dorado);
     transform: translateY(-6px);
     box-shadow:
@@ -301,15 +278,12 @@ body.modo-admin {
     transform: translateX(7px);
 }
 
-/* PIE DEL DASHBOARD */
-
 .dashboard-pie {
     display: flex;
     flex-direction: column;
     gap: 8px;
     align-items: center;
     margin-top: 45px;
-
     color: var(--hex-texto-secundario);
     font-family: 'Rajdhani', sans-serif;
     font-size: 0.75rem;
@@ -317,39 +291,28 @@ body.modo-admin {
     letter-spacing: 2px;
 }
 
-/* BOTONES HEXTECH */
+/* Botones Hextech */
 
 .btn-hextech {
     border: 1px solid var(--hex-dorado);
-    background: linear-gradient(
-        135deg,
-        #192E42,
-        #25445C
-    );
+    background: linear-gradient(135deg, #192E42, #25445C);
     color: var(--hex-dorado-claro);
-
     font-family: 'Rajdhani', sans-serif;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-
     padding: 10px 20px;
     transition: all 0.3s ease;
 }
-
-/* EDITAR */
 
 .btn-editar:hover {
     background: var(--hex-dorado);
     color: #101D2B;
     border-color: var(--hex-dorado-claro);
-
     box-shadow:
         0 0 10px rgba(215, 180, 91, 0.4),
         0 0 20px rgba(215, 180, 91, 0.2);
 }
-
-/* ELIMINAR */
 
 .btn-eliminar {
     border-color: var(--hex-azul);
@@ -360,59 +323,41 @@ body.modo-admin {
     background: var(--hex-azul);
     color: #101D2B;
     border-color: var(--hex-azul-claro);
-
     box-shadow:
         0 0 10px rgba(66, 185, 232, 0.4),
         0 0 20px rgba(66, 185, 232, 0.2);
 }
 
-/* ESTADO AL PRESIONAR */
-
 .btn-hextech:active {
     transform: scale(0.97);
 }
+
 .btn-hextech.btn-sm {
     padding: 7px 14px;
     font-size: 0.9rem;
 }
 
-/* AGREGAR - HEXTECH AZUL */
-
 .btn-agregar {
-    background: linear-gradient(
-        135deg,
-        #193B52,
-        #176080
-    );
-
+    background: linear-gradient(135deg, #193B52, #176080);
     border: 1px solid var(--hex-azul);
     color: var(--hex-azul-claro);
-
     padding: 12px 20px;
     font-size: 1rem;
     letter-spacing: 2px;
-
     box-shadow: 0 0 10px rgba(66, 185, 232, 0.08);
 }
 
 .btn-agregar:hover {
-    background: linear-gradient(
-        135deg,
-        var(--hex-azul),
-        #248BB5
-    );
-
+    background: linear-gradient(135deg, var(--hex-azul), #248BB5);
     border-color: var(--hex-azul-claro);
     color: #101D2B;
-
     box-shadow:
         0 0 12px rgba(66, 185, 232, 0.4),
         0 0 25px rgba(66, 185, 232, 0.2);
-
     transform: translateY(-2px);
 }
 
-/* IDENTIFICACIÓN HEXTECH */
+/* Identificación de usuario en barra de navegación */
 
 .usuario-hextech {
     display: flex;
@@ -423,6 +368,8 @@ body.modo-admin {
     background: linear-gradient(135deg, #192E42, #25445C);
     border: 1px solid rgba(215, 180, 91, 0.55);
     border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
@@ -460,23 +407,19 @@ body.modo-admin {
     letter-spacing: 1.3px;
 }
 
-.usuario-hextech-info strong {
+.usuario-hextech-info strong,
+.usuario-hextech-info span {
     color: #F0D58B;
     font-family: 'Rajdhani', sans-serif;
     font-size: 14px;
     font-weight: 700;
 }
 
-
-/* =================================
-   PERFIL HEXTECH
-================================= */
+/* Perfil de usuario Hextech (Mobile-First) */
 
 .perfil-hextech {
     color: var(--hex-texto);
 }
-
-/* ENCABEZADO */
 
 .perfil-hextech-encabezado > span {
     color: var(--hex-azul);
@@ -486,7 +429,8 @@ body.modo-admin {
     letter-spacing: 3px;
 }
 
-.perfil-hextech-encabezado h1 {
+.perfil-hextech-encabezado h1,
+.perfil-hextech-encabezado h2 {
     margin: 12px 0;
     color: var(--hex-texto);
     font-family: 'Bebas Neue', sans-serif;
@@ -494,7 +438,8 @@ body.modo-admin {
     letter-spacing: 2px;
 }
 
-.perfil-hextech-encabezado h1 strong {
+.perfil-hextech-encabezado h1 strong,
+.perfil-hextech-encabezado h2 span {
     color: var(--hex-dorado);
     font-weight: normal;
 }
@@ -502,8 +447,6 @@ body.modo-admin {
 .perfil-hextech-encabezado p {
     color: var(--hex-texto-secundario);
 }
-
-/* CREDENCIAL */
 
 .credencial-hextech {
     position: relative;
@@ -515,8 +458,6 @@ body.modo-admin {
     border-radius: 8px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
-
-/* BARRA */
 
 .credencial-hextech-barra {
     display: flex;
@@ -562,8 +503,6 @@ body.modo-admin {
     background: var(--hex-azul-claro);
 }
 
-/* CONTENIDO */
-
 .credencial-hextech-contenido {
     padding: clamp(20px, 5vw, 40px);
 }
@@ -586,7 +525,8 @@ body.modo-admin {
     letter-spacing: 1.5px;
 }
 
-.credencial-hextech-cabecera h2 {
+.credencial-hextech-cabecera h2,
+.credencial-hextech-cabecera h3 {
     margin: 6px 0 0;
     color: var(--hex-texto);
     font-family: 'Bebas Neue', sans-serif;
@@ -612,12 +552,11 @@ body.modo-admin {
     box-shadow: 0 0 9px var(--hex-azul);
 }
 
-/* IDENTIDAD */
-
 .identidad-hextech {
     display: flex;
     align-items: center;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 14px;
     padding: 30px 0;
     border-bottom: 1px solid rgba(165, 226, 246, 0.2);
 }
@@ -641,7 +580,8 @@ body.modo-admin {
     min-width: 0;
 }
 
-.hextech-presentacion h3 {
+.hextech-presentacion h3,
+.hextech-presentacion h4 {
     margin: 5px 0;
     color: var(--hex-dorado-claro);
     font-family: 'Bebas Neue', sans-serif;
@@ -662,6 +602,7 @@ body.modo-admin {
     flex-direction: column;
     align-items: center;
     gap: 3px;
+    margin-left: auto;
     padding: 12px;
     color: var(--hex-dorado);
     border: 1px solid rgba(215, 180, 91, 0.5);
@@ -678,15 +619,14 @@ body.modo-admin {
     letter-spacing: 2px;
 }
 
-.hextech-sello strong {
+.hextech-sello strong,
+.hextech-sello .fw-bold {
     font-size: 12px;
 }
 
-/* DATOS */
-
 .datos-hextech {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 15px;
     padding: 28px 0;
 }
@@ -720,15 +660,13 @@ body.modo-admin {
 }
 
 .dato-hextech-email {
-    grid-column: 1 / -1;
+    grid-column: auto;
 }
-
-/* PIE */
 
 .credencial-hextech-pie {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    align-items: start;
     gap: 20px;
     flex-wrap: wrap;
     padding-top: 20px;
@@ -748,7 +686,7 @@ body.modo-admin {
 }
 
 .hextech-codigo {
-    text-align: right;
+    text-align: left;
 }
 
 .hextech-codigo span {
@@ -777,8 +715,6 @@ body.modo-admin {
     letter-spacing: 1px;
 }
 
-/* DECORACIÓN */
-
 .credencial-hextech-decoracion {
     position: absolute;
     top: 0;
@@ -790,48 +726,37 @@ body.modo-admin {
     pointer-events: none;
 }
 
-.usuario-hextech {
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 575px) {
-
-    .identidad-hextech {
-        flex-wrap: wrap;
-        gap: 14px;
-    }
-
-    .hextech-sello {
-        margin-left: auto;
-    }
-
-    .datos-hextech {
-        grid-template-columns: 1fr;
-    }
-
-    .dato-hextech-email {
-        grid-column: auto;
-    }
-
-    .credencial-hextech-pie {
-        align-items: start;
-    }
-
-    .hextech-codigo {
-        text-align: left;
-    }
-
-}
-
-
 /* X-Small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */
 
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {}
+@media (min-width: 576px) {
+
+    .identidad-hextech {
+        flex-wrap: nowrap;
+        gap: 20px;
+    }
+
+    .hextech-sello {
+        margin-left: 0;
+    }
+
+    .datos-hextech {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dato-hextech-email {
+        grid-column: 1 / -1;
+    }
+
+    .credencial-hextech-pie {
+        align-items: end;
+    }
+
+    .hextech-codigo {
+        text-align: right;
+    }
+}
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {}

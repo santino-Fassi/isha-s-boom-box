@@ -20,8 +20,8 @@
                 ¿Buscabas algo aburrido y convencional?
                 Entonces te equivocaste de lugar.
                 <strong>Acá vas a encontrar artefactos, rarezas
-                y algunas ideas que probablemente
-                no deberían existir.</strong>
+                    y algunas ideas que probablemente
+                    no deberían existir.</strong>
             </p>
 
             <a href="index.php?sec=catalogo_completo" class="btn btn-inicio-jinx">

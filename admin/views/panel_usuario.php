@@ -1,37 +1,26 @@
-
-<?PHP
-
+<?php
 $userData = $_SESSION['loggedIn'] ?? [];
 
-$idUsuario = $userData['id'] ?? '---';
-$nombreCompleto = $userData['nombre_completo'] ?? 'No disponible';
-$nombreUsuario = $userData['username'] ?? 'No disponible';
-$email = $userData['email'] ?? 'No disponible';
-$rol = $userData['rol'] ?? 'No disponible';
-
-// Función para escapar los datos
-$escapar = function ($dato) {
-    return htmlspecialchars((string) $dato, ENT_QUOTES, 'UTF-8');
-};
-
+$idUsuario = ($userData['id'] ?? '---');
+$nombreCompleto = ($userData['nombre_completo'] ?? 'No disponible');
+$nombreUsuario = ($userData['username'] ?? 'No disponible');
+$email = ($userData['email'] ?? 'No disponible');
+$rol = ($userData['rol'] ?? 'No disponible');
 ?>
 
 <section class="perfil-hextech py-5">
     <div class="container">
 
-        <!-- ENCABEZADO -->
         <header class="perfil-hextech-encabezado text-center mb-5">
-            <span> PILTOVER // HEXTECH SECURITY SYSTEM </span>
-            <h1>CREDENCIAL DE <strong>ACCESO</strong></h1>
+            <span>PILTOVER // HEXTECH SECURITY SYSTEM</span>
+            <h2 class="h1">CREDENCIAL DE <span>ACCESO</span></h2>
             <p>Registro de personal autorizado dentro del sistema de administración.</p>
         </header>
 
-        <?PHP if ($userData): ?>
+        <?php if (!empty($userData)) { ?>
 
-            <!-- CREDENCIAL -->
             <article class="credencial-hextech">
 
-                <!-- BARRA SUPERIOR -->
                 <div class="credencial-hextech-barra">
 
                     <div class="hextech-indicadores">
@@ -46,7 +35,6 @@ $escapar = function ($dato) {
 
                 </div>
 
-                <!-- CONTENIDO -->
                 <div class="credencial-hextech-contenido">
 
                     <div class="credencial-hextech-cabecera">
@@ -55,7 +43,7 @@ $escapar = function ($dato) {
                             <span class="hextech-etiqueta">
                                 REGISTRO INSTITUCIONAL
                             </span>
-                            <h2>IDENTIFICACIÓN DEL PERSONAL</h2>
+                            <h3>IDENTIFICACIÓN DEL PERSONAL</h3>
                         </div>
 
                         <div class="hextech-estado">
@@ -65,7 +53,6 @@ $escapar = function ($dato) {
 
                     </div>
 
-                    <!-- IDENTIDAD -->
                     <div class="identidad-hextech">
 
                         <div class="hextech-icono">
@@ -78,7 +65,7 @@ $escapar = function ($dato) {
                                 IDENTIFICADOR DEL USUARIO
                             </span>
 
-                            <h3><?= $escapar($nombreUsuario); ?></h3>
+                            <h4><?= $nombreUsuario ?></h4>
 
                             <span class="hextech-verificado">
                                 <i class="bi bi-patch-check-fill"></i>
@@ -90,34 +77,30 @@ $escapar = function ($dato) {
                         <div class="hextech-sello">
                             <i class="bi bi-gem"></i>
                             <span>HEXTECH</span>
-                            <strong>VALIDADO</strong>
+                            <span class="fw-bold">VALIDADO</span>
                         </div>
 
                     </div>
 
-                    <!-- DATOS -->
                     <div class="datos-hextech">
 
                         <div class="dato-hextech">
                             <span>01 // NOMBRE COMPLETO</span>
-                            <p><?= $escapar($nombreCompleto); ?></p>
+                            <p><?= $nombreCompleto ?></p>
                         </div>
 
                         <div class="dato-hextech">
                             <span>02 // NIVEL DE AUTORIZACIÓN</span>
-                            <p class="hextech-rol">
-                                <?= strtoupper($escapar($rol)); ?>
-                            </p>
+                            <p class="hextech-rol"><?= strtoupper($rol) ?></p>
                         </div>
 
                         <div class="dato-hextech dato-hextech-email">
                             <span>03 // CORREO INSTITUCIONAL</span>
-                            <p><?= $escapar($email); ?></p>
+                            <p><?= $email ?></p>
                         </div>
 
                     </div>
 
-                    <!-- PIE -->
                     <div class="credencial-hextech-pie">
 
                         <div>
@@ -132,7 +115,7 @@ $escapar = function ($dato) {
                         </div>
 
                         <div class="hextech-codigo">
-                            <span>PILTOVER // ID N.º <?= $escapar($idUsuario); ?></span>
+                            <span>PILTOVER // ID N.º <?= $idUsuario ?></span>
                             <div></div>
                             <small>HEXTECH SECURITY DIVISION</small>
                         </div>
@@ -141,10 +124,10 @@ $escapar = function ($dato) {
                 <div class="credencial-hextech-decoracion"></div>
             </article>
 
-        <?PHP else: ?>
+        <?php } else { ?>
             <div class="alert alert-dark text-center">
                 No se encontró una sesión activa.
             </div>
-        <?PHP endif; ?>
+        <?php } ?>
     </div>
 </section>

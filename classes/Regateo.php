@@ -26,9 +26,12 @@ class Regateo
     ];
 
     /**
-     * Construye una instancia de Regateo a partir de los datos de la base de datos.
+     * Construye e hidrata una instancia de Regateo a partir de un registro asociativo de la base de datos.
+     *
+     * @param array $regateoData Datos asociativos del regateo obtenidos de MySQL.
+     * @return Regateo Instancia de Regateo configurada con sus 3 instancias de diálogo.
      */
-    private static function crearRegateo($regateoData): Regateo
+    private static function crearRegateo(array $regateoData): Regateo
     {
         $regateo = new self();
 
@@ -36,7 +39,7 @@ class Regateo
             $regateo->{$campo} = $regateoData[$campo];
         }
 
-        $regateo->vendedor = Personaje::get_x_id($regateoData['personaje_id']);
+        $regateo->vendedor = Personaje::get_x_id((int) $regateoData['personaje_id']);
 
         $regateo->instancias = [
             1 => [
@@ -69,10 +72,10 @@ class Regateo
     }
 
     /**
-     * Verifica si un personaje tiene al menos un regateo registrado en la base de datos.
+     * Verifica si un personaje cuenta con al menos un regateo registrado en la base de datos.
      *
-     * @param int $personajeId ID del personaje portador.
-     * @return bool True si tiene al menos un regateo, false en caso contrario.
+     * @param int $personajeId Identificador único del personaje portador.
+     * @return bool True si tiene al menos un regateo asociado, false en caso contrario.
      */
     public static function personaje_tiene_regateo(int $personajeId): bool
     {
@@ -86,11 +89,10 @@ class Regateo
     }
 
     /**
-     * Busca todos los regateos asociados a un personaje y devuelve uno elegido al azar,
-     * o null si el personaje no tiene regateos cargados.
+     * Busca todos los regateos asociados a un personaje y devuelve uno seleccionado al azar.
      *
-     * @param int $personajeId ID del personaje portador.
-     * @return ?array Datos asociativos del regateo elegido o null.
+     * @param int $personajeId Identificador único del personaje portador.
+     * @return ?array Datos asociativos del regateo sorteado o null si no existen registros.
      */
     private static function obtener_datos_x_personaje(int $personajeId): ?array
     {
@@ -113,11 +115,10 @@ class Regateo
 
     /**
      * Crea e inicializa una instancia de Regateo a partir de un Artefacto.
-     * Si el personaje tiene varios regateos, elige uno al azar al comenzar y lo mantiene
-     * en sesión durante las 3 rondas. Si no tiene ninguno, devuelve null.
+     * Si el personaje posee varios regateos, sortea uno al comenzar y lo preserva en sesión durante las 3 rondas.
      *
      * @param Artefacto $artefacto Instancia del artefacto a negociar.
-     * @return ?Regateo Instancia de Regateo o null si el portador no tiene regateos.
+     * @return ?Regateo Instancia de Regateo configurada o null si el portador no posee regateos.
      */
     public static function crear_regateo_x_artefacto(Artefacto $artefacto): ?Regateo
     {
@@ -125,7 +126,6 @@ class Regateo
         $personajeId = $artefacto->getUsuario()->getId();
         $regateo = null;
 
-        // Si ya hay un regateo sorteado activo para esta partida, lo mantenemos en las 3 rondas
         if (isset($_SESSION['regateo_activo_id'][$artefactoId])) {
             $regateoGuardado = self::get_x_id((int) $_SESSION['regateo_activo_id'][$artefactoId]);
             if ($regateoGuardado && $regateoGuardado->getPersonaje_id() === $personajeId) {
@@ -133,7 +133,6 @@ class Regateo
             }
         }
 
-        // Si no hay uno activo en sesión, sorteamos uno aleatorio entre los que tenga el personaje
         if (!$regateo) {
             $datos = self::obtener_datos_x_personaje($personajeId);
             if (!$datos) {
@@ -150,9 +149,9 @@ class Regateo
     }
 
     /**
-     * Devuelve el listado completo de regateos para el ABM.
+     * Devuelve el listado completo de regateos registrados en la base de datos.
      *
-     * @return Regateo[]
+     * @return Regateo[] Array de instancias de Regateo.
      */
     public static function listado_completo(): array
     {
@@ -172,10 +171,10 @@ class Regateo
     }
 
     /**
-     * Devuelve los datos de un regateo en particular según su ID.
+     * Busca y devuelve un regateo específico según su identificador único.
      *
-     * @param int $id El ID único del regateo.
-     * @return ?Regateo
+     * @param int $id Identificador único del regateo.
+     * @return ?Regateo Instancia de Regateo o null si no se encuentra.
      */
     public static function get_x_id(int $id): ?Regateo
     {
@@ -192,7 +191,28 @@ class Regateo
     }
 
     /**
-     * Inserta un nuevo regateo en la base de datos.
+     * Inserta un nuevo registro de regateo en la base de datos y devuelve su ID autogenerado.
+     *
+     * @param int $personaje_id ID del personaje vendedor.
+     * @param string $personalidad Rasgo de personalidad del vendedor.
+     * @param string $mensaje_1 Diálogo de la primera instancia.
+     * @param string $opcion_tecnica_1 Argumento técnico de la primera instancia.
+     * @param string $opcion_frontal_1 Argumento frontal de la primera instancia.
+     * @param string $opcion_caotica_1 Argumento caótico de la primera instancia.
+     * @param string $mensaje_2 Diálogo de la segunda instancia.
+     * @param string $opcion_tecnica_2 Argumento técnico de la segunda instancia.
+     * @param string $opcion_frontal_2 Argumento frontal de la segunda instancia.
+     * @param string $opcion_caotica_2 Argumento caótico de la segunda instancia.
+     * @param string $mensaje_3 Diálogo de la tercera instancia.
+     * @param string $opcion_tecnica_3 Argumento técnico de la tercera instancia.
+     * @param string $opcion_frontal_3 Argumento frontal de la tercera instancia.
+     * @param string $opcion_caotica_3 Argumento caótico de la tercera instancia.
+     * @param string $estrategia_correcta Clave de la estrategia que otorga descuento ('tecnico', 'frontal' o 'caotico').
+     * @param string $estrategia_intermedia Clave de la estrategia que mantiene el precio ('tecnico', 'frontal' o 'caotico').
+     * @param string $respuesta_exito Respuesta final del vendedor al lograr el descuento.
+     * @param string $respuesta_neutral Respuesta final del vendedor al empatar la negociación.
+     * @param string $respuesta_fallo Respuesta final del vendedor al fallar la negociación.
+     * @return int Identificador único del regateo recién insertado.
      */
     public static function insert(
         int $personaje_id,
@@ -252,7 +272,28 @@ class Regateo
     }
 
     /**
-     * Edita los datos de este regateo en la base de datos.
+     * Actualiza los datos de este regateo en la base de datos.
+     *
+     * @param int $personaje_id ID del personaje vendedor.
+     * @param string $personalidad Rasgo de personalidad del vendedor.
+     * @param string $mensaje_1 Diálogo de la primera instancia.
+     * @param string $opcion_tecnica_1 Argumento técnico de la primera instancia.
+     * @param string $opcion_frontal_1 Argumento frontal de la primera instancia.
+     * @param string $opcion_caotica_1 Argumento caótico de la primera instancia.
+     * @param string $mensaje_2 Diálogo de la segunda instancia.
+     * @param string $opcion_tecnica_2 Argumento técnico de la segunda instancia.
+     * @param string $opcion_frontal_2 Argumento frontal de la segunda instancia.
+     * @param string $opcion_caotica_2 Argumento caótico de la segunda instancia.
+     * @param string $mensaje_3 Diálogo de la tercera instancia.
+     * @param string $opcion_tecnica_3 Argumento técnico de la tercera instancia.
+     * @param string $opcion_frontal_3 Argumento frontal de la tercera instancia.
+     * @param string $opcion_caotica_3 Argumento caótico de la tercera instancia.
+     * @param string $estrategia_correcta Clave de la estrategia que otorga descuento.
+     * @param string $estrategia_intermedia Clave de la estrategia que mantiene el precio.
+     * @param string $respuesta_exito Respuesta final del vendedor al lograr el descuento.
+     * @param string $respuesta_neutral Respuesta final del vendedor al empatar la negociación.
+     * @param string $respuesta_fallo Respuesta final del vendedor al fallar la negociación.
+     * @return void
      */
     public function edit(
         int $personaje_id,
@@ -274,7 +315,7 @@ class Regateo
         string $respuesta_exito,
         string $respuesta_neutral,
         string $respuesta_fallo
-    ) {
+    ): void {
         $conexion = Conexion::getConexion();
         $query = "UPDATE regateos SET
             personaje_id = :personaje_id,
@@ -324,9 +365,11 @@ class Regateo
     }
 
     /**
-     * Elimina esta instancia de la base de datos.
+     * Elimina este registro de regateo de la base de datos.
+     *
+     * @return void
      */
-    public function delete()
+    public function delete(): void
     {
         $conexion = Conexion::getConexion();
         $query = "DELETE FROM regateos WHERE id = ?";
@@ -336,9 +379,9 @@ class Regateo
     }
 
     /**
-     * Devuelve el historial de elecciones realizadas en las rondas actuales (0 a 3).
+     * Devuelve el historial de elecciones realizadas en las rondas actuales (de 0 a 3).
      *
-     * @return array Lista de rondas respondidas con su estado e ícono.
+     * @return array Lista de rondas respondidas con su estado, puntaje e ícono.
      */
     public function obtenerProgreso(): array
     {
@@ -346,56 +389,58 @@ class Regateo
     }
 
     /**
-     * Registra la respuesta de una instancia (confetti, cara de póker o bomba).
+     * Registra la respuesta de una instancia en su posición exacta (0, 1 o 2).
      *
-     * @param string $eleccion Clave elegida ('tecnico', 'frontal' o 'caotico').
+     * @param array $estrategias Array asociativo recibido por POST (ej. [0 => 'caotico']).
      * @return void
      */
-    public function registrarEleccion(string $eleccion): void
+    public function registrarEleccion(array $estrategias): void
     {
         $artefactoId = $this->artefacto->getId();
-        $progreso = $this->obtenerProgreso();
 
-        if (count($progreso) >= 3) {
-            return;
+        foreach ($estrategias as $indice => $eleccion) {
+
+            if ($indice < 0 || $indice > 2 || $eleccion == '') {
+                continue;
+            }
+
+            if ($eleccion == $this->estrategia_correcta) {
+                $item = [
+                    'eleccion' => $eleccion,
+                    'estado' => 'correcta',
+                    'icono' => '🎉',
+                    'clase' => 'circulo-correcta',
+                    'etiqueta' => '¡Elección acertada!',
+                    'puntos' => 1
+                ];
+            } elseif ($eleccion == $this->estrategia_intermedia) {
+                $item = [
+                    'eleccion' => $eleccion,
+                    'estado' => 'neutra',
+                    'icono' => '😐',
+                    'clase' => 'circulo-neutra',
+                    'etiqueta' => 'Reacción neutra',
+                    'puntos' => 0
+                ];
+            } else {
+                $item = [
+                    'eleccion' => $eleccion,
+                    'estado' => 'error',
+                    'icono' => '💣',
+                    'clase' => 'circulo-error',
+                    'etiqueta' => '¡Pésima elección!',
+                    'puntos' => -1
+                ];
+            }
+
+            $_SESSION['progreso_regateo'][$artefactoId][$indice] = $item;
         }
-
-        if ($eleccion === $this->estrategia_correcta) {
-            $item = [
-                'eleccion' => $eleccion,
-                'estado' => 'correcta',
-                'icono' => '🎉',
-                'clase' => 'circulo-correcta',
-                'etiqueta' => '¡Elección acertada!',
-                'puntos' => 1
-            ];
-        } elseif ($eleccion === $this->estrategia_intermedia) {
-            $item = [
-                'eleccion' => $eleccion,
-                'estado' => 'neutra',
-                'icono' => '😐',
-                'clase' => 'circulo-neutra',
-                'etiqueta' => 'Reacción neutra',
-                'puntos' => 0
-            ];
-        } else {
-            $item = [
-                'eleccion' => $eleccion,
-                'estado' => 'error',
-                'icono' => '💣',
-                'clase' => 'circulo-error',
-                'etiqueta' => '¡Pésima elección!',
-                'puntos' => -1
-            ];
-        }
-
-        $_SESSION['progreso_regateo'][$artefactoId][] = $item;
     }
 
     /**
-     * Calcula el veredicto final según la cantidad de respuestas correctas, neutras y erradas.
+     * Calcula el veredicto final de la negociación según el balance de aciertos, neutros y errores en las 3 instancias.
      *
-     * @return ?array Resultado final del regateo o null si aún no se completaron las 3 instancias.
+     * @return ?array Resumen asociativo del resultado final o null si aún no se completaron las 3 instancias.
      */
     public function evaluarResultadoFinal(): ?array
     {
@@ -471,7 +516,10 @@ class Regateo
     }
 
     /**
-     * Reinicia el progreso de las 3 instancias, el regateo sorteado y el resultado guardado de un artefacto.
+     * Reinicia en sesión el progreso de las 3 instancias, el regateo sorteado y el resultado previo de un artefacto.
+     *
+     * @param int $artefactoId Identificador único del artefacto.
+     * @return void
      */
     public static function reiniciarRegateo(int $artefactoId): void
     {
@@ -481,7 +529,9 @@ class Regateo
     }
 
     /**
-     * Devuelve el número de instancia actual (1, 2 o 3).
+     * Devuelve el número de instancia actual en curso (1, 2 o 3).
+     *
+     * @return int Número de instancia actual.
      */
     public function getRondaActual(): int
     {
@@ -489,7 +539,9 @@ class Regateo
     }
 
     /**
-     * Devuelve el mensaje del personaje correspondiente a la instancia actual.
+     * Devuelve el mensaje de diálogo del personaje correspondiente a la instancia actual.
+     *
+     * @return string Mensaje de la instancia en curso.
      */
     public function getMensajeActual(): string
     {
@@ -497,7 +549,9 @@ class Regateo
     }
 
     /**
-     * Devuelve las 3 opciones de argumento de la instancia actual.
+     * Devuelve las 3 opciones de argumento disponibles en la instancia actual.
+     *
+     * @return array<string, string> Mapa asociativo [clave_estrategia => texto_argumento].
      */
     public function getOpcionesActuales(): array
     {
@@ -505,119 +559,243 @@ class Regateo
     }
 
     /**
-     * Devuelve el resultado guardado en sesión para un artefacto si ya fue negociado.
+     * Devuelve el resultado final almacenado en sesión para un artefacto si ya fue negociado previamente.
+     *
+     * @param int $artefactoId Identificador único del artefacto.
+     * @return ?array Datos del resultado guardado o null si no existe.
      */
     public static function obtenerRegateoGuardado(int $artefactoId): ?array
     {
         return $_SESSION['regateos'][$artefactoId] ?? null;
     }
 
+    /**
+     * Devuelve el identificador único del regateo.
+     *
+     * @return int ID del regateo.
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $value)
+    /**
+     * Establece el identificador único del regateo.
+     *
+     * @param int $value Nuevo ID del regateo.
+     * @return void
+     */
+    public function setId(int $value): void
     {
         $this->id = $value;
     }
 
+    /**
+     * Devuelve el identificador del personaje asociado al regateo.
+     *
+     * @return int ID del personaje vendedor.
+     */
     public function getPersonaje_id(): int
     {
         return $this->personaje_id;
     }
 
-    public function setPersonaje_id(int $value)
+    /**
+     * Establece el identificador del personaje asociado al regateo.
+     *
+     * @param int $value Nuevo ID del personaje.
+     * @return void
+     */
+    public function setPersonaje_id(int $value): void
     {
         $this->personaje_id = $value;
     }
 
+    /**
+     * Devuelve la descripción de personalidad del vendedor en este regateo.
+     *
+     * @return string Personalidad del vendedor.
+     */
     public function getPersonalidad(): string
     {
         return $this->personalidad;
     }
 
-    public function setPersonalidad(string $value)
+    /**
+     * Establece la descripción de personalidad del vendedor.
+     *
+     * @param string $value Nueva personalidad.
+     * @return void
+     */
+    public function setPersonalidad(string $value): void
     {
         $this->personalidad = $value;
     }
 
+    /**
+     * Devuelve la estructura completa de las 3 instancias de diálogo y opciones.
+     *
+     * @return array Estructura de las 3 instancias.
+     */
     public function getInstancias(): array
     {
         return $this->instancias;
     }
 
-    public function setInstancias(array $value)
+    /**
+     * Establece la estructura de las 3 instancias de diálogo y opciones.
+     *
+     * @param array $value Nueva estructura de instancias.
+     * @return void
+     */
+    public function setInstancias(array $value): void
     {
         $this->instancias = $value;
     }
 
+    /**
+     * Devuelve la clave de la estrategia correcta que otorga descuento.
+     *
+     * @return string Clave de estrategia correcta ('tecnico', 'frontal' o 'caotico').
+     */
     public function getEstrategia_correcta(): string
     {
         return $this->estrategia_correcta;
     }
 
-    public function setEstrategia_correcta(string $value)
+    /**
+     * Establece la clave de la estrategia correcta.
+     *
+     * @param string $value Nueva estrategia correcta.
+     * @return void
+     */
+    public function setEstrategia_correcta(string $value): void
     {
         $this->estrategia_correcta = $value;
     }
 
+    /**
+     * Devuelve la clave de la estrategia intermedia o neutra.
+     *
+     * @return string Clave de estrategia intermedia ('tecnico', 'frontal' o 'caotico').
+     */
     public function getEstrategia_intermedia(): string
     {
         return $this->estrategia_intermedia;
     }
 
-    public function setEstrategia_intermedia(string $value)
+    /**
+     * Establece la clave de la estrategia intermedia.
+     *
+     * @param string $value Nueva estrategia intermedia.
+     * @return void
+     */
+    public function setEstrategia_intermedia(string $value): void
     {
         $this->estrategia_intermedia = $value;
     }
 
+    /**
+     * Devuelve el mensaje de respuesta final en caso de éxito en la negociación.
+     *
+     * @return string Respuesta de éxito.
+     */
     public function getRespuesta_exito(): string
     {
         return $this->respuesta_exito;
     }
 
-    public function setRespuesta_exito(string $value)
+    /**
+     * Establece el mensaje de respuesta final en caso de éxito.
+     *
+     * @param string $value Nueva respuesta de éxito.
+     * @return void
+     */
+    public function setRespuesta_exito(string $value): void
     {
         $this->respuesta_exito = $value;
     }
 
+    /**
+     * Devuelve el mensaje de respuesta final en caso de resultado neutral.
+     *
+     * @return string Respuesta neutral.
+     */
     public function getRespuesta_neutral(): string
     {
         return $this->respuesta_neutral;
     }
 
-    public function setRespuesta_neutral(string $value)
+    /**
+     * Establece el mensaje de respuesta final en caso de resultado neutral.
+     *
+     * @param string $value Nueva respuesta neutral.
+     * @return void
+     */
+    public function setRespuesta_neutral(string $value): void
     {
         $this->respuesta_neutral = $value;
     }
 
+    /**
+     * Devuelve el mensaje de respuesta final en caso de fallo en la negociación.
+     *
+     * @return string Respuesta de fallo.
+     */
     public function getRespuesta_fallo(): string
     {
         return $this->respuesta_fallo;
     }
 
-    public function setRespuesta_fallo(string $value)
+    /**
+     * Establece el mensaje de respuesta final en caso de fallo.
+     *
+     * @param string $value Nueva respuesta de fallo.
+     * @return void
+     */
+    public function setRespuesta_fallo(string $value): void
     {
         $this->respuesta_fallo = $value;
     }
 
+    /**
+     * Devuelve la instancia del objeto Artefacto vinculada a la negociación.
+     *
+     * @return Artefacto Artefacto en negociación.
+     */
     public function getArtefacto(): Artefacto
     {
         return $this->artefacto;
     }
 
-    public function setArtefacto(Artefacto $value)
+    /**
+     * Establece la instancia del objeto Artefacto vinculada a la negociación.
+     *
+     * @param Artefacto $value Nuevo artefacto.
+     * @return void
+     */
+    public function setArtefacto(Artefacto $value): void
     {
         $this->artefacto = $value;
     }
 
+    /**
+     * Devuelve la instancia del objeto Personaje que actúa como vendedor.
+     *
+     * @return Personaje Personaje vendedor.
+     */
     public function getVendedor(): Personaje
     {
         return $this->vendedor;
     }
 
-    public function setVendedor(Personaje $value)
+    /**
+     * Establece la instancia del objeto Personaje que actúa como vendedor.
+     *
+     * @param Personaje $value Nuevo personaje vendedor.
+     * @return void
+     */
+    public function setVendedor(Personaje $value): void
     {
         $this->vendedor = $value;
     }

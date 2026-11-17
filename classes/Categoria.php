@@ -1,6 +1,5 @@
 <?php
 
-
 class Categoria
 {
     private int $id;
@@ -8,9 +7,9 @@ class Categoria
     private string $descripcion;
 
     /**
-     * Devuelve el listado de categorias que tengan un catálogo.
-     * 
-     * @return array Un array con el id, nombre y descripcion de cada categoria;
+     * Devuelve el listado de categorías que poseen al menos un artefacto asociado en el catálogo.
+     *
+     * @return array Lista asociativa con id, nombre y descripción de cada categoría activa.
      */
     public static function listado_menu(): array
     {
@@ -21,18 +20,17 @@ class Categoria
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute();
 
-        $lista = $PDOStatement->fetchAll();
-        return $lista;
+        return $PDOStatement->fetchAll();
     }
 
     /**
-     * Devuelve los datos de una categoria en particular
-     * @param int $id El ID único de la categoria
-     * @return ?Categoria Categoria solicitado o null si la ID no existe.
+     * Busca y devuelve una categoría específica según su identificador único.
+     *
+     * @param int $id Identificador único de la categoría.
+     * @return ?Categoria Instancia de Categoria o null si no existe.
      */
     public static function get_x_id(int $id): ?Categoria
     {
-
         $conexion = Conexion::getConexion();
         $query = "SELECT * FROM categorias WHERE id = ?";
 
@@ -42,13 +40,13 @@ class Categoria
 
         $result = $PDOStatement->fetch();
 
-        return $result ? $result : null;
+        return $result !== false ? $result : null;
     }
 
     /**
-     * Devuelve el listado completo de categorias disponibles
-     * 
-     * @return Categoria[] Un array de objetos Categoria
+     * Devuelve el listado completo de categorías registradas en la base de datos.
+     *
+     * @return Categoria[] Array de instancias de Categoria.
      */
     public static function listado_completo(): array
     {
@@ -59,42 +57,39 @@ class Categoria
         $PDOStatement->setFetchMode(PDO::FETCH_CLASS, self::class);
         $PDOStatement->execute();
 
-        $lista = $PDOStatement->fetchAll();
-        return $lista;
+        return $PDOStatement->fetchAll();
     }
 
-
     /**
-     * Inserta una nueva categoria a la base de datos
-     * @param string $nombre
-     * @param string $descripcion
+     * Inserta una nueva categoría en la base de datos.
+     *
+     * @param string $nombre Nombre de la categoría.
+     * @param string $descripcion Descripción de la categoría.
+     * @return void
      */
-    public static function insert(string $nombre, string $descripcion)
+    public static function insert(string $nombre, string $descripcion): void
     {
-
         $conexion = Conexion::getConexion();
         $query = "INSERT INTO categorias (`nombre`, `descripcion`) VALUES (:nombre, :descripcion)";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-            ]
-        );
+        $PDOStatement->execute([
+            'nombre' => $nombre,
+            'descripcion' => $descripcion
+        ]);
     }
 
     /**
-     * Edita los datos de una categoria en la base de datos
-     * @param string $nombre
-     * @param string $descripcion
+     * Actualiza los datos de esta categoría en la base de datos.
+     *
+     * @param string $nombre Nuevo nombre de la categoría.
+     * @param string $descripcion Nueva descripción de la categoría.
+     * @return void
      */
-    public function edit(string $nombre, string $descripcion)
+    public function edit(string $nombre, string $descripcion): void
     {
-
         $conexion = Conexion::getConexion();
-        $query = " UPDATE categorias 
-                    SET nombre = :nombre, descripcion = :descripcion WHERE id = :id";
+        $query = "UPDATE categorias SET nombre = :nombre, descripcion = :descripcion WHERE id = :id";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->execute([
@@ -104,11 +99,12 @@ class Categoria
         ]);
     }
 
-
     /**
-     * Elimina esta instancia de la base de datos
+     * Elimina el registro de esta categoría de la base de datos.
+     *
+     * @return void
      */
-    public function delete()
+    public function delete(): void
     {
         $conexion = Conexion::getConexion();
         $query = "DELETE FROM categorias WHERE id = ?";
@@ -117,33 +113,65 @@ class Categoria
         $PDOStatement->execute([$this->id]);
     }
 
-
+    /**
+     * Devuelve el identificador único de la categoría.
+     *
+     * @return int ID de la categoría.
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function setId(int $value)
+    /**
+     * Establece el identificador único de la categoría.
+     *
+     * @param int $value Nuevo ID de la categoría.
+     * @return void
+     */
+    public function setId(int $value): void
     {
         $this->id = $value;
     }
 
+    /**
+     * Devuelve el nombre de la categoría.
+     *
+     * @return string Nombre de la categoría.
+     */
     public function getNombre(): string
     {
         return $this->nombre;
     }
 
-    public function setNombre(string $value)
+    /**
+     * Establece el nombre de la categoría.
+     *
+     * @param string $value Nuevo nombre de la categoría.
+     * @return void
+     */
+    public function setNombre(string $value): void
     {
         $this->nombre = $value;
     }
 
+    /**
+     * Devuelve la descripción de la categoría.
+     *
+     * @return string Descripción de la categoría.
+     */
     public function getDescripcion(): string
     {
         return $this->descripcion;
     }
 
-    public function setDescripcion(string $value)
+    /**
+     * Establece la descripción de la categoría.
+     *
+     * @param string $value Nueva descripción de la categoría.
+     * @return void
+     */
+    public function setDescripcion(string $value): void
     {
         $this->descripcion = $value;
     }

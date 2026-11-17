@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 class Artefacto
 {
@@ -8,7 +8,7 @@ class Artefacto
     private Categoria $categoria;
     private Personaje $personaje_creador;
     private Personaje $personaje_usuario;
-    private array $componentes;
+    private array $componentes = [];
     private string $origen;
     private int $nivel_peligro;
     private string $fecha_fabricacion;
@@ -17,9 +17,26 @@ class Artefacto
     private float $precio;
     private bool $robado;
 
-    private static array $campos_primitivos = ["id", "nombre", "alias", "origen", "nivel_peligro", "fecha_fabricacion", "descripcion", "imagen", "precio", "robado"];
+    private static array $campos_primitivos = [
+        'id',
+        'nombre',
+        'alias',
+        'origen',
+        'nivel_peligro',
+        'fecha_fabricacion',
+        'descripcion',
+        'imagen',
+        'precio',
+        'robado'
+    ];
 
-    private static function crearArtefacto($artefactoData): Artefacto
+    /**
+     * Construye e hidrata una instancia de Artefacto con sus objetos relacionados a partir de un registro asociativo.
+     *
+     * @param array $artefactoData Datos obtenidos de la base de datos.
+     * @return Artefacto Instancia de Artefacto configurada.
+     */
+    private static function crearArtefacto(array $artefactoData): Artefacto
     {
         $artefacto = new self();
 
@@ -27,32 +44,34 @@ class Artefacto
             $artefacto->{$campo} = $artefactoData[$campo];
         }
 
-        $artefacto->categoria = Categoria::get_x_id($artefactoData["categoria_id"]);
-        $artefacto->personaje_creador = Personaje::get_x_id($artefactoData["personaje_creador_id"]);
-        $artefacto->personaje_usuario = Personaje::get_x_id($artefactoData["personaje_usuario_id"]);
+        $artefacto->categoria = Categoria::get_x_id((int) $artefactoData['categoria_id']);
+        $artefacto->personaje_creador = Personaje::get_x_id((int) $artefactoData['personaje_creador_id']);
+        $artefacto->personaje_usuario = Personaje::get_x_id((int) $artefactoData['personaje_usuario_id']);
 
-        $componentesIds = !empty($artefactoData["componentes"]) ? explode(",", $artefactoData["componentes"]) : [];
+        $artefacto->componentes = [];
+        $componentesIds = !empty($artefactoData['componentes']) ? explode(',', $artefactoData['componentes']) : [];
 
         foreach ($componentesIds as $id) {
-            $artefacto->componentes[] = Componente::get_x_id($id);
+            $componente = Componente::get_x_id((int) $id);
+            if ($componente) {
+                $artefacto->componentes[] = $componente;
+            }
         }
 
         return $artefacto;
     }
 
     /**
-     * Devuelve el catálgo completo
-     * 
-     * @return Artefacto[] Un array de objetos Artefacto
+     * Devuelve el catálogo completo de artefactos disponibles junto con sus componentes asociados.
+     *
+     * @return Artefacto[] Array de instancias de Artefacto.
      */
     public static function catalogo_completo(): array
     {
-
         $conexion = Conexion::getConexion();
-
-        //$query = "SELECT * FROM artefactos";
-        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
-            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
             GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
@@ -69,38 +88,43 @@ class Artefacto
     }
 
     /**
-     * Devuelve los datos de un artefacto en particular
-     * @param int $id El ID único del artefacto a mostrar
-     *  
-     * @return ?Artefacto devuelve un objeto artefacto o null     
+     * Busca y devuelve un artefacto específico según su identificador único.
+     *
+     * @param int $id Identificador único del artefacto.
+     * @return ?Artefacto Instancia de Artefacto o null si no se encuentra.
      */
     public static function get_x_id(int $id): ?Artefacto
     {
-
         $conexion = Conexion::getConexion();
-        //$query = "SELECT * FROM artefactos WHERE id = ?";
-        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
-            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
-            WHERE artefactos.id = ? GROUP BY artefactos.id;";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.id = ?
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$id]);
-
 
         $result = $PDOStatement->fetch();
 
         return $result !== false ? self::crearArtefacto($result) : null;
     }
 
+    /**
+     * Devuelve los artefactos pertenecientes a una categoría determinada.
+     *
+     * @param int $categoriaID Identificador único de la categoría.
+     * @return Artefacto[] Array de instancias de Artefacto.
+     */
     public static function catalogo_x_categoria(int $categoriaID): array
     {
         $conexion = Conexion::getConexion();
-
-        //$query = "SELECT * FROM artefactos WHERE categoria_id = ?";
-        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
-            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
-            WHERE artefactos.categoria_id = ? GROUP BY artefactos.id;";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.categoria_id = ?
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
@@ -115,14 +139,20 @@ class Artefacto
         return $catalogo;
     }
 
+    /**
+     * Devuelve los artefactos diseñados por un personaje creador específico.
+     *
+     * @param int $creadorID Identificador único del personaje creador.
+     * @return Artefacto[] Array de instancias de Artefacto.
+     */
     public static function catalogo_x_creador(int $creadorID): array
     {
         $conexion = Conexion::getConexion();
-
-        //$query = "SELECT * FROM artefactos WHERE personaje_creador_id = ?";
-        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
-            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
-            WHERE artefactos.personaje_creador_id = ? GROUP BY artefactos.id;";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.personaje_creador_id = ?
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
@@ -137,14 +167,20 @@ class Artefacto
         return $catalogo;
     }
 
+    /**
+     * Devuelve los artefactos utilizados por un personaje portador específico.
+     *
+     * @param int $usuarioID Identificador único del personaje usuario.
+     * @return Artefacto[] Array de instancias de Artefacto.
+     */
     public static function catalogo_x_usuario(int $usuarioID): array
     {
         $conexion = Conexion::getConexion();
-
-        //$query = "SELECT * FROM artefactos WHERE personaje_usuario_id = ?";
-        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
-            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
-            WHERE artefactos.personaje_usuario_id = ? GROUP BY artefactos.id;";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.personaje_usuario_id = ?
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
@@ -159,14 +195,20 @@ class Artefacto
         return $catalogo;
     }
 
+    /**
+     * Devuelve los artefactos filtrados según su región o ciudad de origen.
+     *
+     * @param string $origen Nombre del origen de fabricación.
+     * @return Artefacto[] Array de instancias de Artefacto.
+     */
     public static function catalogo_x_origen(string $origen): array
     {
         $conexion = Conexion::getConexion();
-
-        //$query = "SELECT * FROM artefactos WHERE origen = ?";
-        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) as componentes
-            FROM artefactos LEFT JOIN componentes_x_artefacto as cxa ON artefactos.id = cxa.artefacto_id
-            WHERE artefactos.origen = ? GROUP BY artefactos.id;";
+        $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
+            FROM artefactos
+            LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
+            WHERE artefactos.origen = ?
+            GROUP BY artefactos.id;";
 
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
@@ -182,11 +224,11 @@ class Artefacto
     }
 
     /**
-     * Devuelve los artefactos en un determinado rango de precios
-     * @param int $minimo El precio minimo. De no proveerlo se asumira 0;
-     * @param int $maximo El precio máximo. De no proveerlo se asumiran infinito. 
-     * 
-     * @return Artefacto[] Un array de objetos Artefacto
+     * Devuelve los artefactos comprendidos dentro de un rango de precios determinado.
+     *
+     * @param float $minimo Precio mínimo a filtrar (por defecto 0).
+     * @param float $maximo Precio máximo a filtrar (0 para no aplicar límite superior).
+     * @return Artefacto[] Array de instancias de Artefacto.
      */
     public static function catalogo_x_rango_precio(float $minimo = 0, float $maximo = 0): array
     {
@@ -194,7 +236,7 @@ class Artefacto
 
         if ($maximo > 0) {
             $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
-                FROM artefactos 
+                FROM artefactos
                 LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
                 WHERE artefactos.precio BETWEEN :minimo AND :maximo
                 GROUP BY artefactos.id;";
@@ -204,7 +246,7 @@ class Artefacto
             ];
         } else {
             $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
-                FROM artefactos 
+                FROM artefactos
                 LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
                 WHERE artefactos.precio >= :minimo
                 GROUP BY artefactos.id;";
@@ -226,13 +268,12 @@ class Artefacto
         return $catalogo;
     }
 
-
     /**
-     * Devuelve los artefactos en un determinado rango de peligro
-     * @param int $minimo El peligro minimo. De no proveerlo se asumira 0;
-     * @param int $maximo El peligro máximo. De no proveerlo se asumiran infinito. 
-     * 
-     * @return Artefacto[] Un array de objetos Artefacto
+     * Devuelve los artefactos comprendidos dentro de un rango de nivel de peligro.
+     *
+     * @param int $minimo Nivel de peligro mínimo (por defecto 0).
+     * @param int $maximo Nivel de peligro máximo (0 para no aplicar límite superior).
+     * @return Artefacto[] Array de instancias de Artefacto.
      */
     public static function catalogo_x_rango_peligro(int $minimo = 0, int $maximo = 0): array
     {
@@ -240,7 +281,7 @@ class Artefacto
 
         if ($maximo > 0) {
             $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
-                FROM artefactos 
+                FROM artefactos
                 LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
                 WHERE artefactos.nivel_peligro BETWEEN :minimo AND :maximo
                 GROUP BY artefactos.id;";
@@ -250,7 +291,7 @@ class Artefacto
             ];
         } else {
             $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
-                FROM artefactos 
+                FROM artefactos
                 LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
                 WHERE artefactos.nivel_peligro >= :minimo
                 GROUP BY artefactos.id;";
@@ -273,8 +314,10 @@ class Artefacto
     }
 
     /**
-     * Busca un termino 
-     * 
+     * Busca artefactos cuyo nombre o alias coincidan parcialmente con el término indicado.
+     *
+     * @param string $terminoBusqueda Texto a buscar en nombre o alias.
+     * @return Artefacto[] Array de instancias de Artefacto coincidentes.
      */
     public static function buscador(string $terminoBusqueda): array
     {
@@ -282,7 +325,7 @@ class Artefacto
 
         $conexion = Conexion::getConexion();
         $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
-            FROM artefactos 
+            FROM artefactos
             LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
             WHERE artefactos.nombre LIKE :terminoNombre OR artefactos.alias LIKE :terminoAlias
             GROUP BY artefactos.id;";
@@ -290,8 +333,8 @@ class Artefacto
         $PDOStatement = $conexion->prepare($query);
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([
-            "terminoNombre" => "%$terminoSanitizado%",
-            "terminoAlias" => "%$terminoSanitizado%"
+            'terminoNombre' => "%$terminoSanitizado%",
+            'terminoAlias' => "%$terminoSanitizado%"
         ]);
 
         $catalogo = [];
@@ -304,17 +347,18 @@ class Artefacto
     }
 
     /**
-     * Filtra el catálogo combinando término de búsqueda, origen y peligro mínimo
-     * @param string $termino Término de búsqueda
-     * @param string $origen Origen de los artefactos
-     * @param int $peligroMin Peligro mínimo de los artefactos
-     * @return array Lista de artefactos que cumplen con las condiciones
+     * Filtra el catálogo combinando de manera opcional término de búsqueda, origen y nivel de peligro mínimo.
+     *
+     * @param string $termino Texto a buscar en nombre o alias.
+     * @param string $origen Región de origen del artefacto.
+     * @param int $peligroMin Nivel de peligro mínimo requerido.
+     * @return Artefacto[] Lista de artefactos que cumplen con los filtros aplicados.
      */
     public static function catalogo_filtrado(string $termino = '', string $origen = '', int $peligroMin = 0): array
-{
+    {
         $conexion = Conexion::getConexion();
         $query = "SELECT artefactos.*, GROUP_CONCAT(cxa.componente_id) AS componentes
-            FROM artefactos 
+            FROM artefactos
             LEFT JOIN componentes_x_artefacto AS cxa ON artefactos.id = cxa.artefacto_id
             WHERE 1=1";
         $params = [];
@@ -351,134 +395,166 @@ class Artefacto
         return $catalogo;
     }
 
-
-
     /**
-     * Inserta un nuevo artefacto a la base de datos
-     * @param string $nombre
-     * @param string $alias
-     * @param int $categoria_id
-     * @param int $personaje_creador_id
-     * @param int $personaje_usuario_id
-     * @param string $origen
-     * @param int $nivel_peligro
-     * @param string $fecha_fabricacion El dia de publicación en formato YYYY-DD-MM
-     * @param string $descripcion
-     * @param string $imagen ruta a un archivo .jpg o .png
-     * @param float $precio
-     * @param bool $robado
-     * 
-     * @return int El ID AI del elemento insertado.
+     * Inserta un nuevo artefacto en la base de datos y devuelve su identificador autogenerado.
+     *
+     * @param string $nombre Nombre del artefacto.
+     * @param string $alias Código o alias del modelo.
+     * @param int $categoria_id ID de la categoría asociada.
+     * @param int $personaje_creador_id ID del personaje inventor.
+     * @param int $personaje_usuario_id ID del personaje portador.
+     * @param string $origen Ciudad o región de origen.
+     * @param int $nivel_peligro Nivel de peligro en escala del 1 al 10.
+     * @param string $fecha_fabricacion Fecha de registro en formato YYYY-MM-DD.
+     * @param string $descripcion Descripción detallada del artefacto.
+     * @param string $imagen Nombre del archivo de imagen.
+     * @param float $precio Valor en el mercado.
+     * @param bool $robado Indica si fue expropiado o robado.
+     * @return int ID del artefacto recién insertado.
      */
-    public static function insert(string $nombre, string $alias, int $categoria_id, int $personaje_creador_id, int $personaje_usuario_id, string $origen, int $nivel_peligro, string $fecha_fabricacion, string $descripcion, string $imagen, float $precio, bool $robado): int
-    {
+    public static function insert(
+        string $nombre,
+        string $alias,
+        int $categoria_id,
+        int $personaje_creador_id,
+        int $personaje_usuario_id,
+        string $origen,
+        int $nivel_peligro,
+        string $fecha_fabricacion,
+        string $descripcion,
+        string $imagen,
+        float $precio,
+        bool $robado
+    ): int {
         $conexion = Conexion::getConexion();
         $query = "INSERT INTO artefactos VALUES (NULL, :nombre, :alias, :categoria_id, :personaje_creador_id, :personaje_usuario_id, :origen, :nivel_peligro, :fecha_fabricacion, :descripcion, :imagen, :precio, :robado)";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'nombre' => $nombre,
-                'alias' => $alias,
-                'categoria_id' => $categoria_id,
-                'personaje_creador_id' => $personaje_creador_id,
-                'personaje_usuario_id' => $personaje_usuario_id,
-                'origen' => $origen,
-                'nivel_peligro' => $nivel_peligro,
-                'fecha_fabricacion' => $fecha_fabricacion,
-                'descripcion' => $descripcion,
-                'imagen' => $imagen,
-                'precio' => $precio,
-                'robado' => (int) $robado
-            ]
-        );
+        $PDOStatement->execute([
+            'nombre' => $nombre,
+            'alias' => $alias,
+            'categoria_id' => $categoria_id,
+            'personaje_creador_id' => $personaje_creador_id,
+            'personaje_usuario_id' => $personaje_usuario_id,
+            'origen' => $origen,
+            'nivel_peligro' => $nivel_peligro,
+            'fecha_fabricacion' => $fecha_fabricacion,
+            'descripcion' => $descripcion,
+            'imagen' => $imagen,
+            'precio' => $precio,
+            'robado' => (int) $robado
+        ]);
 
         return (int) $conexion->lastInsertId();
     }
 
     /**
-     * Crea un vinculo entre un artefacto y un componente
-     * @param int $artefacto_id
-     * @param int $componente_id
+     * Registra un vínculo entre un artefacto y un componente en la tabla puente.
+     *
+     * @param int $artefacto_id ID del artefacto.
+     * @param int $componente_id ID del componente.
+     * @return void
      */
-    public static function add_componente(int $artefacto_id, int $componente_id)
+    public static function add_componente(int $artefacto_id, int $componente_id): void
     {
         $conexion = Conexion::getConexion();
         $query = "INSERT INTO componentes_x_artefacto VALUES (NULL, :artefacto_id, :componente_id)";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'artefacto_id' => $artefacto_id,
-                'componente_id' => $componente_id
-            ]
-        );
+        $PDOStatement->execute([
+            'artefacto_id' => $artefacto_id,
+            'componente_id' => $componente_id
+        ]);
     }
 
     /**
-     * Vaciar lista de componentes del artefacto
+     * Elimina todas las relaciones de componentes asociadas a este artefacto.
+     *
+     * @return void
      */
-    public function clear_componentes()
+    public function clear_componentes(): void
     {
         $conexion = Conexion::getConexion();
         $query = "DELETE FROM componentes_x_artefacto WHERE artefacto_id = :artefacto_id";
 
         $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'artefacto_id' => $this->id
-            ]
-        );
+        $PDOStatement->execute([
+            'artefacto_id' => $this->id
+        ]);
     }
-
-
-    public function edit(string $nombre, string $alias, int $categoria_id, int $personaje_creador_id, int $personaje_usuario_id, string $origen, int $nivel_peligro, string $fecha_fabricacion, string $descripcion, string $imagen, float $precio, bool $robado)
-    {
-
-        $conexion = Conexion::getConexion();
-        $query = "UPDATE artefactos SET
-         nombre = :nombre,
-         alias = :alias,
-         categoria_id = :categoria_id,
-         personaje_creador_id = :personaje_creador_id,
-         personaje_usuario_id = :personaje_usuario_id,
-         origen = :origen,
-         nivel_peligro = :nivel_peligro,
-         fecha_fabricacion = :fecha_fabricacion,
-         descripcion = :descripcion,
-         imagen = :imagen,
-         precio = :precio,
-         robado = :robado    
-        WHERE id = :id";
-
-        $PDOStatement = $conexion->prepare($query);
-        $PDOStatement->execute(
-            [
-                'id' => $this->id,
-                'nombre' => $nombre,
-                'alias' => $alias,
-                'categoria_id' => $categoria_id,
-                'personaje_creador_id' => $personaje_creador_id,
-                'personaje_usuario_id' => $personaje_usuario_id,
-                'origen' => $origen,
-                'nivel_peligro' => $nivel_peligro,
-                'fecha_fabricacion' => $fecha_fabricacion,
-                'descripcion' => $descripcion,
-                'imagen' => $imagen,
-                'precio' => $precio,
-                'robado' => (int) $robado
-            ]
-        );
-    }
-
-
 
     /**
-     * Elimina esta instancia de la base de datos
+     * Actualiza los datos de este artefacto en la base de datos.
+     *
+     * @param string $nombre Nombre del artefacto.
+     * @param string $alias Código o alias del modelo.
+     * @param int $categoria_id ID de la categoría asociada.
+     * @param int $personaje_creador_id ID del personaje inventor.
+     * @param int $personaje_usuario_id ID del personaje portador.
+     * @param string $origen Ciudad o región de origen.
+     * @param int $nivel_peligro Nivel de peligro en escala del 1 al 10.
+     * @param string $fecha_fabricacion Fecha de registro en formato YYYY-MM-DD.
+     * @param string $descripcion Descripción detallada del artefacto.
+     * @param string $imagen Nombre del archivo de imagen.
+     * @param float $precio Valor en el mercado.
+     * @param bool $robado Indica si fue expropiado o robado.
+     * @return void
      */
-    public function delete()
-    {
+    public function edit(
+        string $nombre,
+        string $alias,
+        int $categoria_id,
+        int $personaje_creador_id,
+        int $personaje_usuario_id,
+        string $origen,
+        int $nivel_peligro,
+        string $fecha_fabricacion,
+        string $descripcion,
+        string $imagen,
+        float $precio,
+        bool $robado
+    ): void {
+        $conexion = Conexion::getConexion();
+        $query = "UPDATE artefactos SET
+            nombre = :nombre,
+            alias = :alias,
+            categoria_id = :categoria_id,
+            personaje_creador_id = :personaje_creador_id,
+            personaje_usuario_id = :personaje_usuario_id,
+            origen = :origen,
+            nivel_peligro = :nivel_peligro,
+            fecha_fabricacion = :fecha_fabricacion,
+            descripcion = :descripcion,
+            imagen = :imagen,
+            precio = :precio,
+            robado = :robado
+            WHERE id = :id";
 
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([
+            'id' => $this->id,
+            'nombre' => $nombre,
+            'alias' => $alias,
+            'categoria_id' => $categoria_id,
+            'personaje_creador_id' => $personaje_creador_id,
+            'personaje_usuario_id' => $personaje_usuario_id,
+            'origen' => $origen,
+            'nivel_peligro' => $nivel_peligro,
+            'fecha_fabricacion' => $fecha_fabricacion,
+            'descripcion' => $descripcion,
+            'imagen' => $imagen,
+            'precio' => $precio,
+            'robado' => (int) $robado
+        ]);
+    }
+
+    /**
+     * Elimina este artefacto y sus vínculos con componentes de la base de datos.
+     *
+     * @return void
+     */
+    public function delete(): void
+    {
         $this->clear_componentes();
 
         $conexion = Conexion::getConexion();
@@ -488,9 +564,10 @@ class Artefacto
         $PDOStatement->execute([$this->id]);
     }
 
-
     /**
-     * @return array listado de componentes del artefacto
+     * Devuelve el listado de objetos Componente asociados al artefacto.
+     *
+     * @return Componente[] Array de instancias de Componente.
      */
     public function get_componentes(): array
     {
@@ -498,7 +575,9 @@ class Artefacto
     }
 
     /**
-     * Devuelve un array simple con los IDs de los componentes
+     * Devuelve un array con los identificadores numéricos de los componentes asociados.
+     *
+     * @return int[] Lista de IDs de componentes.
      */
     public function get_componentes_ids(): array
     {
@@ -510,9 +589,10 @@ class Artefacto
     }
 
     /**
-     * Esta método devuelve las primeras x palabras de la descripcion
-     * 
-     * @param int $cantidad Esta es la cantidad de palabras a extraer (Opcional)
+     * Recorta la descripción del artefacto a una cantidad determinada de palabras.
+     *
+     * @param int $cantidad Cantidad máxima de palabras a conservar (por defecto 10).
+     * @return string Texto resumido con puntos suspensivos si fue truncado.
      */
     public function get_descripcion_reducida(int $cantidad = 10): string
     {
@@ -530,7 +610,9 @@ class Artefacto
     }
 
     /**
-     * Devuelve el precio de la unidad, formateado correctamente
+     * Devuelve el precio unitario formateado con separadores de miles y decimales.
+     *
+     * @return string Precio formateado con símbolo monetario.
      */
     public function get_precio_formateado(): string
     {
@@ -538,123 +620,306 @@ class Artefacto
     }
 
     /**
-     * Devuelve el precio + IVA
+     * Calcula y devuelve el precio final con el 21% de IVA incluido.
+     *
+     * @return float Precio con IVA.
      */
-    public function get_precio_iva() : float
+    public function get_precio_iva(): float
     {
         return $this->precio * 1.21;
     }
 
+    /**
+     * Devuelve el identificador único del artefacto.
+     *
+     * @return int ID del artefacto.
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
-	public function getId() : int {
-		return $this->id;
-	}
+    /**
+     * Establece el identificador único del artefacto.
+     *
+     * @param int $value Nuevo ID del artefacto.
+     * @return void
+     */
+    public function setId(int $value): void
+    {
+        $this->id = $value;
+    }
 
-	public function setId(int $value) {
-		$this->id = $value;
-	}
+    /**
+     * Devuelve el nombre del artefacto.
+     *
+     * @return string Nombre del artefacto.
+     */
+    public function getNombre(): string
+    {
+        return $this->nombre;
+    }
 
-	public function getNombre() : string {
-		return $this->nombre;
-	}
+    /**
+     * Establece el nombre del artefacto.
+     *
+     * @param string $value Nuevo nombre del artefacto.
+     * @return void
+     */
+    public function setNombre(string $value): void
+    {
+        $this->nombre = $value;
+    }
 
-	public function setNombre(string $value) {
-		$this->nombre = $value;
-	}
+    /**
+     * Devuelve el alias o código de modelo del artefacto.
+     *
+     * @return string Alias del artefacto.
+     */
+    public function getAlias(): string
+    {
+        return $this->alias;
+    }
 
-	public function getAlias() : string {
-		return $this->alias;
-	}
+    /**
+     * Establece el alias o código de modelo del artefacto.
+     *
+     * @param string $value Nuevo alias del artefacto.
+     * @return void
+     */
+    public function setAlias(string $value): void
+    {
+        $this->alias = $value;
+    }
 
-	public function setAlias(string $value) {
-		$this->alias = $value;
-	}
+    /**
+     * Devuelve el objeto Categoria asociado al artefacto.
+     *
+     * @return Categoria Categoría del artefacto.
+     */
+    public function getCategoria(): Categoria
+    {
+        return $this->categoria;
+    }
 
-	public function getCategoria() : Categoria {
-		return $this->categoria;
-	}
+    /**
+     * Establece el objeto Categoria asociado al artefacto.
+     *
+     * @param Categoria $value Nueva categoría.
+     * @return void
+     */
+    public function setCategoria(Categoria $value): void
+    {
+        $this->categoria = $value;
+    }
 
-	public function setCategoria(Categoria $value) {
-		$this->categoria = $value;
-	}
+    /**
+     * Devuelve el objeto Personaje correspondiente al inventor o creador.
+     *
+     * @return Personaje Creador del artefacto.
+     */
+    public function getCreador(): Personaje
+    {
+        return $this->personaje_creador;
+    }
 
-	public function getCreador() : Personaje {
-		return $this->personaje_creador;
-	}
+    /**
+     * Establece el objeto Personaje correspondiente al inventor o creador.
+     *
+     * @param Personaje $value Nuevo personaje creador.
+     * @return void
+     */
+    public function setCreador(Personaje $value): void
+    {
+        $this->personaje_creador = $value;
+    }
 
-	public function setCreador(Personaje $value) {
-		$this->personaje_creador = $value;
-	}
+    /**
+     * Devuelve el objeto Personaje correspondiente al portador habitual.
+     *
+     * @return Personaje Usuario o portador del artefacto.
+     */
+    public function getUsuario(): Personaje
+    {
+        return $this->personaje_usuario;
+    }
 
-	public function getUsuario() : Personaje {
-		return $this->personaje_usuario;
-	}
+    /**
+     * Establece el objeto Personaje correspondiente al portador habitual.
+     *
+     * @param Personaje $value Nuevo personaje portador.
+     * @return void
+     */
+    public function setUsuario(Personaje $value): void
+    {
+        $this->personaje_usuario = $value;
+    }
 
-	public function setUsuario(Personaje $value) {
-		$this->personaje_usuario = $value;
-	}
+    /**
+     * Devuelve el listado de objetos Componente del artefacto.
+     *
+     * @return Componente[] Array de componentes.
+     */
+    public function getComponentes(): array
+    {
+        return $this->componentes;
+    }
 
-	public function getComponentes() : array {
-		return $this->componentes;
-	}
+    /**
+     * Establece el listado de objetos Componente del artefacto.
+     *
+     * @param Componente[] $value Nuevo array de componentes.
+     * @return void
+     */
+    public function setComponentes(array $value): void
+    {
+        $this->componentes = $value;
+    }
 
-	public function setComponentes(array $value) {
-		$this->componentes = $value;
-	}
+    /**
+     * Devuelve la región de origen de fabricación del artefacto.
+     *
+     * @return string Origen del artefacto.
+     */
+    public function getOrigen(): string
+    {
+        return $this->origen;
+    }
 
-	public function getOrigen() : string {
-		return $this->origen;
-	}
+    /**
+     * Establece la región de origen de fabricación del artefacto.
+     *
+     * @param string $value Nuevo origen del artefacto.
+     * @return void
+     */
+    public function setOrigen(string $value): void
+    {
+        $this->origen = $value;
+    }
 
-	public function setOrigen(string $value) {
-		$this->origen = $value;
-	}
+    /**
+     * Devuelve el nivel de peligro del artefacto (1 a 10).
+     *
+     * @return int Nivel de peligro.
+     */
+    public function getNivel_peligro(): int
+    {
+        return $this->nivel_peligro;
+    }
 
-	public function getNivel_peligro() : int {
-		return $this->nivel_peligro;
-	}
+    /**
+     * Establece el nivel de peligro del artefacto.
+     *
+     * @param int $value Nuevo nivel de peligro.
+     * @return void
+     */
+    public function setNivel_peligro(int $value): void
+    {
+        $this->nivel_peligro = $value;
+    }
 
-	public function setNivel_peligro(int $value) {
-		$this->nivel_peligro = $value;
-	}
+    /**
+     * Devuelve la fecha de fabricación o registro del artefacto.
+     *
+     * @return string Fecha en formato YYYY-MM-DD.
+     */
+    public function getFecha_fabricacion(): string
+    {
+        return $this->fecha_fabricacion;
+    }
 
-	public function getFecha_fabricacion() : string {
-		return $this->fecha_fabricacion;
-	}
+    /**
+     * Establece la fecha de fabricación o registro del artefacto.
+     *
+     * @param string $value Nueva fecha de fabricación.
+     * @return void
+     */
+    public function setFecha_fabricacion(string $value): void
+    {
+        $this->fecha_fabricacion = $value;
+    }
 
-	public function setFecha_fabricacion(string $value) {
-		$this->fecha_fabricacion = $value;
-	}
+    /**
+     * Devuelve la descripción completa del artefacto.
+     *
+     * @return string Descripción del artefacto.
+     */
+    public function getDescripcion(): string
+    {
+        return $this->descripcion;
+    }
 
-	public function getDescripcion() : string {
-		return $this->descripcion;
-	}
+    /**
+     * Establece la descripción completa del artefacto.
+     *
+     * @param string $value Nueva descripción.
+     * @return void
+     */
+    public function setDescripcion(string $value): void
+    {
+        $this->descripcion = $value;
+    }
 
-	public function setDescripcion(string $value) {
-		$this->descripcion = $value;
-	}
+    /**
+     * Devuelve el nombre del archivo de imagen del artefacto.
+     *
+     * @return string Nombre de archivo de imagen.
+     */
+    public function getImagen(): string
+    {
+        return $this->imagen;
+    }
 
-	public function getImagen() : string {
-		return $this->imagen;
-	}
+    /**
+     * Establece el nombre del archivo de imagen del artefacto.
+     *
+     * @param string $value Nuevo archivo de imagen.
+     * @return void
+     */
+    public function setImagen(string $value): void
+    {
+        $this->imagen = $value;
+    }
 
-	public function setImagen(string $value) {
-		$this->imagen = $value;
-	}
+    /**
+     * Devuelve el precio numérico del artefacto.
+     *
+     * @return float Precio del artefacto.
+     */
+    public function getPrecio(): float
+    {
+        return $this->precio;
+    }
 
-	public function getPrecio() : float {
-		return $this->precio;
-	}
+    /**
+     * Establece el precio numérico del artefacto.
+     *
+     * @param float $value Nuevo precio.
+     * @return void
+     */
+    public function setPrecio(float $value): void
+    {
+        $this->precio = $value;
+    }
 
-	public function setPrecio(float $value) {
-		$this->precio = $value;
-	}
+    /**
+     * Indica si el artefacto figura como robado o expropiado.
+     *
+     * @return bool True si es robado, false si es diseño original.
+     */
+    public function getRobado(): bool
+    {
+        return $this->robado;
+    }
 
-	public function getRobado() : bool {
-		return $this->robado;
-	}
-
-	public function setRobado(bool $value) {
-		$this->robado = $value;
-	}
+    /**
+     * Establece el estado de robado del artefacto.
+     *
+     * @param bool $value Nuevo estado booleano.
+     * @return void
+     */
+    public function setRobado(bool $value): void
+    {
+        $this->robado = $value;
+    }
 }

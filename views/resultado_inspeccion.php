@@ -1,6 +1,6 @@
 <?php
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-$estrategiaElegida = $_POST['estrategia'] ?? '';
+$estrategiasRecibidas = $_POST['estrategia'] ?? [];
 $artefacto = Artefacto::get_x_id($id);
 
 $resultado = null;
@@ -9,8 +9,8 @@ $regateo = $artefacto ? Regateo::crear_regateo_x_artefacto($artefacto) : null;
 if ($artefacto && $regateo) {
     $vendedor = $regateo->getVendedor();
 
-    if ($estrategiaElegida !== '') {
-        $regateo->registrarEleccion($estrategiaElegida);
+    if (!empty($estrategiasRecibidas)) {
+        $regateo->registrarEleccion($estrategiasRecibidas);
     }
 
     $resultado = $regateo->evaluarResultadoFinal();
@@ -33,12 +33,12 @@ if ($artefacto && $regateo) {
                         alt="Retrato de <?= $vendedor->getNombreCompleto() ?>"
                         class="rounded-circle border border-<?= $resultado['badge_color'] ?> miniatura-inspeccion">
                     <div class="text-start">
-                        <span class="subtitulo-catalogo d-block mb-0">RESPUESTA DE <?= strtoupper($vendedor->getAlias()) ?></span>
+                        <span class="subtitulo-catalogo d-block mb-0">RESPUESTA DE
+                            <?= strtoupper($vendedor->getAlias()) ?></span>
                         <h2 class="h2 text-<?= $resultado['badge_color'] ?> mb-0"><?= $resultado['titulo'] ?></h2>
                     </div>
                 </div>
 
-                <!-- RESUMEN DE LOS 3 CIRCULITOS -->
                 <?php if (!empty($resultado['historial'])) { ?>
                     <div class="d-flex flex-column align-items-center my-2">
                         <div class="d-flex justify-content-center align-items-center gap-3 mb-2">
@@ -58,9 +58,11 @@ if ($artefacto && $regateo) {
                     </div>
                 <?php } ?>
 
-                <blockquote class="blockquote my-3 p-3 bg-dark rounded border border-<?= $resultado['badge_color'] ?> mx-auto bloque-respuesta">
+                <blockquote
+                    class="blockquote my-3 p-3 bg-dark rounded border border-<?= $resultado['badge_color'] ?> mx-auto bloque-respuesta">
                     <p class="fs-5 mb-0 text-light">
-                        <span class="fw-bold">Veredicto:</span> <span class="fst-italic"><?= $resultado['respuesta'] ?></span>
+                        <span class="fw-bold">Veredicto:</span> <span
+                            class="fst-italic"><?= $resultado['respuesta'] ?></span>
                     </p>
                 </blockquote>
 
@@ -75,7 +77,8 @@ if ($artefacto && $regateo) {
                     </div>
                     <div class="col-12 col-sm-5 col-md-4">
                         <div class="p-2 px-3 bg-dark rounded border border-<?= $resultado['badge_color'] ?>">
-                            <span class="d-block small text-<?= $resultado['badge_color'] ?> fw-bold">PRECIO FINAL ACORDADO</span>
+                            <span class="d-block small text-<?= $resultado['badge_color'] ?> fw-bold">PRECIO FINAL
+                                ACORDADO</span>
                             <p class="fs-3 mb-0 text-<?= $resultado['badge_color'] ?>">
                                 <span class="fw-bold"><?= $resultado['precio_final_formateado'] ?></span>
                             </p>
@@ -108,7 +111,8 @@ if ($artefacto && $regateo) {
             <div class="catalogo-vacio text-center my-4">
                 <h2 class="h1">SIN NEGOCIACIÓN ACTIVA</h2>
                 <p>Todavía no completaste las 3 instancias de oferta para <span class="fw-bold">este artefacto</span>.</p>
-                <a href="index.php?sec=inspeccion&id=<?= $id ?>" class="btn btn-artefacto mt-3">IR A LA MESA DE INSPECCIÓN</a>
+                <a href="index.php?sec=inspeccion&id=<?= $id ?>" class="btn btn-artefacto mt-3">IR A LA MESA DE
+                    INSPECCIÓN</a>
             </div>
         <?php } ?>
     </div>
