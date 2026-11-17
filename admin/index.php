@@ -21,11 +21,10 @@ $seccionActual = $vista->getNombre();
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link href="css/styles.css?v=2" rel="stylesheet">
+    <link href="css/styles.css?v=3" rel="stylesheet">
 </head>
 
 <body class="modo-admin">
@@ -57,8 +56,20 @@ $seccionActual = $vista->getNombre();
                                 <a class="nav-link <?= $seccionActual === 'admin_artefactos' ? 'active' : '' ?>" href="index.php?sec=admin_artefactos">Administrar Artefactos</a>
                             </li>
                             <li class="nav-item">
-                                <span class="nav-link bg-danger text-light rounded me-2">🙍‍♂️
-                                    <?= $userData['nombre_completo'] ?? '' ?></span>
+                                <a href="index.php?sec=panel_usuario" class="usuario-hextech">
+
+                                    <span class="usuario-hextech-icono">
+                                        <i class="bi bi-shield-lock-fill"></i>
+                                    </span>
+
+                                    <div class="usuario-hextech-info">
+                                        <small>PERSONAL AUTORIZADO</small>
+                                        <strong>
+                                            <?= htmlspecialchars($userData['nombre_completo'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                                        </strong>
+                                    </div>
+                                    <i class="bi bi-chevron-right usuario-hextech-flecha"></i>
+                                </a>
                             </li>
                         <?php } ?>
 

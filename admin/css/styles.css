@@ -412,6 +412,421 @@ body.modo-admin {
     transform: translateY(-2px);
 }
 
+/* IDENTIFICACIÓN HEXTECH */
+
+.usuario-hextech {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 13px;
+    margin: 5px 0;
+    background: linear-gradient(135deg, #192E42, #25445C);
+    border: 1px solid rgba(215, 180, 91, 0.55);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.usuario-hextech:hover {
+    border-color: #F0D58B;
+    box-shadow: 0 0 12px rgba(215, 180, 91, 0.25);
+}
+
+.usuario-hextech-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    flex-shrink: 0;
+    color: #F0D58B;
+    background: rgba(215, 180, 91, 0.12);
+    border: 1px solid rgba(215, 180, 91, 0.5);
+    border-radius: 4px;
+    font-size: 17px;
+}
+
+.usuario-hextech-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.usuario-hextech-info small {
+    color: #42B9E8;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.usuario-hextech-info strong {
+    color: #F0D58B;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/* =================================
+   PERFIL HEXTECH
+================================= */
+
+.perfil-hextech {
+    color: var(--hex-texto);
+}
+
+/* ENCABEZADO */
+
+.perfil-hextech-encabezado > span {
+    color: var(--hex-azul);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+}
+
+.perfil-hextech-encabezado h1 {
+    margin: 12px 0;
+    color: var(--hex-texto);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 2px;
+}
+
+.perfil-hextech-encabezado h1 strong {
+    color: var(--hex-dorado);
+    font-weight: normal;
+}
+
+.perfil-hextech-encabezado p {
+    color: var(--hex-texto-secundario);
+}
+
+/* CREDENCIAL */
+
+.credencial-hextech {
+    position: relative;
+    max-width: 850px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--hex-superficie);
+    border: 1px solid rgba(215, 180, 91, 0.5);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* BARRA */
+
+.credencial-hextech-barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 18px;
+    background: var(--hex-fondo);
+    border-bottom: 1px solid rgba(215, 180, 91, 0.3);
+}
+
+.credencial-hextech-barra p {
+    margin: 0;
+    color: var(--hex-dorado);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.credencial-hextech-barra > span {
+    color: var(--hex-texto-secundario);
+    font-size: 11px;
+}
+
+.hextech-indicadores {
+    display: flex;
+    gap: 5px;
+}
+
+.hextech-indicadores span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hex-dorado);
+}
+
+.hextech-indicadores span:nth-child(2) {
+    background: var(--hex-azul);
+}
+
+.hextech-indicadores span:nth-child(3) {
+    background: var(--hex-azul-claro);
+}
+
+/* CONTENIDO */
+
+.credencial-hextech-contenido {
+    padding: clamp(20px, 5vw, 40px);
+}
+
+.credencial-hextech-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding-bottom: 22px;
+    border-bottom: 1px solid rgba(165, 226, 246, 0.2);
+}
+
+.hextech-etiqueta {
+    color: var(--hex-azul);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.credencial-hextech-cabecera h2 {
+    margin: 6px 0 0;
+    color: var(--hex-texto);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+.hextech-estado {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--hex-azul-claro);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.hextech-estado span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--hex-azul);
+    box-shadow: 0 0 9px var(--hex-azul);
+}
+
+/* IDENTIDAD */
+
+.identidad-hextech {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(165, 226, 246, 0.2);
+}
+
+.hextech-icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 75px;
+    height: 75px;
+    flex-shrink: 0;
+    color: var(--hex-dorado-claro);
+    background: rgba(215, 180, 91, 0.1);
+    border: 1px solid var(--hex-dorado);
+    border-radius: 6px;
+    font-size: 32px;
+}
+
+.hextech-presentacion {
+    flex: 1;
+    min-width: 0;
+}
+
+.hextech-presentacion h3 {
+    margin: 5px 0;
+    color: var(--hex-dorado-claro);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(25px, 4vw, 36px);
+    overflow-wrap: anywhere;
+}
+
+.hextech-verificado {
+    color: var(--hex-azul);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.hextech-sello {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 12px;
+    color: var(--hex-dorado);
+    border: 1px solid rgba(215, 180, 91, 0.5);
+    border-radius: 5px;
+    font-family: 'Rajdhani', sans-serif;
+}
+
+.hextech-sello i {
+    font-size: 25px;
+}
+
+.hextech-sello span {
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.hextech-sello strong {
+    font-size: 12px;
+}
+
+/* DATOS */
+
+.datos-hextech {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+    padding: 28px 0;
+}
+
+.dato-hextech {
+    min-width: 0;
+    padding: 16px;
+    background: rgba(16, 29, 43, 0.6);
+    border-left: 2px solid var(--hex-azul);
+}
+
+.dato-hextech span {
+    color: var(--hex-texto-secundario);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.dato-hextech p {
+    margin: 8px 0 0;
+    color: var(--hex-texto);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.dato-hextech .hextech-rol {
+    color: var(--hex-dorado-claro);
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 1px;
+}
+
+.dato-hextech-email {
+    grid-column: 1 / -1;
+}
+
+/* PIE */
+
+.credencial-hextech-pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    border-top: 1px solid rgba(215, 180, 91, 0.3);
+}
+
+.credencial-hextech-pie p {
+    margin: 7px 0 0;
+    color: var(--hex-azul-claro);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.credencial-hextech-pie p i {
+    color: var(--hex-dorado);
+}
+
+.hextech-codigo {
+    text-align: right;
+}
+
+.hextech-codigo span {
+    color: var(--hex-dorado);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.hextech-codigo div {
+    width: 140px;
+    height: 25px;
+    margin: 5px 0;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--hex-texto) 0 2px,
+        transparent 2px 5px,
+        var(--hex-texto) 5px 6px,
+        transparent 6px 9px
+    );
+}
+
+.hextech-codigo small {
+    color: var(--hex-texto-secundario);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+/* DECORACIÓN */
+
+.credencial-hextech-decoracion {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 35px;
+    height: 35px;
+    border-top: 2px solid var(--hex-dorado);
+    border-right: 2px solid var(--hex-dorado);
+    pointer-events: none;
+}
+
+.usuario-hextech {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 575px) {
+
+    .identidad-hextech {
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .hextech-sello {
+        margin-left: auto;
+    }
+
+    .datos-hextech {
+        grid-template-columns: 1fr;
+    }
+
+    .dato-hextech-email {
+        grid-column: auto;
+    }
+
+    .credencial-hextech-pie {
+        align-items: start;
+    }
+
+    .hextech-codigo {
+        text-align: left;
+    }
+
+}
+
+
 /* X-Small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */
 

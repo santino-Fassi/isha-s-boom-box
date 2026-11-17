@@ -16,9 +16,10 @@ class Autenticacion
         if ($datosUsuario) {
             if (password_verify($password, $datosUsuario->getPassword())) {
                 $datosLogin = [
+                    'id' => $datosUsuario->getId(),
                     'username' => $datosUsuario->getNombre_usuario(),
                     'nombre_completo' => $datosUsuario->getNombre_completo(),
-                    'id' => $datosUsuario->getId(),
+                    'email' => $datosUsuario->getEmail(),
                     'rol' => $datosUsuario->getRol()
                 ];
 
