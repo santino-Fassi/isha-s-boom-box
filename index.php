@@ -117,7 +117,7 @@ $categoriasDisponibles = Categoria::listado_menu();
                                     <span class="usuario-navbar-info">
                                         <small>SOCIO ACTIVO</small>
                                         <span
-                                            class="fw-bold"><?= htmlspecialchars($userData['nombre_completo'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>
+                                            class="fw-bold"><?= $userData['nombre_completo'] ?? '' ?></span>
                                     </span>
                                     <i class="bi bi-chevron-right usuario-navbar-flecha"></i>
                                 </a>

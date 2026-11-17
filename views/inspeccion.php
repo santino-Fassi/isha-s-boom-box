@@ -1,13 +1,13 @@
 <?php
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $artefacto = Artefacto::get_x_id($id);
-$estrategiaRecibida = $_POST['estrategia'] ?? '';
+$estrategiasRecibidas = $_POST['estrategia'] ?? [];
 
 if ($artefacto && isset($_GET['reiniciar'])) {
     Regateo::reiniciarRegateo($artefacto->getId());
 }
 
-if ($artefacto && $estrategiaRecibida === '') {
+if ($artefacto && empty($estrategiasRecibidas)) {
     unset($_SESSION['progreso_regateo'][$artefacto->getId()]);
     unset($_SESSION['regateo_activo_id'][$artefacto->getId()]);
 }
@@ -20,12 +20,13 @@ if ($artefacto) {
 if ($artefacto && $regateo) {
     $vendedor = $regateo->getVendedor();
 
-    if ($estrategiaRecibida !== '') {
-        $regateo->registrarEleccion($estrategiaRecibida);
+    if (!empty($estrategiasRecibidas)) {
+        $regateo->registrarEleccion($estrategiasRecibidas);
     }
 
     $progreso = $regateo->obtenerProgreso();
     $rondaActual = $regateo->getRondaActual();
+    $indiceActual = $rondaActual - 1;
     $esPrimeraRonda = count($progreso) === 0;
     $accionFormulario = ($rondaActual < 3)
         ? "index.php?sec=inspeccion&id={$artefacto->getId()}"
@@ -153,7 +154,7 @@ if ($artefacto && $regateo) {
                                     <?php foreach ($regateo->getOpcionesActuales() as $clave => $textoOpcion) { ?>
                                         <label class="d-flex align-items-center gap-3 p-2 px-3 rounded opcion-regateo">
                                             <input class="form-check-input m-0 fs-5 flex-shrink-0" type="radio"
-                                                name="estrategia" value="<?= $clave ?>" required>
+                                                name="estrategia[<?= $indiceActual ?>]" value="<?= $clave ?>" required>
                                             <span class="text-light small">
                                                 <span class="fw-bold">Argumento:</span> <span
                                                     class="fst-italic">«<?= $textoOpcion ?>»</span>

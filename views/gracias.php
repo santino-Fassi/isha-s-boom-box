@@ -1,10 +1,10 @@
 <?PHP
 
-$aliasCliente = htmlspecialchars(trim($_POST['alias'] ?? ''));
-$emailCliente = htmlspecialchars(trim($_POST['email'] ?? ''));
-$faccionCliente = htmlspecialchars(trim($_POST['faccion'] ?? ''));
-$artefactoInteres = htmlspecialchars(trim($_POST['artefacto'] ?? ''));
-$mensajeCliente = htmlspecialchars(trim($_POST['mensaje'] ?? ''));
+$aliasCliente = trim($_POST['alias'] ?? '');
+$emailCliente = trim($_POST['email'] ?? '');
+$faccionCliente = trim($_POST['faccion'] ?? '');
+$artefactoInteres = trim($_POST['artefacto'] ?? '');
+$mensajeCliente = trim($_POST['mensaje'] ?? '');
 
 ?>
 

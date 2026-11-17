@@ -389,50 +389,52 @@ class Regateo
     }
 
     /**
-     * Evalúa y registra en sesión la respuesta seleccionada por el usuario en una instancia.
+     * Registra la respuesta de una instancia en su posición exacta (0, 1 o 2).
      *
-     * @param string $eleccion Clave de la estrategia elegida ('tecnico', 'frontal' o 'caotico').
+     * @param array $estrategias Array asociativo recibido por POST (ej. [0 => 'caotico']).
      * @return void
      */
-    public function registrarEleccion(string $eleccion): void
+    public function registrarEleccion(array $estrategias): void
     {
         $artefactoId = $this->artefacto->getId();
-        $progreso = $this->obtenerProgreso();
 
-        if (count($progreso) >= 3) {
-            return;
+        foreach ($estrategias as $indice => $eleccion) {
+
+            if ($indice < 0 || $indice > 2 || $eleccion == '') {
+                continue;
+            }
+
+            if ($eleccion == $this->estrategia_correcta) {
+                $item = [
+                    'eleccion' => $eleccion,
+                    'estado' => 'correcta',
+                    'icono' => '🎉',
+                    'clase' => 'circulo-correcta',
+                    'etiqueta' => '¡Elección acertada!',
+                    'puntos' => 1
+                ];
+            } elseif ($eleccion == $this->estrategia_intermedia) {
+                $item = [
+                    'eleccion' => $eleccion,
+                    'estado' => 'neutra',
+                    'icono' => '😐',
+                    'clase' => 'circulo-neutra',
+                    'etiqueta' => 'Reacción neutra',
+                    'puntos' => 0
+                ];
+            } else {
+                $item = [
+                    'eleccion' => $eleccion,
+                    'estado' => 'error',
+                    'icono' => '💣',
+                    'clase' => 'circulo-error',
+                    'etiqueta' => '¡Pésima elección!',
+                    'puntos' => -1
+                ];
+            }
+
+            $_SESSION['progreso_regateo'][$artefactoId][$indice] = $item;
         }
-
-        if ($eleccion === $this->estrategia_correcta) {
-            $item = [
-                'eleccion' => $eleccion,
-                'estado' => 'correcta',
-                'icono' => '🎉',
-                'clase' => 'circulo-correcta',
-                'etiqueta' => '¡Elección acertada!',
-                'puntos' => 1
-            ];
-        } elseif ($eleccion === $this->estrategia_intermedia) {
-            $item = [
-                'eleccion' => $eleccion,
-                'estado' => 'neutra',
-                'icono' => '😐',
-                'clase' => 'circulo-neutra',
-                'etiqueta' => 'Reacción neutra',
-                'puntos' => 0
-            ];
-        } else {
-            $item = [
-                'eleccion' => $eleccion,
-                'estado' => 'error',
-                'icono' => '💣',
-                'clase' => 'circulo-error',
-                'etiqueta' => '¡Pésima elección!',
-                'puntos' => -1
-            ];
-        }
-
-        $_SESSION['progreso_regateo'][$artefactoId][] = $item;
     }
 
     /**

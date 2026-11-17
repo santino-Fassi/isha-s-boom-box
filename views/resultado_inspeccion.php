@@ -1,6 +1,6 @@
 <?php
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-$estrategiaElegida = $_POST['estrategia'] ?? '';
+$estrategiasRecibidas = $_POST['estrategia'] ?? [];
 $artefacto = Artefacto::get_x_id($id);
 
 $resultado = null;
@@ -9,8 +9,8 @@ $regateo = $artefacto ? Regateo::crear_regateo_x_artefacto($artefacto) : null;
 if ($artefacto && $regateo) {
     $vendedor = $regateo->getVendedor();
 
-    if ($estrategiaElegida !== '') {
-        $regateo->registrarEleccion($estrategiaElegida);
+    if (!empty($estrategiasRecibidas)) {
+        $regateo->registrarEleccion($estrategiasRecibidas);
     }
 
     $resultado = $regateo->evaluarResultadoFinal();

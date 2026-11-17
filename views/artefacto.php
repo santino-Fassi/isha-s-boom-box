@@ -86,7 +86,7 @@ $artefacto = Artefacto::get_x_id($id);
                                 <div class="d-flex flex-wrap gap-2">
                                     <?php foreach ($componentes as $comp) { ?>
                                         <span class="badge bg-dark border border-info text-info p-2"
-                                            title="<?= htmlspecialchars($comp->getDescripcion()) ?>">
+                                            title="<?= $comp->getDescripcion() ?>">
                                             ⚙️ <?= $comp->getNombre() ?>
                                         </span>
                                     <?php } ?>

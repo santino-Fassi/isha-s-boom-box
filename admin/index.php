@@ -74,7 +74,7 @@ $seccionActual = $vista->getNombre();
                                     <div class="usuario-hextech-info">
                                         <small>PERSONAL AUTORIZADO</small>
                                         <span class="fw-bold">
-                                            <?= htmlspecialchars($userData['nombre_completo'] ?? '', ENT_QUOTES, 'UTF-8') ?>
+                                            <?= $userData['nombre_completo'] ?? '' ?>
                                         </span>
                                     </div>
                                     <i class="bi bi-chevron-right usuario-hextech-flecha"></i>

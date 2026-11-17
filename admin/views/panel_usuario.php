@@ -1,11 +1,11 @@
 <?php
 $userData = $_SESSION['loggedIn'] ?? [];
 
-$idUsuario = htmlspecialchars((string) ($userData['id'] ?? '---'), ENT_QUOTES, 'UTF-8');
-$nombreCompleto = htmlspecialchars((string) ($userData['nombre_completo'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
-$nombreUsuario = htmlspecialchars((string) ($userData['username'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
-$email = htmlspecialchars((string) ($userData['email'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
-$rol = htmlspecialchars((string) ($userData['rol'] ?? 'No disponible'), ENT_QUOTES, 'UTF-8');
+$idUsuario = ($userData['id'] ?? '---');
+$nombreCompleto = ($userData['nombre_completo'] ?? 'No disponible');
+$nombreUsuario = ($userData['username'] ?? 'No disponible');
+$email = ($userData['email'] ?? 'No disponible');
+$rol = ($userData['rol'] ?? 'No disponible');
 ?>
 
 <section class="perfil-hextech py-5">
