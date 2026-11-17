@@ -7,14 +7,22 @@ if ($artefacto && isset($_GET['reiniciar'])) {
     Regateo::reiniciarRegateo($artefacto->getId());
 }
 
+
+if ($artefacto && $estrategiaRecibida === '') {
+    unset($_SESSION['progreso_regateo'][$artefacto->getId()]);
+    unset($_SESSION['regateo_activo_id'][$artefacto->getId()]);
+}
+
+$regateo = null;
 if ($artefacto) {
     $regateo = Regateo::crear_regateo_x_artefacto($artefacto);
+}
+
+if ($artefacto && $regateo) {
     $vendedor = $regateo->getVendedor();
 
     if ($estrategiaRecibida !== '') {
         $regateo->registrarEleccion($estrategiaRecibida);
-    } elseif (count($regateo->obtenerProgreso()) >= 3) {
-        unset($_SESSION['progreso_regateo'][$artefacto->getId()]);
     }
 
     $progreso = $regateo->obtenerProgreso();
@@ -28,7 +36,7 @@ if ($artefacto) {
 
 <section class="catalogo-jinx py-3">
     <div class="container">
-        <?php if ($artefacto) { ?>
+        <?php if ($artefacto && $regateo) { ?>
             <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
                 <a href="index.php?sec=artefacto&id=<?= $artefacto->getId() ?>" class="btn btn-sm btn-outline-info fw-bold">
                     ← Volver al artefacto
@@ -39,7 +47,7 @@ if ($artefacto) {
             <header class="encabezado-catalogo text-center pb-3 mb-3">
                 <h2 class="h1 titulo-inspeccion mb-1">NEGOCIAR <span>ARTEFACTO</span></h2>
                 <p class="small mb-0">
-                    Superá las <span class="fw-bold">3 instancias</span> con <span class="fw-bold"><?= $vendedor->getNombreCompleto() ?></span>: lográr más aciertos te da un <span class="fw-bold">10% de descuento</span>, pero más errores suman un <span class="fst-italic">5% de recargo</span>.
+                    Superá las <span class="fw-bold">3 instancias</span> con <span class="fw-bold"><?= $vendedor->getNombreCompleto() ?></span>: lograr más aciertos te da un <span class="fw-bold">10% de descuento</span>, pero más errores suman un <span class="fst-italic">5% de recargo</span>.
                 </p>
             </header>
 
@@ -163,8 +171,8 @@ if ($artefacto) {
 
         <?php } else { ?>
             <div class="catalogo-vacio text-center my-4">
-                <h2 class="h1">ARTEFACTO NO ENCONTRADO</h2>
-                <p>El juguete que intentás inspeccionar <span class="fw-bold">no existe en el inventario de Zaun</span>.</p>
+                <h2 class="h1">INSPECCIÓN NO DISPONIBLE</h2>
+                <p>Este artefacto <span class="fw-bold">no admite regateo o no existe en el inventario de Zaun</span>.</p>
                 <a href="index.php?sec=catalogo_completo" class="btn btn-artefacto mt-3">VOLVER AL ARSENAL</a>
             </div>
         <?php } ?>

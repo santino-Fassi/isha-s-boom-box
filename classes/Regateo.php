@@ -26,7 +26,7 @@ class Regateo
     ];
 
     /**
-     * Construye una instancia de Regateo a partir de los datos de la base de datos (igual que crearArtefacto).
+     * Construye una instancia de Regateo a partir de los datos de la base de datos.
      */
     private static function crearRegateo($regateoData): Regateo
     {
@@ -69,12 +69,30 @@ class Regateo
     }
 
     /**
-     * Busca en la base de datos la configuración de regateo según el ID del personaje.
+     * Verifica si un personaje tiene al menos un regateo registrado en la base de datos.
      *
      * @param int $personajeId ID del personaje portador.
-     * @return array Datos asociativos del regateo desde MySQL.
+     * @return bool True si tiene al menos un regateo, false en caso contrario.
      */
-    private static function obtener_datos_x_personaje(int $personajeId): array
+    public static function personaje_tiene_regateo(int $personajeId): bool
+    {
+        $conexion = Conexion::getConexion();
+        $query = "SELECT id FROM regateos WHERE personaje_id = ? LIMIT 1";
+
+        $PDOStatement = $conexion->prepare($query);
+        $PDOStatement->execute([$personajeId]);
+
+        return $PDOStatement->fetch() !== false;
+    }
+
+    /**
+     * Busca todos los regateos asociados a un personaje y devuelve uno elegido al azar,
+     * o null si el personaje no tiene regateos cargados.
+     *
+     * @param int $personajeId ID del personaje portador.
+     * @return ?array Datos asociativos del regateo elegido o null.
+     */
+    private static function obtener_datos_x_personaje(int $personajeId): ?array
     {
         $conexion = Conexion::getConexion();
         $query = "SELECT * FROM regateos WHERE personaje_id = ?";
@@ -83,28 +101,48 @@ class Regateo
         $PDOStatement->setFetchMode(PDO::FETCH_ASSOC);
         $PDOStatement->execute([$personajeId]);
 
-        $result = $PDOStatement->fetch();
+        $resultados = $PDOStatement->fetchAll();
 
-        if ($result === false) {
-            $PDOStatementFallback = $conexion->prepare("SELECT * FROM regateos WHERE id = 1");
-            $PDOStatementFallback->setFetchMode(PDO::FETCH_ASSOC);
-            $PDOStatementFallback->execute();
-            $result = $PDOStatementFallback->fetch();
+        if (empty($resultados)) {
+            return null;
         }
 
-        return $result;
+        $indiceAleatorio = array_rand($resultados);
+        return $resultados[$indiceAleatorio];
     }
 
     /**
-     * Crea e inicializa una instancia de Regateo con sus 3 rondas a partir de un Artefacto.
+     * Crea e inicializa una instancia de Regateo a partir de un Artefacto.
+     * Si el personaje tiene varios regateos, elige uno al azar al comenzar y lo mantiene
+     * en sesión durante las 3 rondas. Si no tiene ninguno, devuelve null.
      *
      * @param Artefacto $artefacto Instancia del artefacto a negociar.
-     * @return Regateo Instancia completa de Regateo.
+     * @return ?Regateo Instancia de Regateo o null si el portador no tiene regateos.
      */
-    public static function crear_regateo_x_artefacto(Artefacto $artefacto): Regateo
+    public static function crear_regateo_x_artefacto(Artefacto $artefacto): ?Regateo
     {
-        $datos = self::obtener_datos_x_personaje($artefacto->getUsuario()->getId());
-        $regateo = self::crearRegateo($datos);
+        $artefactoId = $artefacto->getId();
+        $personajeId = $artefacto->getUsuario()->getId();
+        $regateo = null;
+
+        // Si ya hay un regateo sorteado activo para esta partida, lo mantenemos en las 3 rondas
+        if (isset($_SESSION['regateo_activo_id'][$artefactoId])) {
+            $regateoGuardado = self::get_x_id((int) $_SESSION['regateo_activo_id'][$artefactoId]);
+            if ($regateoGuardado && $regateoGuardado->getPersonaje_id() === $personajeId) {
+                $regateo = $regateoGuardado;
+            }
+        }
+
+        // Si no hay uno activo en sesión, sorteamos uno aleatorio entre los que tenga el personaje
+        if (!$regateo) {
+            $datos = self::obtener_datos_x_personaje($personajeId);
+            if (!$datos) {
+                return null;
+            }
+            $regateo = self::crearRegateo($datos);
+            $_SESSION['regateo_activo_id'][$artefactoId] = $regateo->getId();
+        }
+
         $regateo->artefacto = $artefacto;
         $regateo->vendedor = $artefacto->getUsuario();
 
@@ -412,6 +450,7 @@ class Regateo
 
         $resultado = [
             'artefacto_id' => $this->artefacto->getId(),
+            'regateo_id' => $this->id,
             'estado' => $estado,
             'titulo' => $titulo,
             'badge_color' => $badgeColor,
@@ -432,11 +471,12 @@ class Regateo
     }
 
     /**
-     * Reinicia el progreso de las 3 instancias y el resultado guardado de un artefacto.
+     * Reinicia el progreso de las 3 instancias, el regateo sorteado y el resultado guardado de un artefacto.
      */
     public static function reiniciarRegateo(int $artefactoId): void
     {
         unset($_SESSION['progreso_regateo'][$artefactoId]);
+        unset($_SESSION['regateo_activo_id'][$artefactoId]);
         unset($_SESSION['regateos'][$artefactoId]);
     }
 

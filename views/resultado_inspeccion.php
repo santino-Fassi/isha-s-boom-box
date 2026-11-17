@@ -4,8 +4,9 @@ $estrategiaElegida = $_POST['estrategia'] ?? '';
 $artefacto = Artefacto::get_x_id($id);
 
 $resultado = null;
-if ($artefacto) {
-    $regateo = Regateo::crear_regateo_x_artefacto($artefacto);
+$regateo = $artefacto ? Regateo::crear_regateo_x_artefacto($artefacto) : null;
+
+if ($artefacto && $regateo) {
     $vendedor = $regateo->getVendedor();
 
     if ($estrategiaElegida !== '') {
@@ -83,7 +84,7 @@ if ($artefacto) {
                 </div>
 
                 <div class="d-flex flex-wrap justify-content-center gap-3 mt-2">
-                    <a href="index.php?sec=contacto&id_artefacto=<?= $artefacto->getId() ?>" class="btn btn-artefacto btn-encargar-regateo">
+                    <a href="#" class="btn btn-artefacto btn-encargar-regateo">
                         ENCARGAR POR <?= $resultado['precio_final_formateado'] ?> <span>→</span>
                     </a>
                     <a href="index.php?sec=inspeccion&id=<?= $artefacto->getId() ?>&reiniciar=1"

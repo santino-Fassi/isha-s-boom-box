@@ -91,7 +91,7 @@
         <div class="col">
             <a href="index.php?sec=admin_regateos" class="modulo-hextech modulo-azul">
                 <div class="modulo-numero">05 // NEGOTIATIONS</div>
-                <div class="modulo-icono">💬</div>
+                <div class="modulo-icono">❝ ❞</div>
                 <h3>GESTIÓN DE REGATEOS</h3>
                 <p>
                     Configurá las personalidades, las 3 instancias de diálogo
