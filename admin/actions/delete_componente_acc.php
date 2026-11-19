@@ -8,14 +8,15 @@ try {
 
     if ($componente) {
         $componente->delete();
+        Alerta::add_alerta("success", "Componente eliminado", "El componente fue eliminado del sistema.", false);
     }
 
 } catch (Exception $e) {
     switch ($e->getCode()) {
         case 23000:
-            die("No se pudo eliminar el componente, ya que hay artefactos usando el componente.");
+            Alerta::add_alerta("danger", "Eliminación bloqueada", "No se pudo eliminar el componente porque existen artefactos que lo utilizan.", false);
         default:
-            die("No se pudo eliminar el componente.");
+            Alerta::add_alerta("danger", "Error al eliminar", "No se pudo eliminar el componente.", false);
     }
 }
 

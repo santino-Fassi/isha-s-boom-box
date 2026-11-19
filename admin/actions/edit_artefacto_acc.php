@@ -37,8 +37,9 @@ try {
         (float) $postData['precio'],
         (bool) $postData['robado']
     );
+    Alerta::add_alerta("success", "Artefacto actualizado", "Los cambios se guardaron correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo editar el artefacto.");
+    Alerta::add_alerta("danger", "Error al editar", $e->getMessage(), false);
 }
 
 header('Location: ../index.php?sec=admin_artefactos');

@@ -12,8 +12,9 @@ try {
         $postData['nombre'],
         $postData['descripcion'],
     );
+    Alerta::add_alerta("success", "Componente actualizado", "Los datos se guardaron correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo editar el componente.");
+    Alerta::add_alerta("danger", "Error al editar", "No se pudo actualizar el componente.", false);
 }
 
 header('Location: ../index.php?sec=admin_componentes');

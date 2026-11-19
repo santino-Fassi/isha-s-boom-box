@@ -7,6 +7,10 @@ $artefactos = Artefacto::catalogo_completo();
 
         <h2 class="h1 text-center mb-5 fw-bold">Administración de Artefactos</h2>
 
+        <div>
+            <?= Alerta::get_alertas() ?>
+        </div>
+
         <div class="table-responsive mb-4">
             <table class="table table-dark table-striped align-middle">
                 <thead>
@@ -29,8 +33,7 @@ $artefactos = Artefacto::catalogo_completo();
                         <tr>
                             <td>
                                 <img src="../img/artefactos/<?= $A->getImagen() ?>"
-                                    alt="Imagen ilustrativa de <?= $A->getNombre() ?>"
-                                    class="img-fluid rounded shadow-sm">
+                                    alt="Imagen ilustrativa de <?= $A->getNombre() ?>" class="img-fluid rounded shadow-sm">
                             </td>
                             <td><?= $A->getNombre() ?></td>
                             <td><?= $A->getAlias() ?></td>

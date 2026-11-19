@@ -7,6 +7,10 @@ $categorias = Categoria::listado_completo();
 
         <h2 class="h1 text-center mb-5 fw-bold">Administración de Categorías</h2>
 
+        <div>
+            <?= Alerta::get_alertas() ?>
+        </div>
+
         <div class="table-responsive mb-4">
             <table class="table table-dark table-striped align-middle">
                 <thead>

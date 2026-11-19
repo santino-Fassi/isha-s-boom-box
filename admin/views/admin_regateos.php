@@ -5,6 +5,10 @@ $regateos = Regateo::listado_completo();
     <div class="col">
         <h2 class="h1 text-center mb-5 fw-bold">Administración de Regateos</h2>
 
+        <div>
+            <?= Alerta::get_alertas() ?>
+        </div>
+
         <div class="table-responsive mb-4">
             <table class="table table-dark table-striped align-middle">
                 <thead>
@@ -39,16 +43,20 @@ $regateos = Regateo::listado_completo();
                             <td class="small">
                                 <?php foreach ($instancias as $num => $instancia) { ?>
                                     <p class="mb-1"><span class="fw-bold text-info">Instancia <?= $num ?>:</span>
-                                        <?= $instancia['mensaje'] ?></p>
+                                        <?= $instancia['mensaje'] ?>
+                                    </p>
                                 <?php } ?>
                             </td>
                             <td class="small">
                                 <p class="mb-1"><span class="fw-bold text-success">Éxito:</span>
-                                    <?= $R->getRespuesta_exito() ?></p>
+                                    <?= $R->getRespuesta_exito() ?>
+                                </p>
                                 <p class="mb-1"><span class="fw-bold text-info">Neutral:</span>
-                                    <?= $R->getRespuesta_neutral() ?></p>
+                                    <?= $R->getRespuesta_neutral() ?>
+                                </p>
                                 <p class="mb-0"><span class="fw-bold text-danger">Fallo:</span>
-                                    <?= $R->getRespuesta_fallo() ?></p>
+                                    <?= $R->getRespuesta_fallo() ?>
+                                </p>
                             </td>
                             <td>
                                 <a href="index.php?sec=edit_regateo&id=<?= $R->getId() ?>" role="button"

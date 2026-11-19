@@ -2544,6 +2544,76 @@ body.mercado-jinx {
     border-right: 2px solid var(--rosa-jinx);
 }
 
+/* Alertas estilo Jinx (Front) */
+
+.alert.front {
+    position: relative;
+    padding: 18px 46px 18px 20px;
+    border-radius: 4px;
+    border: 2px solid var(--rosa-jinx);
+    border-left: 8px solid var(--rosa-jinx);
+    background: linear-gradient(135deg, #2B2030, #17191D);
+    color: var(--texto);
+    box-shadow:
+        6px 6px 0 rgba(236, 57, 155, 0.25),
+        0 0 18px rgba(236, 57, 155, 0.2);
+}
+
+.alert.front .h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: var(--rosa-jinx);
+}
+
+.alert.front p:last-child {
+    margin-bottom: 0;
+    color: var(--texto);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.alert.front.alert-success {
+    border-color: #00F59B;
+    border-left-color: #00F59B;
+    background: linear-gradient(135deg, #162B26, #17191D);
+    box-shadow:
+        6px 6px 0 rgba(0, 245, 155, 0.22),
+        0 0 18px rgba(0, 245, 155, 0.18);
+}
+
+.alert.front.alert-success .h4 {
+    color: #00F59B;
+}
+
+.alert.front.alert-warning {
+    border-color: #FFF16A;
+    border-left-color: #FFF16A;
+    background: linear-gradient(135deg, #2D2A1B, #17191D);
+    box-shadow:
+        6px 6px 0 rgba(255, 241, 106, 0.22),
+        0 0 18px rgba(255, 241, 106, 0.16);
+}
+
+.alert.front.alert-warning .h4 {
+    color: #FFF16A;
+}
+
+.alert.front.alert-danger {
+    border-color: #FF2A55;
+    border-left-color: #FF2A55;
+    background: linear-gradient(135deg, #321A24, #17191D);
+    box-shadow:
+        6px 6px 0 rgba(255, 42, 85, 0.25),
+        0 0 18px rgba(255, 42, 85, 0.2);
+}
+
+.alert.front.alert-danger .h4 {
+    color: #FF2A55;
+}
+
 /* X-Small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */
 

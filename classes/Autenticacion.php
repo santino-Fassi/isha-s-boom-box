@@ -27,9 +27,11 @@ class Autenticacion
 
                 return $datosLogin['rol'];
             } else {
+                Alerta::add_alerta("danger", "Datos incorrectos", "La contraseña ingresada no es correcta");
                 return false;
             }
         } else {
+            Alerta::add_alerta("warning", "Datos incorrectos", "El usuario ingresado no existe.");
             return null;
         }
     }
@@ -70,7 +72,7 @@ class Autenticacion
                 return true;
             }
         } else {
-            header('Location: index.php?sec=login');
+            header('Location: ../index.php?sec=login');
             return false;
         }
     }

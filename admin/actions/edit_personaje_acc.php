@@ -22,8 +22,9 @@ try {
         $postData['faccion'],
         $imagen
     );
+    Alerta::add_alerta("success", "Personaje actualizado", "Los datos se actualizaron correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo editar el personaje.");
+    Alerta::add_alerta("danger", "Error al editar", $e->getMessage(), false);
 }
 
 header('Location: ../index.php?sec=admin_personajes');

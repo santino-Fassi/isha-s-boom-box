@@ -4,6 +4,10 @@
 
             <h2 class="h1 text-center mb-5 fw-bold">Iniciar Sesión</h2>
 
+            <div>
+                <?= Alerta::get_alertas() ?>
+            </div>
+
             <form class="row g-3" action="admin/actions/auth_login.php" method="POST">
                 <div class="col-12 mb-3">
                     <label for="username" class="form-label">Nombre de Usuario</label>
