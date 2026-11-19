@@ -27,8 +27,9 @@ try {
             Artefacto::add_componente($idArtefacto, (int) $componente_id);
         }
     }
+    Alerta::add_alerta("success", "Artefacto creado", "El artefacto fue incorporado al inventario.", false);
 } catch (Exception $e) {
-    die("No se pudo cargar el artefacto.");
+    Alerta::add_alerta("danger", "Error al cargar", $e->getMessage(), false);
 }
 
 header('Location: ../index.php?sec=admin_artefactos');

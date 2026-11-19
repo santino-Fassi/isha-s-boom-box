@@ -25,8 +25,9 @@ try {
         $postData['respuesta_neutral'],
         $postData['respuesta_fallo']
     );
+    Alerta::add_alerta("success", "Regateo creado", "El regateo fue registrado correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo cargar el regateo.");
+    Alerta::add_alerta("danger", "Error al cargar", "No se pudo cargar el regateo en la base de datos.", false);
 }
 
 header('Location: ../index.php?sec=admin_regateos');

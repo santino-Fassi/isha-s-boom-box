@@ -28,8 +28,9 @@ try {
         $postData['respuesta_neutral'],
         $postData['respuesta_fallo']
     );
+    Alerta::add_alerta("success", "Regateo actualizado", "Los datos del regateo se guardaron correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo editar el regateo.");
+    Alerta::add_alerta("danger", "Error al editar", "No se pudo actualizar el regateo.", false);
 }
 
 header('Location: ../index.php?sec=admin_regateos');

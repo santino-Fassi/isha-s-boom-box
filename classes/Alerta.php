@@ -1,17 +1,18 @@
 <?php
 
-class Alerta {
-
-
+class Alerta
+{
     /**
      * Registra una alerta, guardándola en la sesión.
+     *
      * @param string $tipo Tipo de alerta (success, warning o danger).
      * @param string $titulo Título de la alerta.
      * @param string $mensaje Contenido de la alerta.
      * @param bool $front Define si la alerta se debe mostrar con estilo del frontend o backend (frontend por defecto).
      * @return void
      */
-    public static function add_alerta(string $tipo, string $titulo, string $mensaje, bool $front = true) {
+    public static function add_alerta(string $tipo, string $titulo, string $mensaje, bool $front = true): void
+    {
         $_SESSION["alertas"][] = [
             "tipo" => $tipo,
             "titulo" => $titulo,
@@ -21,22 +22,26 @@ class Alerta {
     }
 
     /**
-     * Limpia la lista de alertas.
+     * Limpia la lista de alertas almacenadas en sesión.
+     *
      * @return void
      */
-    public static function clear_alertas() {
+    public static function clear_alertas(): void
+    {
         $_SESSION["alertas"] = [];
     }
 
     /**
-     * Muestra la alerta dada.
-     * @param array $alerta información de la alerta a mostrar.
-     * @return void
+     * Genera el marcado HTML de una alerta individual.
+     *
+     * @param array $alerta Información de la alerta a mostrar.
+     * @return string Código HTML de la alerta.
      */
-    private static function show_alerta(array $alerta): string {
+    private static function show_alerta(array $alerta): string
+    {
         $estilo = $alerta["front"] ? "front" : "back";
         $html = "<div class='alert alert-{$alerta['tipo']} alert-dismissible fade show $estilo' role='alert'>";
-        $html .= "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>";
+        $html .= "<button type='button' class='btn-close btn-close-white' data-bs-dismiss='alert' aria-label='Cerrar'></button>";
         $html .= "<p class='h4'>{$alerta['titulo']}</p>";
         $html .= "<p>{$alerta['mensaje']}</p>";
         $html .= "</div>";
@@ -45,10 +50,12 @@ class Alerta {
     }
 
     /**
-     * Devuelve todas las alertas en el sistema. | Null si está vacía.
-     * @return string|null
+     * Devuelve el HTML de todas las alertas pendientes y limpia la cola, o null si no hay ninguna.
+     *
+     * @return ?string HTML acumulado de alertas o null si está vacía.
      */
-    public static function get_alertas(): mixed {
+    public static function get_alertas(): ?string
+    {
         if (!empty($_SESSION["alertas"])) {
             $alertasActuales = "";
 
@@ -60,8 +67,7 @@ class Alerta {
 
             return $alertasActuales;
         }
-        else {
-            return null;
-        }
+
+        return null;
     }
 }

@@ -726,6 +726,73 @@ body.modo-admin {
     pointer-events: none;
 }
 
+/* Alertas estilo Piltover / Hextech (Back) */
+
+.alert.back {
+    position: relative;
+    padding: 18px 46px 18px 22px;
+    border-radius: 6px;
+    border: 1px solid rgba(215, 180, 91, 0.45);
+    border-left: 5px solid var(--hex-dorado);
+    background: linear-gradient(135deg, var(--hex-superficie), #0F1F30);
+    color: var(--hex-texto);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 14px rgba(215, 180, 91, 0.12);
+}
+
+.alert.back .h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.55rem;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+    color: var(--hex-dorado-claro);
+}
+
+.alert.back p:last-child {
+    margin-bottom: 0;
+    color: var(--hex-texto);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+}
+
+.alert.back.alert-success {
+    border-color: rgba(66, 185, 232, 0.5);
+    border-left-color: var(--hex-azul);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 16px rgba(66, 185, 232, 0.18);
+}
+
+.alert.back.alert-success .h4 {
+    color: var(--hex-azul-claro);
+}
+
+.alert.back.alert-warning {
+    border-color: rgba(215, 180, 91, 0.55);
+    border-left-color: var(--hex-dorado);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 16px rgba(215, 180, 91, 0.18);
+}
+
+.alert.back.alert-warning .h4 {
+    color: var(--hex-dorado-claro);
+}
+
+.alert.back.alert-danger {
+    border-color: rgba(224, 82, 99, 0.55);
+    border-left-color: #E05263;
+    background: linear-gradient(135deg, #2B1A26, #141926);
+    box-shadow:
+        0 8px 24px rgba(0, 0, 0, 0.35),
+        0 0 16px rgba(224, 82, 99, 0.18);
+}
+
+.alert.back.alert-danger .h4 {
+    color: #FF8A98;
+}
+
 /* X-Small devices (portrait phones, less than 576px)
 No media query for `xs` since this is the default in Bootstrap */
 

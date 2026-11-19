@@ -14,8 +14,9 @@ try {
         $postData['faccion'],
         $imagen
     );
+    Alerta::add_alerta("success", "Personaje creado", "El expediente fue registrado correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo cargar el personaje.");
+    Alerta::add_alerta("danger", "Error al cargar", $e->getMessage(), false);
 }
 
 header('Location: ../index.php?sec=admin_personajes');

@@ -12,8 +12,9 @@ try {
         $postData['nombre'],
         $postData['descripcion'],
     );
+    Alerta::add_alerta("success", "Categoría actualizada", "Los datos se guardaron correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo editar la categoría.");
+    Alerta::add_alerta("danger", "Error al editar", "No se pudo actualizar la categoría.", false);
 }
 
 header('Location: ../index.php?sec=admin_categorias');

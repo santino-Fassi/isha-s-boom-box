@@ -12,9 +12,13 @@ try {
         if (!empty($personaje->getImagen())) {
             Imagen::borrarImagen("../../img/personajes/" . $personaje->getImagen());
         }
+        Alerta::add_alerta("success", "Personaje eliminado", "El personaje fue eliminado del sistema.", false);
+    }
+    else {
+        Alerta::add_alerta("warning", "Registro inexistente", "El personaje solicitado no existe.", false);
     }
 } catch (Exception $e) {
-    die("No se pudo eliminar el personaje.");
+    Alerta::add_alerta("danger", "Error al eliminar", "No se pudo eliminar el personaje.", false);
 }
 
 header('Location: ../index.php?sec=admin_personajes');

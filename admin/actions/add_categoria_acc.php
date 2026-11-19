@@ -8,8 +8,9 @@ try {
         $postData['nombre'],
         $postData['descripcion']
     );
+    Alerta::add_alerta("success", "Categoría creada", "La categoría fue registrada correctamente.", false);
 } catch (Exception $e) {
-    die("No se pudo cargar la categoría.");
+    Alerta::add_alerta("danger", "Error al cargar", "No se pudo registrar la categoría en la base de datos.", false);
 }
 
 header('Location: ../index.php?sec=admin_categorias');

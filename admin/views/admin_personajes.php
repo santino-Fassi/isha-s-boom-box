@@ -7,6 +7,10 @@ $personajes = Personaje::listado_completo();
 
         <h2 class="h1 text-center mb-5 fw-bold">Administración de Personajes</h2>
 
+        <div>
+            <?= Alerta::get_alertas() ?>
+        </div>
+
         <div class="table-responsive mb-4">
             <table class="table table-dark table-striped align-middle">
                 <thead>
@@ -24,8 +28,7 @@ $personajes = Personaje::listado_completo();
                         <tr>
                             <td>
                                 <img src="../img/personajes/<?= $P->getImagen() ?>"
-                                    alt="Ilustración de <?= $P->getNombre() ?>"
-                                    class="img-fluid rounded shadow-sm">
+                                    alt="Ilustración de <?= $P->getNombre() ?>" class="img-fluid rounded shadow-sm">
                             </td>
                             <td><?= $P->getNombre() ?></td>
                             <td><?= $P->getAlias() ?></td>

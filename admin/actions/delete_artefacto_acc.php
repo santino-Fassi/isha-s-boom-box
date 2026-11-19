@@ -9,9 +9,13 @@ try {
     if ($artefacto) {
         Imagen::borrarImagen("../../img/artefactos/" . $artefacto->getImagen());
         $artefacto->delete();
+        Alerta::add_alerta("success", "Regateo eliminado", "El regateo fue eliminado del sistema.", false);
+    }
+    else {
+        Alerta::add_alerta("warning", "Registro inexistente", "El regateo solicitado no existe.", false);
     }
 } catch (Exception $e) {
-    die("No se pudo eliminar el artefacto.");
+    Alerta::add_alerta("danger", "Error al eliminar", "No se pudo eliminar el regateo.", false);
 }
 
 header('Location: ../index.php?sec=admin_artefactos');

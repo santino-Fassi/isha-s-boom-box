@@ -72,7 +72,7 @@ class Autenticacion
                 return true;
             }
         } else {
-            header('Location: index.php?sec=login');
+            header('Location: ../index.php?sec=login');
             return false;
         }
     }
