@@ -71,7 +71,7 @@
 <section class="socios-jinx">
 
     <div class="socios-encabezado">
-        <span>ZAUN // EQUIPO DE OPERACIONES</span>
+        <span>EQUIPO DE OPERACIONES</span>
 
         <div class="socios-titulo-fila">
             <h2>MIS <span class="fw-bold">SOCIOS</span></h2>
@@ -88,9 +88,9 @@
     </div>
 
     <div class="mensaje-jinx-socios" id="mensajeJinxSocios" role="status" aria-live="polite">
-        <span class="mensaje-socios-etiqueta">ZAUN // ARCHIVOS CONFIDENCIALES</span>
+        <span class="mensaje-socios-etiqueta">ARCHIVOS CONFIDENCIALES</span>
         <h3>¡CULPABLES!</h3>
-        <p>DOS MENTES, UN SOLO DESASTRE.</p>
+        <p>DOS MENTES PARA ESTE PEQUEÑO DESASTRE.</p>
     </div>
 
     <div class="row g-4 socios-contenedor">
@@ -132,7 +132,7 @@
                     <h3>Santino Fassi</h3>
 
                     <p class="socio-descripcion">
-                        El culpable oficial de este gran caos. Aporta ideas, soluciones y una pizca de cordura... aunque todavía estamos trabajando en eso. Siempre está dispuesto a apretar el botón rojo.
+                        El culpable oficial de este gran caos. Aporta ideas, soluciones y una pizca de cordura... aunque todavía estamos trabajando en eso.
                     </p>
 
                     <div class="socio-datos">

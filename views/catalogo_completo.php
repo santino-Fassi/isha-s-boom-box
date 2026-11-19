@@ -38,7 +38,7 @@ $catalogo = Artefacto::catalogo_filtrado($termino, $origenFiltro, $peligroMin);
 
             <div class="panel-inventario-encabezado">
                 <div>
-                    <span class="panel-etiqueta">ZAUN // SISTEMA DE BÚSQUEDA</span>
+                    <span class="panel-etiqueta">SISTEMA DE BÚSQUEDA</span>
                     <h3 class="h2">LOCALIZÁ TU <span>ARTEFACTO</span></h3>
                     <p>Encontrá tu próximo juguete. Si explota, no es mi culpa.</p>
                 </div>
