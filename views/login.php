@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="col-12 mb-3">
-                    <label for="pass" class="form-label">Password</label>
+                    <label for="pass" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="pass" name="pass" required>
                 </div>
 
