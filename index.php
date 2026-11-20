@@ -132,7 +132,7 @@ $categoriasDisponibles = Categoria::listado_menu();
                             <a class="nav-link fw-bold" href="admin/actions/auth_logout.php">Logout</a>
                         </li>
 
-                        <?php if ($userData) { ?>
+                        <?php if ($userData && ($userData["rol"] == "admin" || $userData["rol"] == "superadmin")) { ?>
                             <li class="nav-item">
                                 <a class="nav-link active" href="admin/index.php">Ir al ABM</a>
                             </li>
